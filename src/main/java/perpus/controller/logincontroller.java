@@ -14,9 +14,7 @@ public class logincontroller {
     public Hyperlink signLink;
 
     @FXML
-    protected void btnLogin(){
-        if (pwText&&usNameText == true)
-        allertText.setText("Login Sukses");
+    protected void btnLogin() {
     }
 
     public void linkSignClick(ActionEvent actionEvent) {
