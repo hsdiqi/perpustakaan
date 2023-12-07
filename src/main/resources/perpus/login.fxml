@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<Scene xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="perpus.controller.logincontroller">
+<Scene xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="perpus.logincontroller">
    <root>
       <AnchorPane prefHeight="640.0" prefWidth="360.0" style="-fx-background-color: aquamarine;">
          <children>
@@ -15,7 +15,7 @@
                <children>
                   <ImageView fitHeight="283.0" fitWidth="288.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../java/perpus/assets/ornamenBukuEdited.png" />
+                        <Image url="@../../java/perpus/assets/ornamenBukuEdited.png"/>
                      </image>
                   </ImageView>
                   <Label text="Perpustakaan Kontrakan AL-Muslim">
@@ -59,7 +59,7 @@
                         <Insets bottom="10.0" />
                      </VBox.margin>
                   </VBox>
-                  <Button fx:id="btnLgn" mnemonicParsing="false" onAction="#btnLogin" prefHeight="30.0" prefWidth="90.0" text="Login">
+                  <Button mnemonicParsing="false" onAction="#btnLogin" prefHeight="30.0" prefWidth="90.0" text="Login">
                      <VBox.margin>
                         <Insets top="6.0" />
                      </VBox.margin>
@@ -67,7 +67,7 @@
                   <HBox alignment="CENTER" prefHeight="43.0" prefWidth="300.0">
                      <children>
                         <Label text="Sudah punya akun?" />
-                        <Hyperlink fx:id="signLink" onAction="#linkSignClick" text="Daftar" />
+                        <Hyperlink onAction="#linkSignClick" text="Daftar" />
                      </children>
                   </HBox>
                </children>

@@ -12,8 +12,6 @@ module perpus.perpustakaan {
     requires com.almasb.fxgl.all;
     requires java.sql;
 
-    opens perpus.perpusApp to javafx.fxml;
-    exports perpus.perpusApp;
-    exports perpus.controller;
-    opens perpus.controller to javafx.fxml;
+    exports perpus;
+    opens perpus to javafx.fxml;
 }

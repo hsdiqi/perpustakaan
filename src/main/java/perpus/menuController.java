@@ -1,4 +1,4 @@
-package perpus.controller;
+package perpus;
 
 public class menuController {
 }
