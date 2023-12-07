@@ -12,9 +12,7 @@ public class logincontroller {
     public Label allertText;
 
     @FXML
-    protected void btnLogin(){
-        if (pwText&&usNameText == true)
-        allertText.setText("Login Sukses");
+    protected void btnLogin() {
     }
 
     public void linkSignClick(ActionEvent actionEvent) {
