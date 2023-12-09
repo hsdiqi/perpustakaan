@@ -16,7 +16,7 @@
          <children>
             <ImageView fitHeight="283.0" fitWidth="288.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../java/perpus/assets/logo edited.png"/>
+                  <Image url="@assets/logo_edited.png"/>
                </image>
                <VBox.margin>
                   <Insets/>
