@@ -23,7 +23,8 @@ Aplikasi ini merupakan sebuah sistem manajemen perpustakaan yang dikembangkan de
     - `resources/`: Berkas-berkas pendukung seperti file FXML, gambar, dan CSS.
   - `test/`: Unit test dan pengujian aplikasi.
 
-## Kontribusi
-@DarkMephisto155115
-@_hsdiqi
-@rusdany33
+## Kontributor
+- [**Andika Salsabillah_402**](https://github.com/DarkMephisto155115)
+- [**Rusdany Maestro_406**](https://github.com/rusdany33)
+- [**Hasbi Ash.S_391**](https://github.com/hsdiqi)
+
