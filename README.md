@@ -15,8 +15,6 @@ Aplikasi ini merupakan sebuah sistem manajemen perpustakaan yang dikembangkan de
 - **BootstrapFX**: Integrasi Bootstrap dengan JavaFX.
 - **FXGL**: Framework untuk pengembangan permainan dengan JavaFX.
 
-Pastikan juga telah mengonfigurasi Java versi 19 atau yang kompatibel dengan aplikasi ini.
-
 ## Struktur Proyek
 
 - `src/`: Direktori utama kode sumber.
