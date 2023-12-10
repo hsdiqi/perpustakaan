@@ -1,84 +1,82 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<Scene xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
-       fx:controller="perpus.logincontroller">
-   <AnchorPane prefHeight="640.0" prefWidth="360.0" style="-fx-background-color: aquamarine;">
-      <VBox alignment="TOP_CENTER" layoutX="30.0" layoutY="20.0" prefHeight="600.0" prefWidth="300.0"
-            AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0"
-            AnchorPane.topAnchor="20.0">
+   <AnchorPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="perpus.logincontroller" prefHeight="640.0" prefWidth="360.0" style="-fx-background-color: aquamarine;">
+      <VBox alignment="TOP_CENTER" layoutX="30.0" layoutY="20.0" prefHeight="600.0" prefWidth="300.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="20.0">
          <children>
             <ImageView fitHeight="283.0" fitWidth="288.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@assets/logo_edited.png"/>
+                  <Image url="@assets/logo_edited.png" />
                </image>
                <VBox.margin>
-                  <Insets/>
+                  <Insets />
                </VBox.margin>
             </ImageView>
             <Label text="Perpustakaan Kontrakan AL-Muslim">
                <font>
-                  <Font name="Comic Sans MS Bold Italic" size="17.0"/>
+                  <Font name="Comic Sans MS Bold Italic" size="17.0" />
                </font>
             </Label>
             <VBox alignment="BOTTOM_LEFT" prefHeight="217.0" prefWidth="300.0">
                <children>
                   <Label text="Username" underline="true">
                      <VBox.margin>
-                        <Insets left="3.0"/>
+                        <Insets left="3.0" />
                      </VBox.margin>
                      <font>
-                        <Font size="15.0"/>
+                        <Font size="15.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="usNameText" prefHeight="30.0" prefWidth="290.0"
-                             style="-fx-background-radius: 5;">
+                  <TextField fx:id="usNameText" prefHeight="30.0" prefWidth="290.0" style="-fx-background-radius: 5;">
                      <VBox.margin>
-                        <Insets top="2.0"/>
+                        <Insets top="2.0" />
                      </VBox.margin>
                   </TextField>
                   <Label layoutX="15.0" layoutY="15.0" text="Password" underline="true">
                      <VBox.margin>
-                        <Insets left="3.0" top="9.0"/>
+                        <Insets left="3.0" top="9.0" />
                      </VBox.margin>
                      <font>
-                        <Font size="15.0"/>
+                        <Font size="15.0" />
                      </font>
                   </Label>
-                  <PasswordField fx:id="pwText" prefHeight="30.0" prefWidth="290.0"
-                                 style="-fx-background-radius: 5;">
+                  <PasswordField fx:id="pwText" prefHeight="30.0" prefWidth="290.0" style="-fx-background-radius: 5;">
                      <VBox.margin>
-                        <Insets top="2.0"/>
+                        <Insets top="2.0" />
                      </VBox.margin>
                   </PasswordField>
                </children>
                <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
                <VBox.margin>
-                  <Insets bottom="10.0"/>
+                  <Insets bottom="10.0" />
                </VBox.margin>
             </VBox>
             <Button mnemonicParsing="false" onAction="#btnLogin" prefHeight="30.0" prefWidth="90.0" text="Login">
                <VBox.margin>
-                  <Insets top="6.0"/>
+                  <Insets top="6.0" />
                </VBox.margin>
             </Button>
             <HBox alignment="CENTER" prefHeight="43.0" prefWidth="300.0">
                <children>
-                  <Label text="Sudah punya akun?"/>
-                  <Hyperlink onAction="#linkSignClick" text="Daftar"/>
+                  <Label text="Sudah punya akun?" />
+                  <Hyperlink onAction="#linkSignClick" text="Daftar" />
                </children>
             </HBox>
          </children>
       </VBox>
-      <Label fx:id="allertText" layoutX="172.0" layoutY="11.0" AnchorPane.leftAnchor="171.0"
-             AnchorPane.rightAnchor="171.0" AnchorPane.topAnchor="11.0"/>
+      <Label fx:id="allertText" layoutX="172.0" layoutY="11.0" AnchorPane.leftAnchor="171.0" AnchorPane.rightAnchor="171.0" AnchorPane.topAnchor="11.0" />
    </AnchorPane>
-</Scene>
