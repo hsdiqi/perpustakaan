@@ -43,7 +43,7 @@
                                 <Font name="Droid Serif" size="12.0" />
                             </font>
                         </Label>
-                        <TextField prefHeight="30.0" prefWidth="150.0" style="-fx-background-radius: 7;">
+                        <TextField fx:id="tfNama" prefHeight="30.0" prefWidth="150.0" style="-fx-background-radius: 7;">
                             <VBox.margin>
                                 <Insets left="3.0" right="10.0" />
                             </VBox.margin></TextField>
@@ -55,7 +55,7 @@
                                 <Font name="Droid Serif" size="12.0" />
                             </font>
                         </Label>
-                        <TextField layoutX="10.0" layoutY="27.0" prefHeight="30.0" prefWidth="150.0" style="-fx-background-radius: 7;">
+                        <TextField fx:id="tfUsername" layoutX="10.0" layoutY="27.0" prefHeight="30.0" prefWidth="150.0" style="-fx-background-radius: 7;">
                             <VBox.margin>
                                 <Insets left="3.0" right="10.0" />
                             </VBox.margin></TextField>
@@ -67,7 +67,7 @@
                                 <Font name="Droid Serif" size="12.0" />
                             </font>
                         </Label>
-                        <TextField layoutX="10.0" layoutY="70.0" prefHeight="30.0" prefWidth="150.0" style="-fx-background-radius: 7;">
+                        <TextField fx:id="tfEmail" layoutX="10.0" layoutY="70.0" prefHeight="30.0" prefWidth="150.0" style="-fx-background-radius: 7;">
                             <VBox.margin>
                                 <Insets left="3.0" right="10.0" />
                             </VBox.margin></TextField>
@@ -79,12 +79,12 @@
                                 <Font name="Droid Serif" size="12.0" />
                             </font>
                         </Label>
-                        <PasswordField prefHeight="30.0" prefWidth="150.0" style="-fx-background-radius: 7;">
+                        <PasswordField fx:id="tfPassword" prefHeight="30.0" prefWidth="150.0" style="-fx-background-radius: 7;">
                             <VBox.margin>
                                 <Insets left="3.0" right="10.0" />
                             </VBox.margin></PasswordField>
                     </children></VBox>
-                <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="75.0" style="-fx-background-radius: 20;" text="Daftar">
+                <Button mnemonicParsing="false" onAction="#btnDaftar" prefHeight="25.0" prefWidth="75.0" style="-fx-background-radius: 20;" text="Daftar">
                     <VBox.margin>
                         <Insets bottom="10.0" top="20.0" />
                     </VBox.margin>
@@ -96,5 +96,6 @@
                     </children>
                 </HBox>
             </children></VBox>
+      <Label fx:id="alertText" layoutX="131.0" layoutY="6.0" prefHeight="17.0" prefWidth="98.0" />
     </children>
 </AnchorPane>
