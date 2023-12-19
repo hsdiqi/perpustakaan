@@ -15,3 +15,13 @@ Button:hover{
     -fx-background-color: #4ffff0;
     color: white;
 }
+
+AnchorPane{
+    -fx-background-color: #eafffd;
+}
+Pane{
+    -fx-background-color: rgba(168, 168, 168, 0.52);
+}
+#btnSearch{
+    -fx-background-color: rgba(255, 255, 255, 0);
+}
