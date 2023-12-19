@@ -13,7 +13,7 @@ public class logincontroller {
     @FXML
     public TextField usNameText;
     @FXML
-    public Label allertText;
+    public Label alertText;
 
     @FXML
     protected void btnLogin() {
@@ -21,14 +21,14 @@ public class logincontroller {
         String password = pwText.getText();
 
         if (!username.isEmpty() && !password.isEmpty()){
-            boolean loginSucses = validasi.validatedLogin(username, password);
-            if (loginSucses){
-                allertText.setText("Login Sukses");
+            boolean cekLogin = validasi.validatedLogin(username, password);
+            if (cekLogin){
+                alertText.setText("Login Sukses");
             }else {
-                allertText.setText("Login gagal. Coba cek kembali username dan password anda!");
+                alertText.setText("Login gagal. Coba cek kembali username dan password anda!");
             }
         }else {
-            allertText.setText("Kolom tidak boleh kosong!!");
+            alertText.setText("Kolom tidak boleh kosong!!");
         }
 
     }
