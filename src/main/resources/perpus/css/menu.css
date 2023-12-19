@@ -1,0 +1,17 @@
+.button_header{
+    border-radius: 15%;
+    height: 28px;
+    width: 87px;
+    background-color: white;
+    color: brown;
+    /*-fx-border-color: blue;*/
+}
+Button{
+    /*-fx-border-color: blue;*/
+    -fx-background-radius: 15;
+    -fx-background-color: white;
+}
+Button:hover{
+    -fx-background-color: #4ffff0;
+    color: white;
+}
