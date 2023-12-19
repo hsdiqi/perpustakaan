@@ -1,0 +1,13 @@
+.txtfields{
+    border-bottom-left-radius: 30%;
+    border-bottom-right-radius: 10%;
+    border-top-left-radius: 0%;
+    border-top-right-radius: 20%;
+}
+.button{
+
+}
+.button:hover{
+    background-color: black;
+    color: aliceblue;
+}
