@@ -2,19 +2,16 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="640.0" prefWidth="360.0" stylesheets="@css/menu.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="perpus.MenuRak">
+<AnchorPane prefHeight="640.0" prefWidth="360.0" stylesheets="@css/menu.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="perpus.MenuRakController">
     <children>
         <HBox alignment="CENTER" prefHeight="66.0" prefWidth="360.0" spacing="60.0" style="-fx-background-color: aquamarine;">
             <children>
@@ -52,58 +49,18 @@
                 <Button layoutX="62.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnwishlist" prefHeight="28.0" prefWidth="87.0" styleClass="button_header" text="Wishlist" />
             </children>
         </HBox>
-      <VBox layoutX="11.0" layoutY="125.0" prefHeight="505.0" prefWidth="338.0">
-         <children>
-            <GridPane prefHeight="89.0" prefWidth="338.0" styleClass="GPList">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="79.3333740234375" minWidth="10.0" prefWidth="69.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="92.6666259765625" minWidth="10.0" prefWidth="10.33331298828125" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="189.00002034505212" minWidth="10.0" prefWidth="189.00002034505212" />
-                  <ColumnConstraints halignment="RIGHT" maxWidth="90.66668701171875" minWidth="10.0" prefWidth="70.66668701171875" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
+      <ScrollPane layoutY="119.0" prefHeight="521.0" prefWidth="360.0">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0">
                <children>
-                  <Label text="Judul">
-                     <GridPane.margin>
-                        <Insets left="2.0" />
-                     </GridPane.margin>
-                  </Label>
-                  <Label fx:id="lblThn" layoutX="10.0" layoutY="17.0" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                  <Label layoutX="10.0" layoutY="17.0" text=":" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <Label fx:id="lblGenre" layoutX="10.0" layoutY="17.0" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                  <Label layoutX="10.0" layoutY="17.0" text=":" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <Label fx:id="lblJudul" layoutX="10.0" layoutY="17.0" text="Label" GridPane.columnIndex="2" />
-                  <Label layoutX="10.0" layoutY="17.0" text=":" GridPane.columnIndex="1" />
-                  <Label layoutX="10.0" layoutY="17.0" text="Tahun terbit" GridPane.rowIndex="2">
-                     <GridPane.margin>
-                        <Insets left="2.0" />
-                     </GridPane.margin>
-                  </Label>
-                  <Label layoutX="10.0" layoutY="17.0" text="Genre" GridPane.rowIndex="1">
-                     <GridPane.margin>
-                        <Insets left="2.0" />
-                     </GridPane.margin>
-                  </Label>
-                  <Button mnemonicParsing="false" onAction="#btnPinjam" text="Pinjam" GridPane.columnIndex="3" GridPane.rowIndex="2">
-                     <GridPane.margin>
-                        <Insets bottom="7.0" right="3.0" />
-                     </GridPane.margin>
-                  </Button>
-                  <ImageView fitHeight="15.0" fitWidth="14.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3">
-                     <image>
-                        <Image url="@assets/heart.png" />
-                     </image>
-                     <GridPane.margin>
-                        <Insets right="8.0" />
-                     </GridPane.margin>
-                  </ImageView>
+                  <VBox fx:id="vbRakList" prefWidth="340.0" spacing="5.0" AnchorPane.topAnchor="5.0">
+                     <padding>
+                        <Insets left="5.0" />
+                     </padding>
+                  </VBox>
                </children>
-            </GridPane>
-         </children>
-      </VBox>
+            </AnchorPane>
+        </content>
+      </ScrollPane>
     </children>
 </AnchorPane>

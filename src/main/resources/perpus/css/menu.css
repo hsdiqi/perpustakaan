@@ -1,4 +1,14 @@
-
+.image_heart{
+    /*-fx-padding: 10;*/
+    -fx-end-margin: 10;
+    -fx-start-margin: 10;
+}
+.btn_pinjam{
+    /*-fx-padding: 10;*/
+    -fx-end-margin: 10;
+    -fx-start-margin: 10;
+    -fx-pref-height: 10;
+}
 Button{
     /*-fx-border-color: blue;*/
     -fx-background-radius: 15;
