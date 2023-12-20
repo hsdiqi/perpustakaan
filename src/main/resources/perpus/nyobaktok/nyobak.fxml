@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="640.0" prefWidth="360.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="perpus.nyobaktok.nyobakController">
+    <children>
+        <HBox prefHeight="40.0" prefWidth="360.0" style="-fx-background-color: blue;" />
+        <HBox layoutY="42.0" prefHeight="26.0" prefWidth="360.0" style="-fx-background-color: blue;" />
+        <VBox fx:id="vbdata" layoutX="10.0" layoutY="76.0" prefHeight="563.0" prefWidth="339.0" style="-fx-background-color: pink;">
+            <!-- Placeholder untuk menambahkan data dari database -->
+        </VBox>
+        <HBox layoutX="-164.0" layoutY="413.0" prefHeight="26.0" prefWidth="360.0" style="-fx-background-color: blue;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+    </children>
+</AnchorPane>
