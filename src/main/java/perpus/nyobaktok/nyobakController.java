@@ -22,7 +22,7 @@ public class nyobakController {
 
     public void loadDataFromDatabase() {
         try (Connection connection = dataBaseConnector2.connect()) {
-            String query = "SELECT judul, genre, tahun_rilis, stok FROM buku WHERE tahun_rilis > 1000";
+            String query = "SELECT judul, genre, tahun_rilis, stok FROM buku WHERE stok > 0";
             try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
                 try (ResultSet resultSet = preparedStatement.executeQuery()) {
                     while (resultSet.next()) {
@@ -47,13 +47,13 @@ public class nyobakController {
     private GridPane createGridPane(String judul, String genre, int tahunRilis, int stok) {
         GridPane gridPane = new GridPane();
 
-        Label lblJ = new Label(judul);
-        Label lblG = new Label(genre);
-        Label lblThnR = new Label(Integer.toString(tahunRilis));
-        Label lblS = new Label(Integer.toString(stok));
+        Label lbjudul = new Label(judul);
+        Label lbgenre = new Label(genre);
+        Label lbtahun = new Label(Integer.toString(tahunRilis));
+        Label lbStock = new Label(Integer.toString(stok));
 
         gridPane.addColumn(0, new Label("Judul:"), new Label("Genre:"), new Label("Tahun Rilis:"), new  Label("Stok"), new Label(""));
-        gridPane.addColumn(1, lblJ, lblG, lblThnR, lblS);
+        gridPane.addColumn(1, lbjudul, lbgenre, lbtahun, lbStock);
 
         return gridPane;
     }

@@ -18,7 +18,7 @@ public class nyobak extends Application {
     public void start(Stage primaryStage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(nyobak.class.getResource("nyobak.fxml"));
 
-        Scene scene = new Scene(fxmlLoader.load());
+        Scene scene = new Scene(fxmlLoader.load(), 360, 640);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
