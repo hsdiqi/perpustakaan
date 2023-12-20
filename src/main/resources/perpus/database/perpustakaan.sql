@@ -31,7 +31,8 @@ CREATE TABLE `admin` (
   `id_admin` int(11) NOT NULL,
   `nama_admin` varchar(50) NOT NULL,
   `jabatan` varchar(50) NOT NULL,
-  `kode_admin` int(8) NOT NULL
+  `kode_admin` int(8) NOT NULL,
+  'password_admin' varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -78,7 +79,7 @@ INSERT INTO `buku` (`id_buku`, `kode_buku`, `genre`, `judul`, `tahun_rilis`, `st
 -- Struktur dari tabel `user`
 --
 
-CREATE TABLE `user` (
+CREATE TABLE `users` (
   `id_user` int(11) NOT NULL,
   `nama_user` varchar(50) NOT NULL,
   `jurusan_user` varchar(50) NOT NULL,
@@ -107,7 +108,7 @@ ALTER TABLE `buku`
 --
 -- Indeks untuk tabel `user`
 --
-ALTER TABLE `user`
+ALTER TABLE `users`
   ADD PRIMARY KEY (`id_user`),
   ADD UNIQUE KEY `uniq` (`kode_user`);
 
@@ -130,7 +131,7 @@ ALTER TABLE `buku`
 --
 -- AUTO_INCREMENT untuk tabel `user`
 --
-ALTER TABLE `user`
+ALTER TABLE `users`
   MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 

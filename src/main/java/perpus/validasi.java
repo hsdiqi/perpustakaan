@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class validasi {
-    private static final String logValidationQuery = "SELECT * FORM login WHERE username = ? AND password = ?";
+    private static final String logValidationQuery = "SELECT * FROM users WHERE username = ? AND password = ?";
 
     public static boolean validatedLogin(String username, String password){
         try (Connection connection = DatabaseConnector.connect();

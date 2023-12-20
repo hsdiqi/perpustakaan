@@ -1,6 +1,7 @@
 package perpus;
 
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
@@ -126,13 +127,13 @@ public class MenuRakController implements Initializable {
         btnPinjam.setPrefHeight(5);
         btnPinjam.getStyleClass().add("btn_pinjam");
         VBox.setMargin(btnPinjam, new Insets(0,0,10,0));
-        btnPinjam.setOnAction(event -> {
+        btnPinjam.setOnAction(actionEvent -> {
             try {
-                btnPinjamClicked(resultSet.getInt("id_buku"));
+                btnPinjamClicked(Integer.parseInt(resultSet.getString("id_buku")));
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
-        }); // Replace "id" with your actual column name
+        });
 
         ImageView likeImage = new ImageView(new Image(getClass().getResource("/perpus/assets/heart.png").toExternalForm()));
         likeImage.getStyleClass().add("image_heart");
@@ -155,13 +156,25 @@ public class MenuRakController implements Initializable {
         gridPane.add(btnPinjam, 3, 3);
         gridPane.add(likeImage, 3, 0);
 
-        // Add other nodes to the gridPane
-        // ...
-
         return gridPane;
     }
 
     private void btnPinjamClicked(int bookId) {
+        try (Connection connection = DatabaseConnector.connect()){
+            String updateQuery = "UPDATE buku SET stok = - 1 WHERE id_buku = ?";
+            try(PreparedStatement updateStatment = connection.prepareStatement(updateQuery)){
+                updateStatment.setInt(1, bookId);
+                updateStatment.executeUpdate();
+            }
+            String insertQuery = "INSERT INTO dipinjam (id_buku) VALUES (?)";
+            try (PreparedStatement isertStatment = connection.prepareStatement(insertQuery)) {
+                isertStatment.setInt(1, bookId);
+                isertStatment.executeUpdate();
+            }
+            loadDataFromDatabase();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void btnSearch(ActionEvent actionEvent) {

@@ -58,7 +58,7 @@
                   <Insets bottom="10.0" />
                </VBox.margin>
             </VBox>
-            <Button mnemonicParsing="false" onAction="#btnLogin" prefHeight="30.0" prefWidth="90.0" style="-fx-background-radius: 20;" text="Login" textAlignment="CENTER">
+            <Button fx:id="btnLogin" mnemonicParsing="false" onAction="#btnLogin" prefHeight="30.0" prefWidth="90.0" style="-fx-background-radius: 20;" text="Login" textAlignment="CENTER">
                <VBox.margin>
                   <Insets top="6.0" />
                </VBox.margin>
@@ -71,5 +71,5 @@
             </HBox>
          </children>
       </VBox>
-      <Label fx:id="alertText" layoutX="172.0" layoutY="11.0" AnchorPane.leftAnchor="171.0" AnchorPane.rightAnchor="171.0" AnchorPane.topAnchor="11.0" />
+      <Label fx:id="alertText" layoutX="111.0" layoutY="5.0" prefHeight="17.0" prefWidth="139.0" AnchorPane.leftAnchor="111.0" AnchorPane.rightAnchor="110.0" AnchorPane.topAnchor="5.0" />
    </AnchorPane>
