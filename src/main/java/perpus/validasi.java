@@ -9,7 +9,7 @@ public class validasi {
     private static final String logValidationQuery = "SELECT * FORM login WHERE username = ? AND password = ?";
 
     public static boolean validatedLogin(String username, String password){
-        try (Connection connection = dataBaseConnector.connect();
+        try (Connection connection = DatabaseConnector.connect();
              PreparedStatement preparedStatement = connection.prepareStatement(logValidationQuery)){
             preparedStatement.setString(1, username);
             preparedStatement.setString(2, password);
