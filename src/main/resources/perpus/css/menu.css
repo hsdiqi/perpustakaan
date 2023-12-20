@@ -1,11 +1,4 @@
-.button_header{
-    border-radius: 15%;
-    height: 28px;
-    width: 87px;
-    background-color: white;
-    color: brown;
-    /*-fx-border-color: blue;*/
-}
+
 Button{
     /*-fx-border-color: blue;*/
     -fx-background-radius: 15;
@@ -20,8 +13,11 @@ AnchorPane{
     -fx-background-color: #eafffd;
 }
 Pane{
-    -fx-background-color: rgba(168, 168, 168, 0.52);
+    -fx-background-color: white;
 }
 #btnSearch{
     -fx-background-color: rgba(255, 255, 255, 0);
+}
+.GPList{
+    -fx-background-color: rgba(168, 168, 168, 0.52);
 }

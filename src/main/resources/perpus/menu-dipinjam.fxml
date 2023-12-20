@@ -6,8 +6,10 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
@@ -50,73 +52,32 @@
             <Button layoutX="62.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnwishlist" prefHeight="28.0" prefWidth="87.0" styleClass="button_header" text="Wishlist" />
          </children>
       </HBox>
-      <Pane layoutX="12.0" layoutY="128.0" prefHeight="65.0" prefWidth="335.0">
+      <VBox layoutX="12.0" layoutY="124.0" prefHeight="501.0" prefWidth="336.0">
          <children>
-            <VBox prefHeight="65.0" prefWidth="65.0" spacing="5.0">
+            <GridPane prefHeight="90.0" prefWidth="337.0" styleClass="GPList">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="334.6666666666667" minWidth="10.0" prefWidth="68.99997965494792" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="334.6666666666667" minWidth="7.666646321614579" prefWidth="7.666646321614579" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="262.66668701171875" minWidth="0.0" prefWidth="261.66668701171875" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
                <children>
                   <Label text="Judul" />
-                  <Label layoutX="10.0" layoutY="10.0" text="Genre" />
-                  <Label layoutX="10.0" layoutY="27.0" text="Tahun Rilis" />
+                  <Label text="Genre" GridPane.rowIndex="1" />
+                  <Label text="Tahun Rilis" GridPane.rowIndex="2" />
+                  <Label text=":" GridPane.columnIndex="1" />
+                  <Label text=":" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Label text=":" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Label fx:id="lblJudul" text="Label" GridPane.columnIndex="2" />
+                  <Label fx:id="lblGenre" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <Label fx:id="lblthn" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="2" />
                </children>
-               <padding>
-                  <Insets left="2.0" top="2.0" />
-               </padding>
-            </VBox>
-            <VBox layoutX="65.0" prefHeight="65.0" prefWidth="11.0" spacing="5.0">
-               <children>
-                  <Label text=":" />
-                  <Label layoutX="10.0" layoutY="10.0" text=":" />
-                  <Label layoutX="10.0" layoutY="27.0" text=":" />
-               </children>
-               <padding>
-                  <Insets left="2.0" top="2.0" />
-               </padding>
-            </VBox>
-            <VBox layoutX="76.0" prefHeight="65.0" prefWidth="177.0" spacing="5.0">
-               <children>
-                  <Label fx:id="lblJudul" />
-                  <Label fx:id="lblGenre" layoutX="10.0" layoutY="10.0" />
-                  <Label fx:id="lblTHN" layoutX="10.0" layoutY="27.0" />
-               </children>
-               <padding>
-                  <Insets left="2.0" top="2.0" />
-               </padding>
-            </VBox>
+            </GridPane>
          </children>
-      </Pane>
-      <Pane layoutX="12.0" layoutY="196.0" prefHeight="65.0" prefWidth="335.0">
-         <children>
-            <VBox layoutX="76.0" prefHeight="65.0" prefWidth="177.0" spacing="5.0">
-               <children>
-                  <Label fx:id="lblJudul1" />
-                  <Label fx:id="lblGenre1" layoutX="10.0" layoutY="10.0" />
-                  <Label fx:id="lblTHN1" layoutX="10.0" layoutY="27.0" />
-               </children>
-               <padding>
-                  <Insets left="2.0" top="2.0" />
-               </padding>
-            </VBox>
-            <VBox prefHeight="65.0" prefWidth="65.0" spacing="5.0">
-               <children>
-                  <Label text="Judul" />
-                  <Label layoutX="10.0" layoutY="10.0" text="Genre" />
-                  <Label layoutX="10.0" layoutY="27.0" text="Tahun Rilis" />
-               </children>
-               <padding>
-                  <Insets left="2.0" top="2.0" />
-               </padding>
-            </VBox>
-            <VBox layoutX="65.0" prefHeight="65.0" prefWidth="11.0" spacing="5.0">
-               <children>
-                  <Label text=":" />
-                  <Label layoutX="10.0" layoutY="10.0" text=":" />
-                  <Label layoutX="10.0" layoutY="27.0" text=":" />
-               </children>
-               <padding>
-                  <Insets left="2.0" top="2.0" />
-               </padding>
-            </VBox>
-         </children>
-      </Pane>
+      </VBox>
    </children>
 </AnchorPane>
