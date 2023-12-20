@@ -92,7 +92,7 @@
                 <HBox alignment="CENTER" prefHeight="29.0" prefWidth="300.0">
                     <children>
                         <Label text="Sudah punya akun? " />
-                        <Hyperlink text="masuk" />
+                        <Hyperlink fx:id="btnMasuk" onAction="#ChangeScene" text="masuk" />
                     </children>
                 </HBox>
             </children></VBox>
