@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="dataSourceStorageLocal" created-in="IU-233.11799.300">
-    <data-source name="perpustakaan@localhost" uuid="daddba43-48e9-43ae-bd9a-916866c26a81">
-      <database-info product="MySQL" version="5.5.5-10.4.28-MariaDB" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-java-8.0.25 (Revision: 08be9e9b4cba6aa115f9b27b215887af40b159e0)" dbms="MARIADB" exact-version="10.4.28" exact-driver-version="8.0">
+    <data-source name="perpustakaan@localhost" uuid="23c13302-eab6-4ad8-adbf-c9ec6a2c3591">
+      <database-info product="MySQL" version="5.5.5-10.4.32-MariaDB" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-java-8.0.25 (Revision: 08be9e9b4cba6aa115f9b27b215887af40b159e0)" dbms="MARIADB" exact-version="10.4.32" exact-driver-version="8.0">
         <extra-name-characters>#@</extra-name-characters>
         <identifier-quote-string>`</identifier-quote-string>
-        <jdbc-catalog-is-schema>true</jdbc-catalog-is-schema>
       </database-info>
       <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower" />
       <secret-storage>master_key</secret-storage>
@@ -15,10 +14,6 @@
           <node kind="schema" qname="@" />
         </introspection-scope>
       </schema-mapping>
-      <ssl-config use-ide-store="true" use-java-store="true" use-system-store="true">
-        <enabled>true</enabled>
-        <mode>REQUIRE</mode>
-      </ssl-config>
     </data-source>
   </component>
 </project>

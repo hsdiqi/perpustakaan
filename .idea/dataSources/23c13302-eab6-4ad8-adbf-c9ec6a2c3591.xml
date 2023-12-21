@@ -4,164 +4,96 @@
     <root id="1">
       <DefaultCasing>lower/lower</DefaultCasing>
       <DefaultEngine>InnoDB</DefaultEngine>
-      <Grants>|root||hasbi|hasbi|ALTER|G
-|root||root|127.0.0.1|ALTER|G
+      <Grants>|root||root|127.0.0.1|ALTER|G
 |root||root|::1|ALTER|G
 |root||root|localhost|ALTER|G
-|root||hasbi|hasbi|ALTER ROUTINE|G
 |root||root|127.0.0.1|ALTER ROUTINE|G
 |root||root|::1|ALTER ROUTINE|G
 |root||root|localhost|ALTER ROUTINE|G
-|root||hasbi|hasbi|CREATE|G
 |root||root|127.0.0.1|CREATE|G
 |root||root|::1|CREATE|G
 |root||root|localhost|CREATE|G
-|root||hasbi|hasbi|CREATE ROUTINE|G
 |root||root|127.0.0.1|CREATE ROUTINE|G
 |root||root|::1|CREATE ROUTINE|G
 |root||root|localhost|CREATE ROUTINE|G
-|root||hasbi|hasbi|CREATE TABLESPACE|G
 |root||root|127.0.0.1|CREATE TABLESPACE|G
 |root||root|::1|CREATE TABLESPACE|G
 |root||root|localhost|CREATE TABLESPACE|G
-|root||hasbi|hasbi|CREATE TEMPORARY TABLES|G
 |root||root|127.0.0.1|CREATE TEMPORARY TABLES|G
 |root||root|::1|CREATE TEMPORARY TABLES|G
 |root||root|localhost|CREATE TEMPORARY TABLES|G
-|root||hasbi|hasbi|CREATE USER|G
 |root||root|127.0.0.1|CREATE USER|G
 |root||root|::1|CREATE USER|G
 |root||root|localhost|CREATE USER|G
-|root||hasbi|hasbi|CREATE VIEW|G
 |root||root|127.0.0.1|CREATE VIEW|G
 |root||root|::1|CREATE VIEW|G
 |root||root|localhost|CREATE VIEW|G
-|root||hasbi|hasbi|DELETE|G
 |root||root|127.0.0.1|DELETE|G
 |root||root|::1|DELETE|G
 |root||root|localhost|DELETE|G
-|root||hasbi|hasbi|DELETE HISTORY|G
 |root||root|127.0.0.1|DELETE HISTORY|G
 |root||root|::1|DELETE HISTORY|G
 |root||root|localhost|DELETE HISTORY|G
-|root||hasbi|hasbi|DROP|G
 |root||root|127.0.0.1|DROP|G
 |root||root|::1|DROP|G
 |root||root|localhost|DROP|G
-|root||hasbi|hasbi|EVENT|G
 |root||root|127.0.0.1|EVENT|G
 |root||root|::1|EVENT|G
 |root||root|localhost|EVENT|G
-|root||hasbi|hasbi|EXECUTE|G
 |root||root|127.0.0.1|EXECUTE|G
 |root||root|::1|EXECUTE|G
 |root||root|localhost|EXECUTE|G
-|root||hasbi|hasbi|FILE|G
 |root||root|127.0.0.1|FILE|G
 |root||root|::1|FILE|G
 |root||root|localhost|FILE|G
-|root||hasbi|hasbi|INDEX|G
 |root||root|127.0.0.1|INDEX|G
 |root||root|::1|INDEX|G
 |root||root|localhost|INDEX|G
-|root||hasbi|hasbi|INSERT|G
 |root||root|127.0.0.1|INSERT|G
 |root||root|::1|INSERT|G
 |root||root|localhost|INSERT|G
-|root||hasbi|hasbi|LOCK TABLES|G
 |root||root|127.0.0.1|LOCK TABLES|G
 |root||root|::1|LOCK TABLES|G
 |root||root|localhost|LOCK TABLES|G
-|root||hasbi|hasbi|PROCESS|G
 |root||root|127.0.0.1|PROCESS|G
 |root||root|::1|PROCESS|G
 |root||root|localhost|PROCESS|G
-|root||hasbi|hasbi|REFERENCES|G
 |root||root|127.0.0.1|REFERENCES|G
 |root||root|::1|REFERENCES|G
 |root||root|localhost|REFERENCES|G
-|root||hasbi|hasbi|RELOAD|G
 |root||root|127.0.0.1|RELOAD|G
 |root||root|::1|RELOAD|G
 |root||root|localhost|RELOAD|G
-|root||hasbi|hasbi|REPLICATION CLIENT|G
 |root||root|127.0.0.1|REPLICATION CLIENT|G
 |root||root|::1|REPLICATION CLIENT|G
 |root||root|localhost|REPLICATION CLIENT|G
-|root||hasbi|hasbi|REPLICATION SLAVE|G
 |root||root|127.0.0.1|REPLICATION SLAVE|G
 |root||root|::1|REPLICATION SLAVE|G
 |root||root|localhost|REPLICATION SLAVE|G
-|root||hasbi|hasbi|SELECT|G
 |root||root|127.0.0.1|SELECT|G
 |root||root|::1|SELECT|G
 |root||root|localhost|SELECT|G
-|root||hasbi|hasbi|SHOW DATABASES|G
 |root||root|127.0.0.1|SHOW DATABASES|G
 |root||root|::1|SHOW DATABASES|G
 |root||root|localhost|SHOW DATABASES|G
-|root||hasbi|hasbi|SHOW VIEW|G
 |root||root|127.0.0.1|SHOW VIEW|G
 |root||root|::1|SHOW VIEW|G
 |root||root|localhost|SHOW VIEW|G
-|root||hasbi|hasbi|SHUTDOWN|G
 |root||root|127.0.0.1|SHUTDOWN|G
 |root||root|::1|SHUTDOWN|G
 |root||root|localhost|SHUTDOWN|G
-|root||hasbi|hasbi|SUPER|G
 |root||root|127.0.0.1|SUPER|G
 |root||root|::1|SUPER|G
 |root||root|localhost|SUPER|G
-|root||hasbi|hasbi|TRIGGER|G
 |root||root|127.0.0.1|TRIGGER|G
 |root||root|::1|TRIGGER|G
 |root||root|localhost|TRIGGER|G
-|root||hasbi|hasbi|UPDATE|G
 |root||root|127.0.0.1|UPDATE|G
 |root||root|::1|UPDATE|G
 |root||root|localhost|UPDATE|G
-|root||hasbi|hasbi|grant option|G
 |root||root|127.0.0.1|grant option|G
 |root||root|::1|grant option|G
 |root||root|localhost|grant option|G
-hasbi|schema||hasbi|hasbi|ALTER|G
-hasbi|schema||hasbi|hasbi|ALTER ROUTINE|G
-hasbi|schema||hasbi|hasbi|CREATE|G
-hasbi|schema||hasbi|hasbi|CREATE ROUTINE|G
-hasbi|schema||hasbi|hasbi|CREATE TEMPORARY TABLES|G
-hasbi|schema||hasbi|hasbi|CREATE VIEW|G
-hasbi|schema||hasbi|hasbi|DELETE|G
-hasbi|schema||hasbi|hasbi|DELETE HISTORY|G
-hasbi|schema||hasbi|hasbi|DROP|G
-hasbi|schema||hasbi|hasbi|EVENT|G
-hasbi|schema||hasbi|hasbi|EXECUTE|G
-hasbi|schema||hasbi|hasbi|INDEX|G
-hasbi|schema||hasbi|hasbi|INSERT|G
-hasbi|schema||hasbi|hasbi|LOCK TABLES|G
-hasbi|schema||hasbi|hasbi|REFERENCES|G
-hasbi|schema||hasbi|hasbi|SELECT|G
-hasbi|schema||hasbi|hasbi|SHOW VIEW|G
-hasbi|schema||hasbi|hasbi|TRIGGER|G
-hasbi|schema||hasbi|hasbi|UPDATE|G
-hasbi\\_%|schema||hasbi|hasbi|ALTER|G
-hasbi\\_%|schema||hasbi|hasbi|ALTER ROUTINE|G
-hasbi\\_%|schema||hasbi|hasbi|CREATE|G
-hasbi\\_%|schema||hasbi|hasbi|CREATE ROUTINE|G
-hasbi\\_%|schema||hasbi|hasbi|CREATE TEMPORARY TABLES|G
-hasbi\\_%|schema||hasbi|hasbi|CREATE VIEW|G
-hasbi\\_%|schema||hasbi|hasbi|DELETE|G
-hasbi\\_%|schema||hasbi|hasbi|DELETE HISTORY|G
-hasbi\\_%|schema||hasbi|hasbi|DROP|G
-hasbi\\_%|schema||hasbi|hasbi|EVENT|G
-hasbi\\_%|schema||hasbi|hasbi|EXECUTE|G
-hasbi\\_%|schema||hasbi|hasbi|INDEX|G
-hasbi\\_%|schema||hasbi|hasbi|INSERT|G
-hasbi\\_%|schema||hasbi|hasbi|LOCK TABLES|G
-hasbi\\_%|schema||hasbi|hasbi|REFERENCES|G
-hasbi\\_%|schema||hasbi|hasbi|SELECT|G
-hasbi\\_%|schema||hasbi|hasbi|SHOW VIEW|G
-hasbi\\_%|schema||hasbi|hasbi|TRIGGER|G
-hasbi\\_%|schema||hasbi|hasbi|UPDATE|G
 phpmyadmin|schema||pma|localhost|DELETE|G
 phpmyadmin|schema||pma|localhost|INSERT|G
 phpmyadmin|schema||pma|localhost|SELECT|G
@@ -200,7 +132,7 @@ test\\_%|schema||&apos;&apos;||SELECT|G
 test\\_%|schema||&apos;&apos;||SHOW VIEW|G
 test\\_%|schema||&apos;&apos;||TRIGGER|G
 test\\_%|schema||&apos;&apos;||UPDATE|G</Grants>
-      <ServerVersion>10.4.28</ServerVersion>
+      <ServerVersion>10.4.32</ServerVersion>
     </root>
     <collation id="2" parent="1" name="armscii8_bin">
       <Charset>armscii8</Charset>
@@ -1208,123 +1140,247 @@ test\\_%|schema||&apos;&apos;||UPDATE|G</Grants>
     <collation id="323" parent="1" name="utf8mb4_vietnamese_ci">
       <Charset>utf8mb4</Charset>
     </collation>
-    <schema id="324" parent="1" name="e_vote">
-      <CollationName>utf8mb4_general_ci</CollationName>
-    </schema>
-    <schema id="325" parent="1" name="hasbi">
-      <CollationName>utf8mb4_general_ci</CollationName>
-    </schema>
-    <schema id="326" parent="1" name="information_schema">
+    <schema id="324" parent="1" name="information_schema">
       <CollationName>utf8_general_ci</CollationName>
     </schema>
-    <schema id="327" parent="1" name="mysql">
+    <schema id="325" parent="1" name="mysql">
       <CollationName>utf8mb4_general_ci</CollationName>
     </schema>
-    <schema id="328" parent="1" name="percobaan">
-      <CollationName>utf8mb4_general_ci</CollationName>
-    </schema>
-    <schema id="329" parent="1" name="performance_schema">
+    <schema id="326" parent="1" name="performance_schema">
       <CollationName>utf8_general_ci</CollationName>
     </schema>
-    <schema id="330" parent="1" name="perpustakaan">
+    <schema id="327" parent="1" name="perpustakaan">
       <Current>1</Current>
-      <LastIntrospectionLocalTimestamp>2023-12-20.17:14:18</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2023-12-21.18:26:57</LastIntrospectionLocalTimestamp>
       <CollationName>utf8mb4_general_ci</CollationName>
     </schema>
-    <schema id="331" parent="1" name="phpmyadmin">
+    <schema id="328" parent="1" name="phpmyadmin">
       <CollationName>utf8_bin</CollationName>
     </schema>
-    <user id="332" parent="1" name="hasbi">
-      <Host>hasbi</Host>
-    </user>
-    <user id="333" parent="1" name="pma">
+    <schema id="329" parent="1" name="test">
+      <CollationName>latin1_swedish_ci</CollationName>
+    </schema>
+    <user id="330" parent="1" name="pma">
       <Host>localhost</Host>
     </user>
-    <user id="334" parent="1" name="root">
+    <user id="331" parent="1" name="root">
       <Host>127.0.0.1</Host>
     </user>
-    <user id="335" parent="1" name="root">
+    <user id="332" parent="1" name="root">
       <Host>::1</Host>
     </user>
-    <user id="336" parent="1" name="root">
+    <user id="333" parent="1" name="root">
       <Host>localhost</Host>
     </user>
-    <table id="337" parent="330" name="buku">
+    <table id="334" parent="327" name="admin">
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_general_ci</CollationName>
     </table>
-    <table id="338" parent="330" name="dipinjam">
+    <table id="335" parent="327" name="buku">
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_general_ci</CollationName>
     </table>
-    <column id="339" parent="337" name="id_buku">
+    <table id="336" parent="327" name="dipinjam">
+      <Engine>InnoDB</Engine>
+      <CollationName>utf8mb4_general_ci</CollationName>
+    </table>
+    <table id="337" parent="327" name="users">
+      <Engine>InnoDB</Engine>
+      <CollationName>utf8mb4_general_ci</CollationName>
+    </table>
+    <table id="338" parent="327" name="wishlist">
+      <Engine>InnoDB</Engine>
+      <CollationName>utf8mb4_general_ci</CollationName>
+    </table>
+    <column id="339" parent="334" name="username">
+      <DasType>varchar(25)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="340" parent="334" name="nama">
+      <DasType>varchar(50)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+    </column>
+    <column id="341" parent="334" name="password">
+      <DasType>varchar(15)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>3</Position>
+    </column>
+    <column id="342" parent="334" name="id_admin">
+      <AutoIncrement>5</AutoIncrement>
+      <DasType>int(4)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>4</Position>
+    </column>
+    <index id="343" parent="334" name="PRIMARY">
+      <ColNames>id_admin</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <key id="344" parent="334" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
+    </key>
+    <column id="345" parent="335" name="id_buku">
       <AutoIncrement>34</AutoIncrement>
       <DasType>int(11)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="340" parent="337" name="kode_buku">
+    <column id="346" parent="335" name="kode_buku">
       <DasType>varchar(5)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="341" parent="337" name="genre">
+    <column id="347" parent="335" name="genre">
       <DasType>varchar(50)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="342" parent="337" name="judul">
+    <column id="348" parent="335" name="judul">
       <DasType>varchar(50)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <column id="343" parent="337" name="tahun_rilis">
+    <column id="349" parent="335" name="tahun_rilis">
       <DasType>int(4)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
-    <column id="344" parent="337" name="stok">
+    <column id="350" parent="335" name="stok">
       <DasType>int(11)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>6</Position>
     </column>
-    <index id="345" parent="337" name="PRIMARY">
+    <index id="351" parent="335" name="PRIMARY">
       <ColNames>id_buku</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="346" parent="337" name="uniq">
+    <index id="352" parent="335" name="uniq">
       <ColNames>kode_buku</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="347" parent="337" name="PRIMARY">
+    <key id="353" parent="335" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <key id="348" parent="337" name="uniq">
+    <key id="354" parent="335" name="uniq">
       <UnderlyingIndexName>uniq</UnderlyingIndexName>
     </key>
-    <column id="349" parent="338" name="id_buku">
+    <column id="355" parent="336" name="id_buku">
       <DasType>int(11)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="350" parent="338" name="judul">
+    <column id="356" parent="336" name="judul">
       <DasType>varchar(50)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="351" parent="338" name="genre">
+    <column id="357" parent="336" name="genre">
       <DasType>varchar(50)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="352" parent="338" name="tahun_rilis">
+    <column id="358" parent="336" name="tahun_rilis">
       <DasType>int(4)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
+    <column id="359" parent="336" name="tanggal_pinjam">
+      <DasType>date|0s</DasType>
+      <DefaultExpression>current_timestamp()</DefaultExpression>
+      <NotNull>1</NotNull>
+      <Position>5</Position>
+    </column>
+    <index id="360" parent="336" name="PRIMARY">
+      <ColNames>id_buku</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <index id="361" parent="336" name="id_buku">
+      <ColNames>id_buku</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <key id="362" parent="336" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
+    </key>
+    <key id="363" parent="336" name="id_buku">
+      <UnderlyingIndexName>id_buku</UnderlyingIndexName>
+    </key>
+    <column id="364" parent="337" name="id_user">
+      <AutoIncrement>2</AutoIncrement>
+      <DasType>int(11)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="365" parent="337" name="nama">
+      <DasType>varchar(50)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+    </column>
+    <column id="366" parent="337" name="username">
+      <DasType>varchar(50)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>3</Position>
+    </column>
+    <column id="367" parent="337" name="email">
+      <DasType>varchar(50)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>4</Position>
+    </column>
+    <column id="368" parent="337" name="password">
+      <DasType>varchar(25)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>5</Position>
+    </column>
+    <index id="369" parent="337" name="PRIMARY">
+      <ColNames>id_user</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <key id="370" parent="337" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
+    </key>
+    <column id="371" parent="338" name="id_buku">
+      <DasType>int(11)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="372" parent="338" name="judul">
+      <DasType>varchar(50)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+    </column>
+    <column id="373" parent="338" name="genre">
+      <DasType>varchar(50)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>3</Position>
+    </column>
+    <column id="374" parent="338" name="tahun_rilis">
+      <DasType>int(4)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>4</Position>
+    </column>
+    <index id="375" parent="338" name="PRIMARY">
+      <ColNames>id_buku</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <key id="376" parent="338" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
+    </key>
   </database-model>
 </dataSource>
