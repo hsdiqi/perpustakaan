@@ -24,14 +24,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class MenuRakController implements Initializable {
 
-    public Button btnRak;
-    @FXML
-    private VBox vbRakList;  // VBox to contain GridPanes
+public class menuWishlistController implements Initializable{
+    public VBox vbWishlist;
+    public Button btnWishlist;
+
     ImageView likeImage = new ImageView(new Image(getClass().getResource("/perpus/assets/heart.png").toExternalForm()));
-
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -40,14 +38,13 @@ public class MenuRakController implements Initializable {
 
     private void loadDataFromDatabase() {
         try (Connection connection = DatabaseConnector.connect()) {
-            String query = "SELECT id_buku, judul, genre, tahun_rilis, stok  FROM buku"; // Replace with your actual table name
+            String query = "SELECT id_buku, judul, genre, tahun_rilis, stok  FROM wishlist"; // Replace with your actual table name
             try (PreparedStatement preparedStatement = connection.prepareStatement(query);
                  ResultSet resultSet = preparedStatement.executeQuery()) {
 
                 while (resultSet.next()) {
-                    // Create a new GridPane for each row of data
                     GridPane gridPane = createGridPane(resultSet);
-                    vbRakList.getChildren().add(gridPane);
+                    vbWishlist.getChildren().add(gridPane);
                 }
             }
         } catch (SQLException e) {
@@ -135,7 +132,7 @@ public class MenuRakController implements Initializable {
         btnPinjam.getStyleClass().add("btn_pinjam");
         VBox.setMargin(btnPinjam, new Insets(0,0,10,0));
         btnPinjam.setOnAction(actionEvent -> {
-            try (Connection connection = DatabaseConnector.connect()) {
+            try {
                 btnPinjamClicked(Integer.parseInt(resultSet.getString("id_buku")));
             } catch (SQLException e) {
                 throw new RuntimeException(e);
@@ -172,7 +169,6 @@ public class MenuRakController implements Initializable {
 
         return gridPane;
     }
-
     private void btnPinjamClicked(int bookId) {
         try (Connection connection = DatabaseConnector.connect()){
             String updateQuery = "UPDATE buku SET stok = - 1 WHERE id_buku = ?";
@@ -190,18 +186,7 @@ public class MenuRakController implements Initializable {
             throw new RuntimeException(e);
         }
     }
-
-    public void btnSearch(ActionEvent actionEvent) {
-    }
-
-    public void btnDipinjam(ActionEvent actionEvent) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("menu-dipinjam.fxml"));
-        Parent root = loader.load();
-        Scene newScene = new Scene(root);
-        Stage currentStage = (Stage) btnRak.getScene().getWindow();
-        currentStage.setScene(newScene);
-        currentStage.show();
-    }
+    Connection connection = (Connection) new DatabaseConnector();
 
     @FXML
     private void heartClicked(int bookId) {
@@ -222,47 +207,51 @@ public class MenuRakController implements Initializable {
 
     private void addToWishlist(int bookId) throws SQLException {
         String insertQuery = "INSERT INTO wishlist (id_buku) VALUES (?)";
-        try (Connection connection = DatabaseConnector.connect()){
-            try (PreparedStatement insertStatement = connection.prepareStatement(insertQuery)) {
-                insertStatement.setInt(1, bookId);
-                insertStatement.executeUpdate();
-            }
+        try (PreparedStatement insertStatement = connection.prepareStatement(insertQuery)) {
+            insertStatement.setInt(1, bookId);
+            insertStatement.executeUpdate();
         }
     }
 
     private void removeFromWishlist(int bookId) throws SQLException {
         String deleteQuery = "DELETE FROM wishlist WHERE id_buku = ?";
-        try (Connection connection = DatabaseConnector.connect()){
-            try (PreparedStatement deleteStatement = connection.prepareStatement(deleteQuery)) {
-                deleteStatement.setInt(1, bookId);
-                deleteStatement.executeUpdate();
-            }
+        try (PreparedStatement deleteStatement = connection.prepareStatement(deleteQuery)) {
+            deleteStatement.setInt(1, bookId);
+            deleteStatement.executeUpdate();
         }
-
     }
 
     private boolean isBookInWishlist(int bookId) throws SQLException {
         String query = "SELECT COUNT(*) FROM wishlist WHERE id_buku = ?";
-        try (Connection connection = DatabaseConnector.connect()){
-            try (PreparedStatement statement = connection.prepareStatement(query)) {
-                statement.setInt(1, bookId);
-                try (ResultSet resultSet = statement.executeQuery()) {
-                    if (resultSet.next()) {
-                        int count = resultSet.getInt(1);
-                        return count > 0;
-                    }
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1, bookId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    int count = resultSet.getInt(1);
+                    return count > 0;
                 }
             }
         }
         return false;
     }
 
+    public void btnSearch(ActionEvent actionEvent) {
+    }
 
-    public void btnwishlist(ActionEvent actionEvent) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("menu-wishlist.fxml"));
+    public void btnDipinjam(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("menu.dipinjam.fxml"));
         Parent root = loader.load();
         Scene newScene = new Scene(root);
-        Stage currentStage = (Stage) btnRak.getScene().getWindow();
+        Stage currentStage = (Stage) btnWishlist.getScene().getWindow();
+        currentStage.setScene(newScene);
+        currentStage.show();
+    }
+
+    public void btnRak(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("menu-rak.fxml"));
+        Parent root = loader.load();
+        Scene newScene = new Scene(root);
+        Stage currentStage = (Stage) btnWishlist.getScene().getWindow();
         currentStage.setScene(newScene);
         currentStage.show();
     }

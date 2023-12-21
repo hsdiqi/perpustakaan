@@ -1,10 +1,16 @@
 package perpus;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,6 +18,7 @@ import java.sql.SQLException;
 
 public class menuDipinjamController {
     public VBox vbListDipinjam;
+    public Button btnDipinjam;
 
 
     public void initialize() {
@@ -58,9 +65,21 @@ public class menuDipinjamController {
     public void btnSearch(ActionEvent actionEvent) {
     }
 
-    public void btnRak(ActionEvent actionEvent) {
+    public void btnRak(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("menu-rak.fxml"));
+        Parent root = loader.load();
+        Scene newScene = new Scene(root);
+        Stage currentStage = (Stage) btnDipinjam.getScene().getWindow();
+        currentStage.setScene(newScene);
+        currentStage.show();
     }
 
-    public void btnwishlist(ActionEvent actionEvent) {
+    public void btnwishlist(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("menu-wishlist.fxml"));
+        Parent root = loader.load();
+        Scene newScene = new Scene(root);
+        Stage currentStage = (Stage) btnDipinjam.getScene().getWindow();
+        currentStage.setScene(newScene);
+        currentStage.show();
     }
 }
