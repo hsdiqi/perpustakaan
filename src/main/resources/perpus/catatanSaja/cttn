@@ -1,0 +1,5 @@
+SQL Query creat table
+CREATE TABLE `perpustakaan`.`dipinjam_user1` (`id_buku` INT NOT NULL AUTO_INCREMENT , `judul` VARCHAR(50) NOT NULL , `genre` VARCHAR(50) NOT NULL , `tahun_rilis` INT(4) NOT NULL , `tanggal_pinjam` DATE NOT NULL , PRIMARY KEY (`id_buku`)) ENGINE = InnoDB;
+
+SQL Query tambah data ke tabel
+INSERT INTO `dipinjam` (`id_buku`, `judul`, `genre`, `tahun_rilis`, `tanggal pinjam`) VALUES ('1', 'Dunia Shopie', 'Filsafat', '2004', '2023-12-05')
