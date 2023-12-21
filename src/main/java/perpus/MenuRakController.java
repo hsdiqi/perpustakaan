@@ -1,7 +1,6 @@
 package perpus;
 
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
@@ -24,6 +23,8 @@ public class MenuRakController implements Initializable {
 
     @FXML
     private VBox vbRakList;  // VBox to contain GridPanes
+    ImageView likeImage = new ImageView(new Image(getClass().getResource("/perpus/assets/heart.png").toExternalForm()));
+
 
 
     @Override
@@ -139,6 +140,13 @@ public class MenuRakController implements Initializable {
         likeImage.getStyleClass().add("image_heart");
         likeImage.setFitHeight(17.0);
         likeImage.setFitWidth(16.0);
+        likeImage.setOnMouseClicked(event -> {
+            try {
+                heartClicked(Integer.parseInt(resultSet.getString("id_buku")));
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        });
 
         // Add nodes to the gridPane
         gridPane.add(lbNJudul, 0, 0);
@@ -185,6 +193,55 @@ public class MenuRakController implements Initializable {
 
     public void btnRak(ActionEvent actionEvent) {
     }
+    Connection connection = (Connection) new DatabaseConnector();
+    
+    @FXML
+    private void heartClicked(int bookId) {
+        try (Connection connection = DatabaseConnector.connect()) {
+            if (isBookInWishlist(bookId)) {
+                removeFromWishlist(bookId);
+
+                likeImage.setImage(new Image(getClass().getResource("/perpus/assets/heart.png").toExternalForm()));
+            } else {
+                addToWishlist(bookId);
+
+                likeImage.setImage(new Image(getClass().getResource("/perpus/assets/heartFillRed.png").toExternalForm()));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void addToWishlist(int bookId) throws SQLException {
+        String insertQuery = "INSERT INTO wishlist (id_buku) VALUES (?)";
+        try (PreparedStatement insertStatement = connection.prepareStatement(insertQuery)) {
+            insertStatement.setInt(1, bookId);
+            insertStatement.executeUpdate();
+        }
+    }
+
+    private void removeFromWishlist(int bookId) throws SQLException {
+        String deleteQuery = "DELETE FROM wishlist WHERE id_buku = ?";
+        try (PreparedStatement deleteStatement = connection.prepareStatement(deleteQuery)) {
+            deleteStatement.setInt(1, bookId);
+            deleteStatement.executeUpdate();
+        }
+    }
+
+    private boolean isBookInWishlist(int bookId) throws SQLException {
+        String query = "SELECT COUNT(*) FROM wishlist WHERE id_buku = ?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1, bookId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    int count = resultSet.getInt(1);
+                    return count > 0;
+                }
+            }
+        }
+        return false;
+    }
+
 
     public void btnwishlist(ActionEvent actionEvent) {
     }

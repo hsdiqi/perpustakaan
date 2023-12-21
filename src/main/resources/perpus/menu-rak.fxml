@@ -45,7 +45,7 @@
         <HBox alignment="CENTER" layoutY="79.0" prefHeight="40.0" prefWidth="360.0" spacing="35.0" style="-fx-background-color: aquamarine;">
             <children>
                 <Button mnemonicParsing="false" onAction="#btnDipinjam" prefHeight="27.0" prefWidth="87.0" styleClass="button_header" text="Dipinjam" />
-                <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnRak" prefHeight="28.0" prefWidth="87.0" styleClass="button_header" text="Rak" />
+                <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" fx:id="btnRak" prefHeight="28.0" prefWidth="87.0" styleClass="button_header" text="Rak" />
                 <Button layoutX="62.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnwishlist" prefHeight="28.0" prefWidth="87.0" styleClass="button_header" text="Wishlist" />
             </children>
         </HBox>

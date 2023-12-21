@@ -9,6 +9,16 @@
     -fx-start-margin: 10;
     -fx-pref-height: 10;
 }
+#btnDipinjam{
+    -fx-border-color: grey;
+}
+#btnRak{
+    -fx-border-color: grey;
+}
+#btnWishlist{
+
+}
+
 Button{
     /*-fx-border-color: blue;*/
     -fx-background-radius: 15;
