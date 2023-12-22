@@ -186,7 +186,6 @@ public class menuWishlistController implements Initializable{
             throw new RuntimeException(e);
         }
     }
-    Connection connection = (Connection) new DatabaseConnector();
 
     @FXML
     private void heartClicked(int bookId) {
@@ -206,6 +205,7 @@ public class menuWishlistController implements Initializable{
     }
 
     private void addToWishlist(int bookId) throws SQLException {
+        Connection connection = DatabaseConnector.connect();
         String insertQuery = "INSERT INTO wishlist (id_buku) VALUES (?)";
         try (PreparedStatement insertStatement = connection.prepareStatement(insertQuery)) {
             insertStatement.setInt(1, bookId);
@@ -214,6 +214,7 @@ public class menuWishlistController implements Initializable{
     }
 
     private void removeFromWishlist(int bookId) throws SQLException {
+        Connection connection = DatabaseConnector.connect();
         String deleteQuery = "DELETE FROM wishlist WHERE id_buku = ?";
         try (PreparedStatement deleteStatement = connection.prepareStatement(deleteQuery)) {
             deleteStatement.setInt(1, bookId);
@@ -222,6 +223,7 @@ public class menuWishlistController implements Initializable{
     }
 
     private boolean isBookInWishlist(int bookId) throws SQLException {
+        Connection connection = DatabaseConnector.connect();
         String query = "SELECT COUNT(*) FROM wishlist WHERE id_buku = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setInt(1, bookId);
@@ -236,6 +238,7 @@ public class menuWishlistController implements Initializable{
     }
 
     public void btnSearch(ActionEvent actionEvent) {
+        
     }
 
     public void btnDipinjam(ActionEvent actionEvent) throws IOException {
