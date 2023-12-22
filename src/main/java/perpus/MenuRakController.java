@@ -56,6 +56,7 @@ public class MenuRakController implements Initializable {
     }
 
     private GridPane createGridPane(ResultSet resultSet) throws SQLException {
+        int idBuku = resultSet.getInt("id_buku");
         GridPane gridPane = new GridPane();
         gridPane.getStyleClass().add("GPList");
 
@@ -135,11 +136,7 @@ public class MenuRakController implements Initializable {
         btnPinjam.getStyleClass().add("btn_pinjam");
         VBox.setMargin(btnPinjam, new Insets(0,0,10,0));
         btnPinjam.setOnAction(actionEvent -> {
-            try (Connection connection = DatabaseConnector.connect()) {
-                btnPinjamClicked(Integer.parseInt(resultSet.getString("id_buku")));
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
+            btnPinjamClicked(idBuku);
         });
 
         ImageView likeImage = new ImageView(new Image(getClass().getResource("/perpus/assets/heart.png").toExternalForm()));
@@ -147,11 +144,7 @@ public class MenuRakController implements Initializable {
         likeImage.setFitHeight(17.0);
         likeImage.setFitWidth(16.0);
         likeImage.setOnMouseClicked(event -> {
-            try {
-                heartClicked(Integer.parseInt(resultSet.getString("id_buku")));
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
+            heartClicked(idBuku);
         });
 
         // Add nodes to the gridPane
@@ -175,12 +168,12 @@ public class MenuRakController implements Initializable {
 
     private void btnPinjamClicked(int bookId) {
         try (Connection connection = DatabaseConnector.connect()){
-            String updateQuery = "UPDATE buku SET stok - 1 WHERE id_buku = ?";
+            String updateQuery = "UPDATE buku SET stok = stok - 1 WHERE id_buku = ?";
             try(PreparedStatement updateStatement = connection.prepareStatement(updateQuery)){
                 updateStatement.setInt(1, bookId);
                 updateStatement.executeUpdate();
             }
-            String insertQuery = "INSERT INTO dipinjam (id_buku) VALUES (?)";
+            String insertQuery = "INSERT INTO dipinjam (id_buku, genre, judul,tahun_rilis) SELECT id_buku, genre, judul,tahun_rilis FROM buku WHERE id_buku = ?";
             try (PreparedStatement insertStatement = connection.prepareStatement(insertQuery)) {
                 insertStatement.setInt(1, bookId);
                 insertStatement.executeUpdate();

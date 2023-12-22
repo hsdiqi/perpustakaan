@@ -12,7 +12,6 @@ public class libraryAplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(libraryAplication.class.getResource("login.fxml"));
-
         Scene scene = new Scene(fxmlLoader.load(), 360, 640);
         stage.setTitle("Perpustakaan");
         stage.setScene(scene);
