@@ -22,6 +22,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 public class MenuRakController implements Initializable {
@@ -177,6 +179,16 @@ public class MenuRakController implements Initializable {
             try (PreparedStatement insertStatement = connection.prepareStatement(insertQuery)) {
                 insertStatement.setInt(1, bookId);
                 insertStatement.executeUpdate();
+            }
+            String InsertQuery2 = "INSERT INTO dipinjam (tanggal_pinjam) VALUES (?) WHERE id_buku = ?";
+            try (PreparedStatement InsertQuery2Statement = connection.prepareStatement(insertQuery)) {
+                LocalDate localDate = LocalDate.now();//For reference
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd llll yyyy");
+                String formattedString = localDate.format(formatter);
+                System.out.println(formattedString);
+                InsertQuery2Statement.setInt(1, Integer.parseInt(formattedString));
+                InsertQuery2Statement.setInt(2, bookId);
+                InsertQuery2Statement.executeUpdate();
             }
             loadDataFromDatabase();
         } catch (SQLException e) {
