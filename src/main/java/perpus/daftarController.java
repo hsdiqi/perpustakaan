@@ -85,8 +85,13 @@ public class daftarController {
                 user.email = email;
                 user.username = username;
                 user.password = password;
+                ResultSet generatedKeys = statement.getGeneratedKeys();
+                if (generatedKeys.next()) {
+                    user.userId = generatedKeys.getInt(1);
+                } else {
+                    throw new SQLException("Failed to get user ID, no rows affected.");
+                }
             }
-
             statement.close();
             connection.close();
 
@@ -100,11 +105,7 @@ public class daftarController {
         Pattern regexPattern = Pattern.compile("^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$");
         Matcher regexMatcher = regexPattern.matcher(email);
         boolean isTrue = regexMatcher.find();
-        if (isTrue){
-            return true;
-        }else{
-            return false;
-        }
+        return isTrue;
     }
 
 

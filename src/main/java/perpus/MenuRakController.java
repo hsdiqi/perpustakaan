@@ -175,15 +175,15 @@ public class MenuRakController implements Initializable {
 
     private void btnPinjamClicked(int bookId) {
         try (Connection connection = DatabaseConnector.connect()){
-            String updateQuery = "UPDATE buku SET stok = - 1 WHERE id_buku = ?";
-            try(PreparedStatement updateStatment = connection.prepareStatement(updateQuery)){
-                updateStatment.setInt(1, bookId);
-                updateStatment.executeUpdate();
+            String updateQuery = "UPDATE buku SET stok - 1 WHERE id_buku = ?";
+            try(PreparedStatement updateStatement = connection.prepareStatement(updateQuery)){
+                updateStatement.setInt(1, bookId);
+                updateStatement.executeUpdate();
             }
             String insertQuery = "INSERT INTO dipinjam (id_buku) VALUES (?)";
-            try (PreparedStatement isertStatment = connection.prepareStatement(insertQuery)) {
-                isertStatment.setInt(1, bookId);
-                isertStatment.executeUpdate();
+            try (PreparedStatement insertStatement = connection.prepareStatement(insertQuery)) {
+                insertStatement.setInt(1, bookId);
+                insertStatement.executeUpdate();
             }
             loadDataFromDatabase();
         } catch (SQLException e) {
