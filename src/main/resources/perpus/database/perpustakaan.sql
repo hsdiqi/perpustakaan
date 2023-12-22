@@ -44,7 +44,8 @@ CREATE TABLE `dipinjam` (
                             `judul` varchar(50) NOT NULL,
                             `genre` varchar(50) NOT NULL,
                             `tahun_rilis` int(4) NOT NULL,
-                            `tanggal pinjam` date NOT NULL DEFAULT current_timestamp()
+                            `tanggal pinjam` date NOT NULL DEFAULT current_timestamp(),
+                            'id_dipinjam' int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `users` (
