@@ -11,5 +11,7 @@ module perpus.perpustakaan {
     requires java.sql;
 
     exports perpus;
+    exports perpus.nyobaktok;
+    opens perpus.nyobaktok to javafx.fxml;
     opens perpus to javafx.fxml;
 }
