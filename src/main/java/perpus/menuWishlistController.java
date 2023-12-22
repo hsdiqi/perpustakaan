@@ -238,7 +238,7 @@ public class menuWishlistController implements Initializable{
     }
 
     public void btnSearch(ActionEvent actionEvent) {
-        
+
     }
 
     public void btnDipinjam(ActionEvent actionEvent) throws IOException {
