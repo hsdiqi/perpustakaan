@@ -44,13 +44,20 @@ CREATE TABLE `dipinjam` (
                             `judul` varchar(50) NOT NULL,
                             `genre` varchar(50) NOT NULL,
                             `tahun_rilis` int(4) NOT NULL,
-<<<<<<< HEAD
-                            `tanggal pinjam` date NOT NULL DEFAULT current_timestamp(),
-                            'id_dipinjam' int(11) NOT NULL
-=======
-                            `tanggal_pinjam` date NOT NULL DEFAULT current_timestamp()
->>>>>>> 49164edaa075ee083fd31884c8d183e68b8e8022
+                            `tanggal_pinjam` date NOT NULL DEFAULT current_timestamp(),
+                            `peminjamId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO `dipinjam` (`id_buku`, `judul`, `genre`, `tahun_rilis`, `tanggal_pinjam`, `peminjamId`) VALUES
+                                                                                                        (1, 'Krisis Kebebasan', 'Sosial', 2001, '2023-12-25', 0),
+                                                                                                        (6, 'H.O.S Tjokroaminoto', 'Biography', 2015, '2023-12-25', 0),
+                                                                                                        (7, 'KKN di Desa Penari', 'Horor', 2019, '2023-12-25', 0),
+                                                                                                        (8, 'Kelahiran yang dipersoalkan', 'Sosial', 1990, '2023-12-25', 0),
+                                                                                                        (10, 'Menuju Hidup Mulia', 'Agama', 1998, '2023-12-25', 0),
+                                                                                                        (11, 'Logika Cinta', 'Novel', 2016, '2023-12-25', 0),
+                                                                                                        (12, 'drama Mangir', 'Novel', 2000, '2023-12-25', 0),
+                                                                                                        (15, 'Madilog Tan Malaka', 'Filsafat', 2019, '2023-12-25', 0),
+                                                                                                        (17, 'Hukum Adat Indonesia', 'Hukum', 2020, '2023-12-25', 0);
 
 CREATE TABLE `users` (
                          `id_user` int(11) NOT NULL,
@@ -61,13 +68,16 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 INSERT INTO `users` (`id_user`, `nama`, `username`, `email`, `password`) VALUES
-    (1, 'kanda', 'kakanda', 'kanda@gmail.com', 'Kakanda');
+                                                                             (1, 'bro', 'brody', 'wakanda@gmail.com', 'brody123'),
+                                                                             (2, 'b', 'b', 'b@gmail.com', 'b');
 
 CREATE TABLE `wishlist` (
                             `id_buku` int(11) NOT NULL,
                             `judul` varchar(50) NOT NULL,
                             `genre` varchar(50) NOT NULL,
-                            `tahun_rilis` int(4) NOT NULL
+                            `tahun_rilis` int(4) NOT NULL,
+                            `stok` int(25) NOT NULL,
+                            `peminjamId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
@@ -76,11 +86,11 @@ ALTER TABLE `admin`
 
 ALTER TABLE `buku`
     ADD PRIMARY KEY (`id_buku`),
-  ADD UNIQUE KEY `uniq` (`kode_buku`);
+    ADD UNIQUE KEY `uniq` (`kode_buku`);
 
 ALTER TABLE `dipinjam`
     ADD PRIMARY KEY (`id_buku`),
-  ADD UNIQUE KEY `id_buku` (`id_buku`);
+    ADD UNIQUE KEY `id_buku` (`id_buku`);
 
 ALTER TABLE `users`
     ADD PRIMARY KEY (`id_user`);
@@ -96,4 +106,4 @@ ALTER TABLE `buku`
     MODIFY `id_buku` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 ALTER TABLE `users`
-    MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+    MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
