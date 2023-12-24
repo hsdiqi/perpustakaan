@@ -169,18 +169,14 @@ public class MenuRakController implements Initializable {
         dataSementara ds = new dataSementara();
         int idUser = ds.getUserId();
         try (Connection connection = DatabaseConnector.connect()){
-            String insertQuery = "INSERT INTO dipinjam (id_buku, genre, judul,tahun_rilis) SELECT id_buku, genre, judul,tahun_rilis FROM buku WHERE id_buku = ?";
+            String insertQuery = "INSERT INTO dipinjam (id_buku, genre, judul,tahun_rilis, tanggal_pinjam, peminjamId) SELECT id_buku, genre, judul,tahun_rilis,? , ? FROM buku WHERE id_buku = ?";
             try (PreparedStatement insertStatement = connection.prepareStatement(insertQuery)) {
-                insertStatement.setInt(1, bookId);
+                insertStatement.setDate(1, java.sql.Date.valueOf(tanggalPinjam));
+                insertStatement.setInt(2, idUser);
+                insertStatement.setInt(3, bookId);
                 insertStatement.executeUpdate();
             }
-            String InsertQuery2 = "INSERT INTO dipinjam (tanggal_pinjam, peminjamId) VALUES (?, ?) WHERE id_buku = ?";
-            try (PreparedStatement InsertQuery2Statement = connection.prepareStatement(InsertQuery2)){
-                InsertQuery2Statement.setDate(1, java.sql.Date.valueOf(tanggalPinjam));
-                InsertQuery2Statement.setInt(2, idUser);
-                InsertQuery2Statement.setInt(3, bookId);
-                InsertQuery2Statement.executeUpdate();
-            }
+
             String updateQuery = "UPDATE buku SET stok = stok - 1 WHERE id_buku = ?";
             try(PreparedStatement updateStatement = connection.prepareStatement(updateQuery)){
                 updateStatement.setInt(1, bookId);
@@ -190,6 +186,7 @@ public class MenuRakController implements Initializable {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        System.out.println(idUser);
     }
 
     public void btnSearch(ActionEvent actionEvent) {

@@ -27,7 +27,7 @@ public class menuDipinjamController {
 
     public void loadDataFromDatabase() {
         try (Connection connection = DatabaseConnector.connect()) {
-            String query = "SELECT judul, genre, tahun_rilis, tanggal_pinjam FROM dipinjam WHERE id_buku > 0";
+            String query = "SELECT judul, genre, tahun_rilis, tanggal_pinjam FROM dipinjam WHERE peminjamId > 0";
             try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
                 try (ResultSet resultSet = preparedStatement.executeQuery()) {
                     while (resultSet.next()) {
