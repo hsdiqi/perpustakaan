@@ -18,12 +18,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 public class MenuRakController implements Initializable {
@@ -169,26 +165,26 @@ public class MenuRakController implements Initializable {
     }
 
     private void btnPinjamClicked(int bookId) {
+        LocalDate tanggalPinjam = LocalDate.now();
+        dataSementara ds = new dataSementara();
+        int idUser = ds.getUserId();
         try (Connection connection = DatabaseConnector.connect()){
-            String updateQuery = "UPDATE buku SET stok = stok - 1 WHERE id_buku = ?";
-            try(PreparedStatement updateStatement = connection.prepareStatement(updateQuery)){
-                updateStatement.setInt(1, bookId);
-                updateStatement.executeUpdate();
-            }
             String insertQuery = "INSERT INTO dipinjam (id_buku, genre, judul,tahun_rilis) SELECT id_buku, genre, judul,tahun_rilis FROM buku WHERE id_buku = ?";
             try (PreparedStatement insertStatement = connection.prepareStatement(insertQuery)) {
                 insertStatement.setInt(1, bookId);
                 insertStatement.executeUpdate();
             }
-            String InsertQuery2 = "INSERT INTO dipinjam (tanggal_pinjam) VALUES (?) WHERE id_buku = ?";
-            try (PreparedStatement InsertQuery2Statement = connection.prepareStatement(insertQuery)) {
-                LocalDate localDate = LocalDate.now();//For reference
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd llll yyyy");
-                String formattedString = localDate.format(formatter);
-                System.out.println(formattedString);
-                InsertQuery2Statement.setInt(1, Integer.parseInt(formattedString));
-                InsertQuery2Statement.setInt(2, bookId);
+            String InsertQuery2 = "INSERT INTO dipinjam (tanggal_pinjam, peminjamId) VALUES (?, ?) WHERE id_buku = ?";
+            try (PreparedStatement InsertQuery2Statement = connection.prepareStatement(InsertQuery2)){
+                InsertQuery2Statement.setDate(1, java.sql.Date.valueOf(tanggalPinjam));
+                InsertQuery2Statement.setInt(2, idUser);
+                InsertQuery2Statement.setInt(3, bookId);
                 InsertQuery2Statement.executeUpdate();
+            }
+            String updateQuery = "UPDATE buku SET stok = stok - 1 WHERE id_buku = ?";
+            try(PreparedStatement updateStatement = connection.prepareStatement(updateQuery)){
+                updateStatement.setInt(1, bookId);
+                updateStatement.executeUpdate();
             }
             loadDataFromDatabase();
         } catch (SQLException e) {

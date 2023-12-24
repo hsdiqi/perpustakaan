@@ -1,6 +1,5 @@
 package perpus;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -32,6 +31,7 @@ public class logincontroller {
         String password = pwText.getText();
 
         if (!username.isEmpty() && !password.isEmpty()) {
+            validasi.getIdUser(username);
             boolean cekLogin = validasi.validatedLogin(username, password);
             if (cekLogin) {
                 alertText.setText("Login Sukses");

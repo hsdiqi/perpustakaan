@@ -64,9 +64,9 @@ public class daftarController {
         }
     }
 
-    public static User user;
-    private User addUserToDatabase(String nama, String username, String email, String password){
-        User user = null;
+    public static dataSementara user;
+    private dataSementara addUserToDatabase(String nama, String username, String email, String password){
+        dataSementara user = null;
         try {
             Connection connection = DatabaseConnector.connect();
             Statement statement = connection.createStatement();
@@ -80,7 +80,7 @@ public class daftarController {
             //tambah row ke table
             int addedRows = preparedStatement.executeUpdate();
             if (addedRows > 0){
-                user = new User();
+                user = new dataSementara();
                 user.nama = nama;
                 user.email = email;
                 user.username = username;
