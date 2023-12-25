@@ -9,6 +9,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.VPos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -166,27 +167,60 @@ public class MenuRakController implements Initializable {
 
     private void btnPinjamClicked(int bookId) {
         LocalDate tanggalPinjam = LocalDate.now();
-//        int idUser = DataSesi.getUserId();
-        try (Connection connection = DatabaseConnector.connect()){
-            String insertQuery = "INSERT INTO dipinjam (id_buku, genre, judul,tahun_rilis, tanggal_pinjam, peminjamId) SELECT id_buku, genre, judul,tahun_rilis,? , ? FROM buku WHERE id_buku = ?";
-            try (PreparedStatement insertStatement = connection.prepareStatement(insertQuery)) {
-                insertStatement.setDate(1, java.sql.Date.valueOf(tanggalPinjam));
-                insertStatement.setInt(2, DataSesi.userId);
-                insertStatement.setInt(3, bookId);
-                insertStatement.executeUpdate();
-            }
 
-            String updateQuery = "UPDATE buku SET stok = stok - 1 WHERE id_buku = ?";
-            try(PreparedStatement updateStatement = connection.prepareStatement(updateQuery)){
-                updateStatement.setInt(1, bookId);
-                updateStatement.executeUpdate();
+        try (Connection connection = DatabaseConnector.connect()) {
+            String cekStok = "SELECT stok FROM buku WHERE id_buku = ?";
+            String cekDipinjam = "SELECT id_buku FROM dipinjam WHERE peminjamId = ?";
+            try (PreparedStatement getStokStatement = connection.prepareStatement(cekStok);
+                 PreparedStatement cekBukuDipinjam = connection.prepareStatement(cekDipinjam)) {
+                cekBukuDipinjam.setInt(1, DataSesi2.getUserId());
+                getStokStatement.setInt(1, bookId);
+                try (ResultSet checkStok = getStokStatement.executeQuery();
+                     ResultSet checkDipinjam = cekBukuDipinjam.executeQuery()) {
+                    if (checkStok.next()) {
+                        int stok = checkStok.getInt("stok");
+                        if (stok == 0) {
+                            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                            alert.setHeaderText(null);
+                            alert.setContentText("Maaf Stok buku kosong!");
+                        } else {
+                            boolean siapDipinjam = false;
+                            while (checkDipinjam.next()) {
+                                int idBoookk = checkDipinjam.getInt("id_buku");
+                                if (idBoookk == bookId) {
+                                    siapDipinjam = true;
+                                    break;
+                                }
+                            }
+                            if (siapDipinjam) {
+                                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                                alert.setHeaderText(null);
+                                alert.setContentText("Buku sudah dipinjam!");
+                            } else {
+                                String insertQuery = "INSERT INTO dipinjam (id_buku, genre, judul,tahun_rilis, tanggal_pinjam, peminjamId) SELECT id_buku, genre, judul,tahun_rilis,? , ? FROM buku WHERE id_buku = ?";
+                                try (PreparedStatement insertStatement = connection.prepareStatement(insertQuery)) {
+                                    insertStatement.setDate(1, java.sql.Date.valueOf(tanggalPinjam));
+                                    insertStatement.setInt(2, DataSesi.userId);
+                                    insertStatement.setInt(3, bookId);
+                                    insertStatement.executeUpdate();
+                                }
+                                String updateQuery = "UPDATE buku SET stok = stok - 1 WHERE id_buku = ?";
+                                try (PreparedStatement updateStatement = connection.prepareStatement(updateQuery)) {
+                                    updateStatement.setInt(1, bookId);
+                                    updateStatement.executeUpdate();
+                                }
+                                loadDataFromDatabase();
+                            }
+                            System.out.println(DataSesi.getUserId());
+                        }
+                    }
+                }
             }
-            loadDataFromDatabase();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        System.out.println(DataSesi.getUserId());
     }
+
 
     public void btnSearch(ActionEvent actionEvent) {
     }

@@ -242,7 +242,7 @@ public class menuWishlistController implements Initializable{
     }
 
     public void btnDipinjam(ActionEvent actionEvent) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("menu.dipinjam.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("menu-dipinjam.fxml"));
         Parent root = loader.load();
         Scene newScene = new Scene(root);
         Stage currentStage = (Stage) btnWishlist.getScene().getWindow();
