@@ -7,13 +7,11 @@ Aplikasi ini merupakan sebuah sistem manajemen perpustakaan yang dikembangkan de
 - **JavaFX Controls**: Library JavaFX untuk komponen GUI.
 - **JavaFX FXML**: Mendukung pemisahan antara desain dan logika aplikasi.
 - **JavaFX Web**: Menyediakan komponen untuk integrasi web.
-- **JavaFX Media**: Menyediakan fungsionalitas media seperti audio dan video.
 - **ControlsFX**: Kumpulan komponen UI tambahan untuk JavaFX.
 - **FormsFX**: Library untuk membuat formulir interaktif.
 - **ValidatorFX**: Library untuk validasi input pada JavaFX.
 - **Ikonli JavaFX**: Library ikon untuk JavaFX.
 - **BootstrapFX**: Integrasi Bootstrap dengan JavaFX.
-- **FXGL**: Framework untuk pengembangan permainan dengan JavaFX.
 
 ## Struktur Proyek
 
