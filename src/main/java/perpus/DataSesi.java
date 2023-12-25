@@ -1,49 +1,25 @@
 package perpus;
 
-public class dataSementara {
-    public String nama;
-    public String username;
-    public String email;
-    public String password;
-    public int userId;
+public class DataSesi {
+    public static String nama;
+    public static String password;
+    public static String email;
+    public static String username;
+    public static int userId;
 
-    public String getNama() {
-        return nama;
-    }
-
-    public void setNama(String nama) {
-        this.nama = nama;
-    }
-
-    public String getUsername() {
+    public static String getUsername() {
         return username;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public static void setUsername(String username) {
+        DataSesi.username = username;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public int getUserId() {
+    public static int getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public static void setUserId(int userId) {
+        DataSesi.userId = userId;
     }
 }

@@ -166,13 +166,12 @@ public class MenuRakController implements Initializable {
 
     private void btnPinjamClicked(int bookId) {
         LocalDate tanggalPinjam = LocalDate.now();
-        dataSementara ds = new dataSementara();
-        int idUser = ds.getUserId();
+//        int idUser = DataSesi.getUserId();
         try (Connection connection = DatabaseConnector.connect()){
             String insertQuery = "INSERT INTO dipinjam (id_buku, genre, judul,tahun_rilis, tanggal_pinjam, peminjamId) SELECT id_buku, genre, judul,tahun_rilis,? , ? FROM buku WHERE id_buku = ?";
             try (PreparedStatement insertStatement = connection.prepareStatement(insertQuery)) {
                 insertStatement.setDate(1, java.sql.Date.valueOf(tanggalPinjam));
-                insertStatement.setInt(2, idUser);
+                insertStatement.setInt(2, DataSesi.userId);
                 insertStatement.setInt(3, bookId);
                 insertStatement.executeUpdate();
             }
@@ -186,7 +185,7 @@ public class MenuRakController implements Initializable {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        System.out.println(idUser);
+        System.out.println(DataSesi.getUserId());
     }
 
     public void btnSearch(ActionEvent actionEvent) {

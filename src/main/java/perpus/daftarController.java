@@ -64,9 +64,9 @@ public class daftarController {
         }
     }
 
-    public static dataSementara user;
-    private dataSementara addUserToDatabase(String nama, String username, String email, String password){
-        dataSementara user = null;
+    public static DataSesi user;
+    private DataSesi addUserToDatabase(String nama, String username, String email, String password){
+        DataSesi user = null;
         try {
             Connection connection = DatabaseConnector.connect();
             Statement statement = connection.createStatement();
@@ -80,14 +80,13 @@ public class daftarController {
             //tambah row ke table
             int addedRows = preparedStatement.executeUpdate();
             if (addedRows > 0){
-                user = new dataSementara();
-                user.nama = nama;
-                user.email = email;
-                user.username = username;
-                user.password = password;
+                DataSesi.nama = nama;
+                DataSesi.email = email;
+                DataSesi.username = username;
+                DataSesi.password = password;
                 ResultSet generatedKeys = statement.getGeneratedKeys();
                 if (generatedKeys.next()) {
-                    user.userId = generatedKeys.getInt(1);
+                    DataSesi.userId = generatedKeys.getInt(1);
                 } else {
                     throw new SQLException("Failed to get user ID, no rows affected.");
                 }
