@@ -14,7 +14,7 @@ public class validasi {
              PreparedStatement preparedStatement = connection.prepareStatement(logValidationQuery)){
             preparedStatement.setString(1, username);
             preparedStatement.setString(2, password);
-            DataSesi2.setUsername(username);
+            nowSesion.setUsername(username);
 
             try (ResultSet resultSet = preparedStatement.executeQuery()){
                 return resultSet.next();
@@ -30,7 +30,7 @@ public class validasi {
             preparedStatement.setString(1,username);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                DataSesi2.userId = resultSet.getInt("id_user");
+                nowSesion.userId = resultSet.getInt("id_user");
             } else {
                 System.out.println("Username tidak ditemukan");
             }

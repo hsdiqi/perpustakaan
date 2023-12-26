@@ -1,6 +1,6 @@
 package perpus;
 
-public class DataSesi2 {
+public class nowSesion {
     public static String username;
     public static int userId;
 
@@ -9,7 +9,7 @@ public class DataSesi2 {
     }
 
     public static void setUsername(String username) {
-        DataSesi2.username = username;
+        nowSesion.username = username;
     }
 
     public static int getUserId() {
@@ -17,6 +17,6 @@ public class DataSesi2 {
     }
 
     public static void setUserId(int userId) {
-        DataSesi2.userId = userId;
+        nowSesion.userId = userId;
     }
 }

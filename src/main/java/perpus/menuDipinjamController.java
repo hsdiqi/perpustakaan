@@ -62,9 +62,6 @@ public class menuDipinjamController {
     }
 
     // Action btn in header
-    public void btnSearch(ActionEvent actionEvent) {
-    }
-
     public void btnRak(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("menu-rak.fxml"));
         Parent root = loader.load();
@@ -74,8 +71,8 @@ public class menuDipinjamController {
         currentStage.show();
     }
 
-    public void btnwishlist(ActionEvent actionEvent) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("menu-wishlist.fxml"));
+    public void btnSearch(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("menu-search.fxml"));
         Parent root = loader.load();
         Scene newScene = new Scene(root);
         Stage currentStage = (Stage) btnDipinjam.getScene().getWindow();

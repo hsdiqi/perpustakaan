@@ -1,7 +1,6 @@
 package perpus;
 
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
@@ -9,10 +8,10 @@ import javafx.geometry.Insets;
 import javafx.geometry.VPos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
@@ -22,14 +21,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 
-public class menuWishlistController implements Initializable{
+public class menuSearchController implements Initializable{
     public VBox vbWishlist;
     public Button btnWishlist;
-
-    ImageView likeImage = new ImageView(new Image(getClass().getResource("/perpus/assets/heart.png").toExternalForm()));
+    public TextField tfSearch;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -38,10 +37,9 @@ public class menuWishlistController implements Initializable{
 
     private void loadDataFromDatabase() {
         try (Connection connection = DatabaseConnector.connect()) {
-            String query = "SELECT id_buku, judul, genre, tahun_rilis, stok  FROM wishlist"; // Replace with your actual table name
+            String query = "SELECT id_buku, judul, genre, tahun_rilis, stok  FROM buku"; // Replace with your actual table name
             try (PreparedStatement preparedStatement = connection.prepareStatement(query);
                  ResultSet resultSet = preparedStatement.executeQuery()) {
-
                 while (resultSet.next()) {
                     GridPane gridPane = createGridPane(resultSet);
                     vbWishlist.getChildren().add(gridPane);
@@ -139,18 +137,6 @@ public class menuWishlistController implements Initializable{
             }
         });
 
-        ImageView likeImage = new ImageView(new Image(getClass().getResource("/perpus/assets/heart.png").toExternalForm()));
-        likeImage.getStyleClass().add("image_heart");
-        likeImage.setFitHeight(17.0);
-        likeImage.setFitWidth(16.0);
-        likeImage.setOnMouseClicked(event -> {
-            try {
-                heartClicked(Integer.parseInt(resultSet.getString("id_buku")));
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-        });
-
         // Add nodes to the gridPane
         gridPane.add(lbNJudul, 0, 0);
         gridPane.add(lbNGenre, 0, 1);
@@ -165,82 +151,107 @@ public class menuWishlistController implements Initializable{
         gridPane.add(lbITahun, 2, 2);
         gridPane.add(lbIStok, 2, 3);
         gridPane.add(btnPinjam, 3, 3);
-        gridPane.add(likeImage, 3, 0);
 
         return gridPane;
     }
-    private void btnPinjamClicked(int bookId) {
-        try (Connection connection = DatabaseConnector.connect()){
-            String updateQuery = "UPDATE buku SET stok = - 1 WHERE id_buku = ?";
-            try(PreparedStatement updateStatment = connection.prepareStatement(updateQuery)){
-                updateStatment.setInt(1, bookId);
-                updateStatment.executeUpdate();
-            }
-            String insertQuery = "INSERT INTO dipinjam (id_buku) VALUES (?)";
-            try (PreparedStatement isertStatment = connection.prepareStatement(insertQuery)) {
-                isertStatment.setInt(1, bookId);
-                isertStatment.executeUpdate();
-            }
+
+    public void tfSearchClick(ActionEvent actionEvent) {
+        String searchText = tfSearch.getText().trim();
+        if (!searchText.isEmpty()){
+            searchBook(searchText);
+        }else {
             loadDataFromDatabase();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
         }
     }
+    public void searchBook(String name){
+        String srcQuery = "SELECT * FROM buku WHERE judul LIKE ?";
+        clearBook();
+        try(Connection connection =DatabaseConnector.connect()) {
+            try (PreparedStatement preparedStatement = connection.prepareStatement(srcQuery)) {
+                preparedStatement.setString(1, "%"+ name + "%");
+                ResultSet resultSet = preparedStatement.executeQuery();
 
-    @FXML
-    private void heartClicked(int bookId) {
-        try (Connection connection = DatabaseConnector.connect()) {
-            if (isBookInWishlist(bookId)) {
-                removeFromWishlist(bookId);
-
-                likeImage.setImage(new Image(getClass().getResource("/perpus/assets/heart.png").toExternalForm()));
-            } else {
-                addToWishlist(bookId);
-
-                likeImage.setImage(new Image(getClass().getResource("/perpus/assets/heartFillRed.png").toExternalForm()));
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private void addToWishlist(int bookId) throws SQLException {
-        Connection connection = DatabaseConnector.connect();
-        String insertQuery = "INSERT INTO wishlist (id_buku) VALUES (?)";
-        try (PreparedStatement insertStatement = connection.prepareStatement(insertQuery)) {
-            insertStatement.setInt(1, bookId);
-            insertStatement.executeUpdate();
-        }
-    }
-
-    private void removeFromWishlist(int bookId) throws SQLException {
-        Connection connection = DatabaseConnector.connect();
-        String deleteQuery = "DELETE FROM wishlist WHERE id_buku = ?";
-        try (PreparedStatement deleteStatement = connection.prepareStatement(deleteQuery)) {
-            deleteStatement.setInt(1, bookId);
-            deleteStatement.executeUpdate();
-        }
-    }
-
-    private boolean isBookInWishlist(int bookId) throws SQLException {
-        Connection connection = DatabaseConnector.connect();
-        String query = "SELECT COUNT(*) FROM wishlist WHERE id_buku = ?";
-        try (PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setInt(1, bookId);
-            try (ResultSet resultSet = statement.executeQuery()) {
-                if (resultSet.next()) {
-                    int count = resultSet.getInt(1);
-                    return count > 0;
+                while (resultSet.next()){
+                    GridPane gridPane = createGridPane(resultSet);
+                    vbWishlist.getChildren().add(gridPane);
                 }
             }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
-        return false;
+    }
+    public void displayBook(String query){
+        try(Connection connection = DatabaseConnector.connect()){
+            try(PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery()){
+                GridPane gridPaneSearch = createGridPane(resultSet);
+                vbWishlist.getChildren().add(gridPaneSearch);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void clearBook(){
+        vbWishlist.getChildren().clear();
     }
 
-    public void btnSearch(ActionEvent actionEvent) {
+    private void btnPinjamClicked(int bookId) {
+        LocalDate tanggalPinjam = LocalDate.now();
 
+        try (Connection connection = DatabaseConnector.connect()) {
+            String cekStok = "SELECT stok FROM buku WHERE id_buku = ?";
+            String cekDipinjam = "SELECT id_buku FROM dipinjam WHERE peminjamId = ?";
+            try (PreparedStatement getStokStatement = connection.prepareStatement(cekStok);
+                 PreparedStatement cekBukuDipinjam = connection.prepareStatement(cekDipinjam)) {
+                cekBukuDipinjam.setInt(1, nowSesion.getUserId());
+                getStokStatement.setInt(1, bookId);
+                try (ResultSet checkStok = getStokStatement.executeQuery();
+                     ResultSet checkDipinjam = cekBukuDipinjam.executeQuery()) {
+                    if (checkStok.next()) {
+                        int stok = checkStok.getInt("stok");
+                        if (stok == 0) {
+                            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                            alert.setHeaderText(null);
+                            alert.setContentText("Maaf Stok buku kosong!");
+                        } else {
+                            boolean siapDipinjam = false;
+                            while (checkDipinjam.next()) {
+                                int idBoookk = checkDipinjam.getInt("id_buku");
+                                if (idBoookk == bookId) {
+                                    siapDipinjam = true;
+                                    break;
+                                }
+                            }
+                            if (siapDipinjam) {
+                                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                                alert.setHeaderText(null);
+                                alert.setContentText("Buku sudah dipinjam!");
+                            } else {
+                                String insertQuery = "INSERT INTO dipinjam (id_buku, genre, judul,tahun_rilis, tanggal_pinjam, peminjamId) SELECT id_buku, genre, judul,tahun_rilis,? , ? FROM buku WHERE id_buku = ?";
+                                try (PreparedStatement insertStatement = connection.prepareStatement(insertQuery)) {
+                                    insertStatement.setDate(1, java.sql.Date.valueOf(tanggalPinjam));
+                                    insertStatement.setInt(2, DataSesi.userId);
+                                    insertStatement.setInt(3, bookId);
+                                    insertStatement.executeUpdate();
+                                }
+                                String updateQuery = "UPDATE buku SET stok = stok - 1 WHERE id_buku = ?";
+                                try (PreparedStatement updateStatement = connection.prepareStatement(updateQuery)) {
+                                    updateStatement.setInt(1, bookId);
+                                    updateStatement.executeUpdate();
+                                }
+                                loadDataFromDatabase();
+                            }
+                            System.out.println(DataSesi.getUserId());
+                        }
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
+    // action button in header
     public void btnDipinjam(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("menu-dipinjam.fxml"));
         Parent root = loader.load();

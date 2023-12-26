@@ -29,7 +29,7 @@ public class logincontroller {
     @FXML
     private Button btnLogin;
 
-    public  static DataSesi2 nowSesion;
+    public  static perpus.nowSesion nowSesion;
     @FXML
     protected void btnLogin() {
         String username = usNameText.getText();
@@ -42,11 +42,11 @@ public class logincontroller {
                     statementGetId.setString(1, username);
                     ResultSet resultSet = statementGetId.executeQuery();
                     if (resultSet.next()) {
-                        DataSesi2.setUserId(resultSet.getInt("id_user"));
+                        perpus.nowSesion.setUserId(resultSet.getInt("id_user"));
                     }
                     boolean cekLogin = validasi.validatedLogin(username, password);
                     if (cekLogin) {
-                        System.out.println(DataSesi2.getUserId());
+                        System.out.println(perpus.nowSesion.getUserId());
                         alertText.setText("Login Sukses");
                         changeSceneIfSuccess();
                     } else {
