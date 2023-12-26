@@ -1,6 +1,5 @@
 package perpus;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,6 +11,10 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class logincontroller {
 
@@ -26,18 +29,32 @@ public class logincontroller {
     @FXML
     private Button btnLogin;
 
+    public  static perpus.nowSesion nowSesion;
     @FXML
     protected void btnLogin() {
         String username = usNameText.getText();
         String password = pwText.getText();
 
         if (!username.isEmpty() && !password.isEmpty()) {
-            boolean cekLogin = validasi.validatedLogin(username, password);
-            if (cekLogin) {
-                alertText.setText("Login Sukses");
-                changeSceneIfSuccess();
-            } else {
-                alertText.setText("Login gagal. Coba cek kembali username dan password anda!");
+            try (Connection connection = DatabaseConnector.connect()) {
+                String query = "SELECT id_user FROM users WHERE username = ?";
+                try (PreparedStatement statementGetId = connection.prepareStatement(query)) {
+                    statementGetId.setString(1, username);
+                    ResultSet resultSet = statementGetId.executeQuery();
+                    if (resultSet.next()) {
+                        perpus.nowSesion.setUserId(resultSet.getInt("id_user"));
+                    }
+                    boolean cekLogin = validasi.validatedLogin(username, password);
+                    if (cekLogin) {
+                        System.out.println(perpus.nowSesion.getUserId());
+                        alertText.setText("Login Sukses");
+                        changeSceneIfSuccess();
+                    } else {
+                        alertText.setText("Login gagal. Coba cek kembali username dan password anda!");
+                    }
+                }
+            } catch (SQLException e) {
+                alertText.setText("Kesalahan saat login: " + e.getMessage());
             }
         } else {
             alertText.setText("Kolom tidak boleh kosong!!");

@@ -15,30 +15,24 @@
     <children>
 
         <!--Header-->
-        <HBox alignment="CENTER" prefHeight="66.0" prefWidth="360.0" spacing="60.0" style="-fx-background-color: aquamarine;">
+        <HBox alignment="CENTER_LEFT" prefHeight="66.0" prefWidth="360.0" style="-fx-background-color: aquamarine;">
             <children>
                 <ImageView fitHeight="65.0" fitWidth="87.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@assets/logo_edited.png" />
                     </image>
                     <HBox.margin>
-                        <Insets />
+                        <Insets left="5.0" />
                     </HBox.margin>
                 </ImageView>
                 <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Perpustakaan">
                     <font>
                         <Font name="Tahoma" size="20.0" />
                     </font>
+                    <HBox.margin>
+                        <Insets left="55.0" />
+                    </HBox.margin>
                 </Text>
-                <Button id="btbSearch" mnemonicParsing="false" onAction="#btnSearch" style="-fx-background-color: FFFFFF00;">
-                    <graphic>
-                        <ImageView fitHeight="22.0" fitWidth="22.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@assets/search-alternate.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                </Button>
             </children>
             <padding>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -48,7 +42,7 @@
             <children>
                 <Button mnemonicParsing="false" onAction="#btnDipinjam" prefHeight="27.0" prefWidth="87.0" styleClass="button_header" text="Dipinjam" />
                 <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" fx:id="btnRak" prefHeight="28.0" prefWidth="87.0" styleClass="button_header" text="Rak" />
-                <Button layoutX="62.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnwishlist" prefHeight="28.0" prefWidth="87.0" styleClass="button_header" text="Wishlist" />
+                <Button layoutX="62.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnSearch" prefHeight="28.0" prefWidth="87.0" styleClass="button_header" text="Search" />
             </children>
         </HBox>
       <ScrollPane layoutY="119.0" prefHeight="521.0" prefWidth="360.0">

@@ -27,7 +27,7 @@ public class menuDipinjamController {
 
     public void loadDataFromDatabase() {
         try (Connection connection = DatabaseConnector.connect()) {
-            String query = "SELECT judul, genre, tahun_rilis, tanggal_pinjam FROM dipinjam WHERE id_buku > 0";
+            String query = "SELECT judul, genre, tahun_rilis, tanggal_pinjam FROM dipinjam WHERE peminjamId > 0";
             try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
                 try (ResultSet resultSet = preparedStatement.executeQuery()) {
                     while (resultSet.next()) {
@@ -62,9 +62,6 @@ public class menuDipinjamController {
     }
 
     // Action btn in header
-    public void btnSearch(ActionEvent actionEvent) {
-    }
-
     public void btnRak(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("menu-rak.fxml"));
         Parent root = loader.load();
@@ -74,8 +71,8 @@ public class menuDipinjamController {
         currentStage.show();
     }
 
-    public void btnwishlist(ActionEvent actionEvent) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("menu-wishlist.fxml"));
+    public void btnSearch(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("menu-search.fxml"));
         Parent root = loader.load();
         Scene newScene = new Scene(root);
         Stage currentStage = (Stage) btnDipinjam.getScene().getWindow();

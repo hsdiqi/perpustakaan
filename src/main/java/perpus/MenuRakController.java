@@ -9,10 +9,9 @@ import javafx.geometry.Insets;
 import javafx.geometry.VPos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
@@ -23,7 +22,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 public class MenuRakController implements Initializable {
@@ -31,9 +29,6 @@ public class MenuRakController implements Initializable {
     public Button btnRak;
     @FXML
     private VBox vbRakList;  // VBox to contain GridPanes
-    ImageView likeImage = new ImageView(new Image(getClass().getResource("/perpus/assets/heart.png").toExternalForm()));
-
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -62,7 +57,7 @@ public class MenuRakController implements Initializable {
         GridPane gridPane = new GridPane();
         gridPane.getStyleClass().add("GPList");
 
-        // Set up column constraints
+        // Set column constraints
         ColumnConstraints col1 = new ColumnConstraints();
         col1.setHgrow(Priority.SOMETIMES);
         col1.setHalignment(HPos.CENTER);
@@ -91,7 +86,7 @@ public class MenuRakController implements Initializable {
 
         gridPane.getColumnConstraints().addAll(col1, col2, col3, col4);
 
-        // Set up row constraints
+        // Set row constraints
         RowConstraints row1 = new RowConstraints();
         row1.setMinHeight(10.0);
         row1.setPrefHeight(20.0);
@@ -141,14 +136,6 @@ public class MenuRakController implements Initializable {
             btnPinjamClicked(idBuku);
         });
 
-        ImageView likeImage = new ImageView(new Image(getClass().getResource("/perpus/assets/heart.png").toExternalForm()));
-        likeImage.getStyleClass().add("image_heart");
-        likeImage.setFitHeight(17.0);
-        likeImage.setFitWidth(16.0);
-        likeImage.setOnMouseClicked(event -> {
-            heartClicked(idBuku);
-        });
-
         // Add nodes to the gridPane
         gridPane.add(lbNJudul, 0, 0);
         gridPane.add(lbNGenre, 0, 1);
@@ -163,42 +150,66 @@ public class MenuRakController implements Initializable {
         gridPane.add(lbITahun, 2, 2);
         gridPane.add(lbIStok, 2, 3);
         gridPane.add(btnPinjam, 3, 3);
-        gridPane.add(likeImage, 3, 0);
-
         return gridPane;
     }
 
     private void btnPinjamClicked(int bookId) {
-        try (Connection connection = DatabaseConnector.connect()){
-            String updateQuery = "UPDATE buku SET stok = stok - 1 WHERE id_buku = ?";
-            try(PreparedStatement updateStatement = connection.prepareStatement(updateQuery)){
-                updateStatement.setInt(1, bookId);
-                updateStatement.executeUpdate();
+        LocalDate tanggalPinjam = LocalDate.now();
+
+        try (Connection connection = DatabaseConnector.connect()) {
+            String cekStok = "SELECT stok FROM buku WHERE id_buku = ?";
+            String cekDipinjam = "SELECT id_buku FROM dipinjam WHERE peminjamId = ?";
+            try (PreparedStatement getStokStatement = connection.prepareStatement(cekStok);
+                 PreparedStatement cekBukuDipinjam = connection.prepareStatement(cekDipinjam)) {
+                cekBukuDipinjam.setInt(1, nowSesion.getUserId());
+                getStokStatement.setInt(1, bookId);
+                try (ResultSet checkStok = getStokStatement.executeQuery();
+                     ResultSet checkDipinjam = cekBukuDipinjam.executeQuery()) {
+                    if (checkStok.next()) {
+                        int stok = checkStok.getInt("stok");
+                        if (stok == 0) {
+                            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                            alert.setHeaderText(null);
+                            alert.setContentText("Maaf Stok buku kosong!");
+                        } else {
+                            boolean siapDipinjam = false;
+                            while (checkDipinjam.next()) {
+                                int idBoookk = checkDipinjam.getInt("id_buku");
+                                if (idBoookk == bookId) {
+                                    siapDipinjam = true;
+                                    break;
+                                }
+                            }
+                            if (siapDipinjam) {
+                                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                                alert.setHeaderText(null);
+                                alert.setContentText("Buku sudah dipinjam!");
+                            } else {
+                                String insertQuery = "INSERT INTO dipinjam (id_buku, genre, judul,tahun_rilis, tanggal_pinjam, peminjamId) SELECT id_buku, genre, judul,tahun_rilis,? , ? FROM buku WHERE id_buku = ?";
+                                try (PreparedStatement insertStatement = connection.prepareStatement(insertQuery)) {
+                                    insertStatement.setDate(1, java.sql.Date.valueOf(tanggalPinjam));
+                                    insertStatement.setInt(2, DataSesi.userId);
+                                    insertStatement.setInt(3, bookId);
+                                    insertStatement.executeUpdate();
+                                }
+                                String updateQuery = "UPDATE buku SET stok = stok - 1 WHERE id_buku = ?";
+                                try (PreparedStatement updateStatement = connection.prepareStatement(updateQuery)) {
+                                    updateStatement.setInt(1, bookId);
+                                    updateStatement.executeUpdate();
+                                }
+                                loadDataFromDatabase();
+                            }
+                            System.out.println(DataSesi.getUserId());
+                        }
+                    }
+                }
             }
-            String insertQuery = "INSERT INTO dipinjam (id_buku, genre, judul,tahun_rilis) SELECT id_buku, genre, judul,tahun_rilis FROM buku WHERE id_buku = ?";
-            try (PreparedStatement insertStatement = connection.prepareStatement(insertQuery)) {
-                insertStatement.setInt(1, bookId);
-                insertStatement.executeUpdate();
-            }
-            String InsertQuery2 = "INSERT INTO dipinjam (tanggal_pinjam) VALUES (?) WHERE id_buku = ?";
-            try (PreparedStatement InsertQuery2Statement = connection.prepareStatement(insertQuery)) {
-                LocalDate localDate = LocalDate.now();//For reference
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd llll yyyy");
-                String formattedString = localDate.format(formatter);
-                System.out.println(formattedString);
-                InsertQuery2Statement.setInt(1, Integer.parseInt(formattedString));
-                InsertQuery2Statement.setInt(2, bookId);
-                InsertQuery2Statement.executeUpdate();
-            }
-            loadDataFromDatabase();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public void btnSearch(ActionEvent actionEvent) {
-    }
-
+    // button action in header
     public void btnDipinjam(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("menu-dipinjam.fxml"));
         Parent root = loader.load();
@@ -208,63 +219,8 @@ public class MenuRakController implements Initializable {
         currentStage.show();
     }
 
-    @FXML
-    private void heartClicked(int bookId) {
-        try (Connection connection = DatabaseConnector.connect()) {
-            if (isBookInWishlist(bookId)) {
-                removeFromWishlist(bookId);
-
-                likeImage.setImage(new Image(getClass().getResource("/perpus/assets/heart.png").toExternalForm()));
-            } else {
-                addToWishlist(bookId);
-
-                likeImage.setImage(new Image(getClass().getResource("/perpus/assets/heartFillRed.png").toExternalForm()));
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private void addToWishlist(int bookId) throws SQLException {
-        String insertQuery = "INSERT INTO wishlist (id_buku) VALUES (?)";
-        try (Connection connection = DatabaseConnector.connect()){
-            try (PreparedStatement insertStatement = connection.prepareStatement(insertQuery)) {
-                insertStatement.setInt(1, bookId);
-                insertStatement.executeUpdate();
-            }
-        }
-    }
-
-    private void removeFromWishlist(int bookId) throws SQLException {
-        String deleteQuery = "DELETE FROM wishlist WHERE id_buku = ?";
-        try (Connection connection = DatabaseConnector.connect()){
-            try (PreparedStatement deleteStatement = connection.prepareStatement(deleteQuery)) {
-                deleteStatement.setInt(1, bookId);
-                deleteStatement.executeUpdate();
-            }
-        }
-
-    }
-
-    private boolean isBookInWishlist(int bookId) throws SQLException {
-        String query = "SELECT COUNT(*) FROM wishlist WHERE id_buku = ?";
-        try (Connection connection = DatabaseConnector.connect()){
-            try (PreparedStatement statement = connection.prepareStatement(query)) {
-                statement.setInt(1, bookId);
-                try (ResultSet resultSet = statement.executeQuery()) {
-                    if (resultSet.next()) {
-                        int count = resultSet.getInt(1);
-                        return count > 0;
-                    }
-                }
-            }
-        }
-        return false;
-    }
-
-
-    public void btnwishlist(ActionEvent actionEvent) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("menu-wishlist.fxml"));
+    public void btnSearch(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("menu-search.fxml"));
         Parent root = loader.load();
         Scene newScene = new Scene(root);
         Stage currentStage = (Stage) btnRak.getScene().getWindow();
