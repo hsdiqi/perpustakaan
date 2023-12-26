@@ -78,7 +78,6 @@ public class logincontroller {
 
     protected void changeSceneIfSuccess() {
         try {
-            // Load the FXML file for the new scene
             FXMLLoader loader = new FXMLLoader(getClass().getResource("menu-dipinjam.fxml"));
             Parent root = loader.load();
 
