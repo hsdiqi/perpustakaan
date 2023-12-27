@@ -41,11 +41,7 @@
         <children>
             <Button mnemonicParsing="false" onAction="#btnDipinjam" prefHeight="27.0" prefWidth="87.0" styleClass="button_header" text="Dipinjam" />
             <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnRak" prefHeight="28.0" prefWidth="87.0" styleClass="button_header" text="Rak" />
-<<<<<<< HEAD:src/main/resources/perpus/menu-wishlist.fxml
-            <Button fx:id="btnWishlist" layoutX="62.0" layoutY="10.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="87.0" styleClass="button_header" text="Wishlist" />
-=======
             <Button fx:id="btnWishlist" layoutX="62.0" layoutY="10.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="87.0" styleClass="button_header" text="Search" />
->>>>>>> tryRombak:src/main/resources/perpus/menu-search.fxml
         </children>
     </HBox>
    <ScrollPane layoutY="164.0" prefHeight="476.0" prefWidth="360.0">

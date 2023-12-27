@@ -54,7 +54,7 @@ public class menuSearchController implements Initializable{
         GridPane gridPane = new GridPane();
         gridPane.getStyleClass().add("GPList");
 
-        // Set up column constraints
+        // Set columnConstraints
         ColumnConstraints col1 = new ColumnConstraints();
         col1.setHgrow(Priority.SOMETIMES);
         col1.setHalignment(HPos.CENTER);
@@ -83,7 +83,7 @@ public class menuSearchController implements Initializable{
 
         gridPane.getColumnConstraints().addAll(col1, col2, col3, col4);
 
-        // Set up row constraints
+        // Set rowConstraints
         RowConstraints row1 = new RowConstraints();
         row1.setMinHeight(10.0);
         row1.setPrefHeight(20.0);
@@ -137,7 +137,7 @@ public class menuSearchController implements Initializable{
             }
         });
 
-        // Add nodes to the gridPane
+        // Add nodes to gridPane
         gridPane.add(lbNJudul, 0, 0);
         gridPane.add(lbNGenre, 0, 1);
         gridPane.add(lbNTahun, 0, 2);
@@ -180,17 +180,17 @@ public class menuSearchController implements Initializable{
             throw new RuntimeException(e);
         }
     }
-    public void displayBook(String query){
-        try(Connection connection = DatabaseConnector.connect()){
-            try(PreparedStatement preparedStatement = connection.prepareStatement(query);
-            ResultSet resultSet = preparedStatement.executeQuery()){
-                GridPane gridPaneSearch = createGridPane(resultSet);
-                vbWishlist.getChildren().add(gridPaneSearch);
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
+//    public void displayBook(String query){
+//        try(Connection connection = DatabaseConnector.connect()){
+//            try(PreparedStatement preparedStatement = connection.prepareStatement(query);
+//            ResultSet resultSet = preparedStatement.executeQuery()){
+//                GridPane gridPaneSearch = createGridPane(resultSet);
+//                vbWishlist.getChildren().add(gridPaneSearch);
+//            }
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
     public void clearBook(){
         vbWishlist.getChildren().clear();
     }

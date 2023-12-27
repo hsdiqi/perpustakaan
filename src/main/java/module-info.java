@@ -12,4 +12,6 @@ module perpus.perpustakaan {
 
     exports perpus;
     opens perpus to javafx.fxml;
+    exports perpus.adminn;
+    opens perpus.adminn to javafx.fxml;
 }
