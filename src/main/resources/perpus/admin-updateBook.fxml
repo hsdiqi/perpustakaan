@@ -34,21 +34,23 @@
             <children>
                 <Button mnemonicParsing="false" onAction="#btnAddBook" styleClass="btnHeader" text="Tambah Buku" />
                 <Button layoutX="164.0" layoutY="23.0" mnemonicParsing="false" onAction="#btnDeleteBook" styleClass="btnHeader" text="Hapus Buku" />
-                <Button fx:id="updateBook" layoutX="190.0" layoutY="23.0" mnemonicParsing="false" onAction="#btnUpdateBook" styleClass="btnHeader" text="Update Buku" />
+                <Button fx:id="updateBook" layoutX="190.0" layoutY="23.0" mnemonicParsing="false" styleClass="btnHeader" text="Update Buku" />
             </children>
         </HBox>
         <Rectangle fill="#fad8ac" height="80.0" layoutY="120.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" width="360.0" AnchorPane.topAnchor="105.0" />
-      <TextField fx:id="tfSearchBookUpdate" layoutX="15.0" layoutY="117.0" onAction="#clikSearchUpdate" prefHeight="25.0" prefWidth="330.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="117.0" />
+      <TextField fx:id="tfSearchBookUpdate" layoutX="15.0" layoutY="117.0" onAction="#clikSearchUpdate" prefHeight="25.0" prefWidth="330.0" promptText="masukkan judul buku" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="117.0" />
+      <ComboBox fx:id="valueBook" layoutX="62.0" layoutY="145.0" prefHeight="25.0" prefWidth="235.0" />
       <ScrollPane layoutY="206.0" prefHeight="433.0" prefWidth="360.0" AnchorPane.topAnchor="206.0">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefWidth="340.0">
                <children>
-                  <VBox fx:id="vbListUpdate" layoutX="14.0" layoutY="-12.666666666666666" prefHeight="488.0" prefWidth="330.0" spacing="10.0" style="-fx-background-color: #eafffd;" AnchorPane.topAnchor="-13.0">
+                  <VBox layoutX="14.0" layoutY="-12.666666666666666" prefHeight="433.0" prefWidth="330.0" spacing="10.0" style="-fx-background-color: #eafffd;" AnchorPane.topAnchor="-13.0">
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </padding>
                      <children>
-                        <GridPane fx:id="gplate">
+<!--                         data buku lama-->
+                        <GridPane>
                           <columnConstraints>
                               <ColumnConstraints hgrow="SOMETIMES" maxWidth="102.3333740234375" minWidth="10.0" prefWidth="64.3333740234375" />
                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="149.6666259765625" minWidth="3.9999847412109517" prefWidth="8.666671752929702" />
@@ -84,7 +86,8 @@
                               <Insets top="8.0" />
                            </VBox.margin>
                         </Label>
-                        <GridPane fx:id="gpNew" layoutX="15.0" layoutY="15.0">
+                         //update data buku baru
+                        <GridPane layoutX="15.0" layoutY="15.0">
                            <columnConstraints>
                               <ColumnConstraints hgrow="SOMETIMES" maxWidth="102.3333740234375" minWidth="10.0" prefWidth="64.3333740234375" />
                               <ColumnConstraints hgrow="SOMETIMES" maxWidth="149.6666259765625" minWidth="3.9999847412109517" prefWidth="8.666671752929702" />
@@ -115,12 +118,16 @@
                               <TextField fx:id="tfNewStok" GridPane.columnIndex="2" GridPane.rowIndex="4" />
                            </children>
                         </GridPane>
+                        <Button mnemonicParsing="false" onAction="#btnUpdateBook" prefHeight="30.0" prefWidth="90.0" text="Update">
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                        </Button>
                      </children>
                   </VBox>
                </children>
             </AnchorPane>
         </content>
       </ScrollPane>
-      <ComboBox fx:id="tfSearchWithCOmbox" editable="true" layoutX="62.0" layoutY="155.0" onAction="#comboxClick" prefHeight="25.0" prefWidth="235.0" promptText="masukkan judul buku" />
     </children>
 </AnchorPane>

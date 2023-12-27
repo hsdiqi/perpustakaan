@@ -3,109 +3,147 @@ package perpus.adminn;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import perpus.DatabaseConnector;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class updateController {
-    public Button updateBook;
-    public VBox vbListUpdate;
-    public TextField tfSearchBookUpdate;
-    //label untuk menampilkan data lama
-    public Label lbCode;
-    public Label lbJudul;
-    public Label lbGenre;
-    public Label lbTahun;
-    public Label lbStok;
 
-    //textfield untuk memperbarui data
-    public TextField tfNewStok;
-    public TextField tfNewYear;
-    public TextField tfNewGenre;
-    public TextField tfNewTitle;
-    public TextField tfNewCode;
-    public GridPane gpNew;
-    public GridPane gplate;
-    public ComboBox<String> tfSearchWithCOmbox;
-    int bookId;
+    @FXML
+    private Label lbCode;
+    @FXML
+    private Label lbGenre;
+    @FXML
+    private Label lbJudul;
+    @FXML
+    private Label lbStok;
+    @FXML
+    private Label lbTahun;
+    @FXML
+    private TextField tfNewCode;
+    @FXML
+    private TextField tfNewGenre;
+    @FXML
+    private TextField tfNewStok;
+    @FXML
+    private TextField tfNewTitle;
+    @FXML
+    private TextField tfNewYear;
+    @FXML
+    private TextField tfSearchBookUpdate;
+    @FXML
+    private Button updateBook;
+    @FXML
+    private ComboBox<String> valueBook;
+    private Connection connection;
 
-    public void initialized(){
-        displayBook(bookId);
+    public void initialize() throws SQLException {
+        connection = DatabaseConnector.connect();
+//        showTitle(tfSearchBookUpdate.getText());
     }
-
-    public void displayBook(int idBook){
-        try (Connection connection = DatabaseConnector.connect()){
-            String queryShowlateData = "SELECT * FROM buku WHERE id_buku = ?";
-            try (PreparedStatement statementShowLate = connection.prepareStatement(queryShowlateData)){
-                statementShowLate.setInt(1, idBook);
-                ResultSet resultSetDataLate = statementShowLate.executeQuery();
-                lbCode.setText(String.valueOf(resultSetDataLate.getInt("kode_buku")));
-                lbJudul.setText(resultSetDataLate.getString("judul"));
-                lbGenre.setText(resultSetDataLate.getString("genre"));
-                lbTahun.setText(String.valueOf(resultSetDataLate.getInt("tahun_rilis")));
-                lbStok.setText(String.valueOf(resultSetDataLate.getInt("stok")));
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-    public void updateBook(){
-    }
-    public void showTitleBook(){
+    public void showTitle(String searchTitle){
+        searchTitle = tfSearchBookUpdate.getText();
         ObservableList<String> listTitle = FXCollections.observableArrayList();
-        String title = tfSearchBookUpdate.getText();
-        try(Connection connection = DatabaseConnector.connect()){
-            String queryShowTitle = "SELECT judul, id_buku FROM buku WHERE LIKE ?";
-            try (PreparedStatement statmentShowTitle = connection.prepareStatement(queryShowTitle)){
-                statmentShowTitle.setString(1,"%" + title + "%");
-                ResultSet resultSearch = statmentShowTitle.executeQuery();
-                while (resultSearch.next()){
-                    listTitle.add(resultSearch.getString("judul"));
-                    bookId = resultSearch.getInt("id_buku");
+        try (Connection connection = DatabaseConnector.connect()){
+            String queryShowTitle = "SELECT judul FROM buku WHERE judul LIKE ?";
+            try (PreparedStatement statementShowTitle = connection.prepareStatement(queryShowTitle)){
+                statementShowTitle.setString(1, "%" + searchTitle + "%");
+                ResultSet resultSet = statementShowTitle.executeQuery();
+                while (resultSet.next()){
+                    listTitle.add(resultSet.getString("judul"));
                 }
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        tfSearchWithCOmbox.setItems(listTitle);
-    }
-
-    public void getIdbook(String judul){
-        try (Connection connection = DatabaseConnector.connect()) {
-            String qurygetIdbook = "SELECT id_buku FROM buku WHERE judul = ?";
-            try (PreparedStatement statementgetId = connection.prepareStatement(qurygetIdbook)){
-                statementgetId.setString(1, judul);
-                ResultSet resultGetId = statementgetId.executeQuery();
-                bookId = resultGetId.getInt("id_buku");
+                valueBook.setItems(listTitle);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
-    //button handler
-    public void btnAddBook(ActionEvent actionEvent) {
+
+
+    void selectBook(String inputTitle) {
+        try {
+            String query = "SELECT * FROM buku WHERE judul = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, inputTitle);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                lbCode.setText(resultSet.getString("kode_buku"));
+                lbJudul.setText(resultSet.getString("judul"));
+                lbGenre.setText(resultSet.getString("genre"));
+                lbStok.setText(resultSet.getString("stok"));
+                lbTahun.setText(resultSet.getString("tahun_rilis"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void btnDeleteBook(ActionEvent actionEvent) {
-    }
+    @FXML
+    void btnUpdateBook(ActionEvent event) {
+        try {
+            String inputTitle = tfSearchBookUpdate.getText();
+            int newCode = Integer.parseInt(tfNewCode.getText());
+            String newGenre = tfNewGenre.getText();
+            int newStok = Integer.parseInt(tfNewStok.getText());
+            String newTitle = tfNewTitle.getText();
+            int newYear = Integer.parseInt(tfNewYear.getText());
 
-    public void btnUpdateBook(ActionEvent actionEvent) {
+            String query = "UPDATE nama_tabel_buku SET kode=?, genre=?, stok=?, judul=?, tahun=? WHERE judul=?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, newCode);
+            statement.setString(2, newGenre);
+            statement.setInt(3, newStok);
+            statement.setString(4, newTitle);
+            statement.setInt(5, newYear);
+            statement.setString(6, inputTitle);
+
+            int rowsUpdated = statement.executeUpdate();
+            if (rowsUpdated > 0) {
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void clikSearchUpdate(ActionEvent actionEvent) {
+        String titleBookSearch = tfSearchBookUpdate.getText();
+        showTitle(titleBookSearch);
+        String judulBOOK = valueBook.getValue();
+        if (!judulBOOK.isEmpty()){
+            selectBook(judulBOOK);
+        }else {
+
+        }
+    }
+    public void btnDeleteBook(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("admin-deleteBook.fxml"));
+        Parent root = loader.load();
+        Scene newScene = new Scene(root);
+        Stage currentStage = (Stage) updateBook.getScene().getWindow();
+        currentStage.setScene(newScene);
+        currentStage.show();
     }
 
-    public void comboxClick(ActionEvent actionEvent) {
-        String selectValue = tfSearchWithCOmbox.getValue();
-        getIdbook(selectValue);
+    public void btnAddBook(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("admin-addBook.fxml"));
+        Parent root = loader.load();
+        Scene newScene = new Scene(root);
+        Stage currentStage = (Stage) updateBook.getScene().getWindow();
+        currentStage.setScene(newScene);
+        currentStage.show();
     }
 }
