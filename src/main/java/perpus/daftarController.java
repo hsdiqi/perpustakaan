@@ -4,14 +4,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Hyperlink;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.*;
-import java.util.regex.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 public class daftarController {
     @FXML
     public TextField tfNama;
@@ -22,7 +23,7 @@ public class daftarController {
     @FXML
     public TextField tfPassword;
     @FXML
-    public Label alertText;
+    public Alert alertText;
     @FXML
     private Hyperlink btnMasuk;
     @FXML
@@ -31,23 +32,51 @@ public class daftarController {
         String username = tfUsername.getText();
         String email = tfEmail.getText();
         String password = tfPassword.getText();
+        alertText.setAlertType(Alert.AlertType.INFORMATION);
 
         if (!nama.isEmpty() && !username.isEmpty() && !password.isEmpty() && !email.isEmpty()){
             if (cekEmail(email)){
-                user = addUserToDatabase(nama,username,email,password);
-                if (user != null){
-                    System.out.println("Berhasil mendaftarkan " + user.nama);
-                }else{
-                    System.out.println("Gagal melakukan pendaftaran");
+                if (password.length() >= 5) {
+                    if (!isUsernameExists(username)) {
+                        user = addUserToDatabase(nama, username, email, password);
+                        if (user != null){
+                            System.out.println("Berhasil mendaftarkan " + DataSesi.nama);
+                            alertText.setContentText("Pendaftaran Berhasil!!!");
+                        } else {
+                            System.out.println("Gagal melakukan pendaftaran");
+                            alertText.setContentText("Gagal melakukan pendaftaran. Silakan coba lagi.");
+                        }
+                    } else {
+                        alertText.setContentText("Username sudah digunakan. Silakan gunakan username lain.");
+                    }
+                } else {
+                    alertText.setContentText("Password minimal 5 karakter.");
                 }
-                alertText.setText("Pendaftaran Berhasil!!!");
-            }else{
-                alertText.setText("Email invalid");
+            } else{
+                alertText.setContentText("Email invalid");
             }
-        }else{
-            alertText.setText("Kolom tidak boleh kosong!!");
+        } else {
+            alertText.setContentText("Kolom tidak boleh kosong!!");
         }
     }
+
+    private boolean isUsernameExists(String username) {
+        boolean exists = false;
+        try {
+            Connection connection = DatabaseConnector.connect();
+            String query = "SELECT * FROM users WHERE username = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, username);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            exists = resultSet.next();
+            preparedStatement.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return exists;
+    }
+
     @FXML
     protected void ChangeScene() {
         try {

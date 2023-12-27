@@ -4,10 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Hyperlink;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -22,8 +19,7 @@ public class logincontroller {
     private TextField pwText;
     @FXML
     private TextField usNameText;
-    @FXML
-    private Label alertText;
+    private Alert alertText = new Alert(Alert.AlertType.INFORMATION);
     @FXML
     private Hyperlink btnDaftar;
     @FXML
@@ -44,20 +40,25 @@ public class logincontroller {
                     if (resultSet.next()) {
                         perpus.nowSesion.setUserId(resultSet.getInt("id_user"));
                     }
-                    boolean cekLogin = validasi.validatedLogin(username, password);
-                    if (cekLogin) {
+                    boolean cekLoginUser = validasi.validatedLogin(username, password);
+                    boolean cekLoginAdmin = validasi.validateAdmin(username, password);
+                    if (cekLoginUser) {
+                        alertText.setContentText("Login Sukses" );
                         System.out.println(perpus.nowSesion.getUserId());
-                        alertText.setText("Login Sukses");
                         changeSceneIfSuccess();
+                    } else if (cekLoginAdmin) {
+                        alertText.setContentText("Salamat datang" + perpus.nowSesion.username);
+                        changeSceneAdmin();
+
                     } else {
-                        alertText.setText("Login gagal. Coba cek kembali username dan password anda!");
+                        alertText.setContentText("Login gagal. Coba cek kembali username dan password anda!");
                     }
                 }
             } catch (SQLException e) {
-                alertText.setText("Kesalahan saat login: " + e.getMessage());
+                alertText.setContentText("Kesalahan saat login: " + e.getMessage());
             }
         } else {
-            alertText.setText("Kolom tidak boleh kosong!!");
+            alertText.setContentText("Kolom tidak boleh kosong!!");
         }
     }
 
@@ -76,15 +77,24 @@ public class logincontroller {
         }
     }
 
-    protected void changeSceneIfSuccess() {
+    protected void changeSceneIfSuccess(){
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("menu-dipinjam.fxml"));
             Parent root = loader.load();
-
             Scene newScene = new Scene(root);
-
             Stage currentStage = (Stage) btnLogin.getScene().getWindow();
-
+            currentStage.setScene(newScene);
+            currentStage.show();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    protected void changeSceneAdmin(){
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/perpus/admin/admin-addBook.fxml"));
+            Parent root = loader.load();
+            Scene newScene = new Scene(root);
+            Stage currentStage = (Stage) btnLogin.getScene().getWindow();
             currentStage.setScene(newScene);
             currentStage.show();
         } catch (IOException e) {

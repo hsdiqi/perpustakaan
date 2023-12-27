@@ -8,6 +8,7 @@ import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -102,6 +103,7 @@ public class deleteController {
         Label lbIGenre = new Label(resultSet.getString("genre"));
         Label lbITahun = new Label(resultSet.getString("tahun_rilis"));
         Label lbIStok = new Label(resultSet.getString("stok"));
+        int bokkID = resultSet.getInt("id_buku");
 
         Button btnDelete = new Button("Delete");
         btnDelete.setPrefWidth(55);
@@ -109,11 +111,7 @@ public class deleteController {
         btnDelete.getStyleClass().add("btnDelete");
         VBox.setMargin(btnDelete, new Insets(0,0,10,0));
         btnDelete.setOnAction(actionEvent -> {
-            try {
-                deleted(resultSet.getInt(Integer.parseInt("id_buku")));
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
+            deleted(bokkID);
         });
 
         // Add nodes to gridPane
@@ -148,7 +146,7 @@ public class deleteController {
 
     }
     public void searchBook(String name){
-        String query = "SELECT * FROM buku WHERE LIKE judul ?";
+        String query = "SELECT * FROM buku WHERE judul LIKE ?";
         clearBook();
         try (Connection connection = DatabaseConnector.connect()){
             try (PreparedStatement statementSearch = connection.prepareStatement(query)) {
@@ -170,19 +168,36 @@ public class deleteController {
     }
 
     private void deleted(int idBuku) {
+        String bookTitle = "";
         try (Connection connection = DatabaseConnector.connect()) {
+            String getTitleQuery = "SELECT judul FROM buku WHERE id_buku = ?";
+            try (PreparedStatement getTitleStatement = connection.prepareStatement(getTitleQuery)) {
+                getTitleStatement.setInt(1, idBuku);
+                ResultSet resultSet = getTitleStatement.executeQuery();
+                if (resultSet.next()) {
+                    bookTitle = resultSet.getString("judul");
+                }
+            }
+
             String deleteQuery = "DELETE FROM buku WHERE id_buku = ?";
             try (PreparedStatement statementDelete = connection.prepareStatement(deleteQuery)) {
                 statementDelete.setInt(1, idBuku);
-                statementDelete.executeQuery();
+                statementDelete.executeUpdate();
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setContentText("Buku '" + bookTitle + "' telah dihapus!");
+        alert.showAndWait();
+
+        clearBook();
     }
 
+
     public void btnAddBook(ActionEvent actionEvent) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("admin-addBook.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/perpus/admin/admin-addBook.fxml"));
         Parent root = loader.load();
         Scene newScene = new Scene(root);
         Stage currentStage = (Stage) deleteBook.getScene().getWindow();
@@ -192,7 +207,7 @@ public class deleteController {
 
 
     public void btnUpdateBook(ActionEvent actionEvent) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("admin-updateBook.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/perpus/admin/admin-updateBook.fxml"));
         Parent root = loader.load();
         Scene newScene = new Scene(root);
         Stage currentStage = (Stage) deleteBook.getScene().getWindow();

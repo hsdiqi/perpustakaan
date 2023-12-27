@@ -71,5 +71,5 @@
             </HBox>
          </children>
       </VBox>
-      <Label fx:id="alertText" layoutX="111.0" layoutY="5.0" prefHeight="17.0" prefWidth="139.0" AnchorPane.leftAnchor="111.0" AnchorPane.rightAnchor="110.0" AnchorPane.topAnchor="5.0" />
+<!--      <Label fx:id="alertText" layoutX="111.0" layoutY="5.0" prefHeight="17.0" prefWidth="139.0" AnchorPane.leftAnchor="111.0" AnchorPane.rightAnchor="110.0" AnchorPane.topAnchor="5.0" />-->
    </AnchorPane>
