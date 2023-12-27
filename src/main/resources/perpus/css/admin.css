@@ -1,0 +1,11 @@
+.btnHeader{
+    -fx-background-radius: 15;
+    -fx-pref-height: 27;
+}
+.btnHeader:hover{
+    -fx-background-color: pink;
+}
+Button{
+    -fx-background-radius: 10;
+    -fx-font-family: Calibri;
+}
