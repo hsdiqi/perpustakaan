@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="640.0" prefWidth="360.0" stylesheets="@css/admin.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="perpus.adminn.updateController">
+    <children>
+        <HBox alignment="CENTER" prefHeight="50.0" prefWidth="360.0" style="-fx-background-color: aquamarine;" AnchorPane.topAnchor="0.0">
+            <children>
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Admin Perpustakaan">
+                    <font>
+                        <Font name="System Bold" size="15.0" />
+                    </font>
+                </Text>
+            </children>
+        </HBox>
+        <HBox alignment="CENTER" layoutY="70.0" prefHeight="50.0" prefWidth="360.0" spacing="20.0" style="-fx-background-color: aquamarine;" AnchorPane.topAnchor="55.0">
+            <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            </padding>
+            <children>
+                <Button mnemonicParsing="false" onAction="#btnAddBook" styleClass="btnHeader" text="Tambah Buku" />
+                <Button layoutX="164.0" layoutY="23.0" mnemonicParsing="false" onAction="#btnDeleteBook" styleClass="btnHeader" text="Hapus Buku" />
+                <Button fx:id="updateBook" layoutX="190.0" layoutY="23.0" mnemonicParsing="false" onAction="#btnUpdateBook" styleClass="btnHeader" text="Update Buku" />
+            </children>
+        </HBox>
+        <Rectangle fill="#fad8ac" height="80.0" layoutY="120.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" width="360.0" AnchorPane.topAnchor="105.0" />
+      <TextField fx:id="tfSearchBookUpdate" layoutX="15.0" layoutY="117.0" onAction="#clikSearchUpdate" prefHeight="25.0" prefWidth="330.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="117.0" />
+      <ScrollPane layoutY="206.0" prefHeight="433.0" prefWidth="360.0" AnchorPane.topAnchor="206.0">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefWidth="340.0">
+               <children>
+                  <VBox fx:id="vbListUpdate" layoutX="14.0" layoutY="-12.666666666666666" prefHeight="488.0" prefWidth="330.0" spacing="10.0" style="-fx-background-color: #eafffd;" AnchorPane.topAnchor="-13.0">
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                     <children>
+                        <GridPane fx:id="gplate">
+                          <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="102.3333740234375" minWidth="10.0" prefWidth="64.3333740234375" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="149.6666259765625" minWidth="3.9999847412109517" prefWidth="8.666671752929702" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="248.00001525878906" minWidth="10.0" prefWidth="243.3333282470703" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Label text="Kode Buku" />
+                              <Label text="Judul Buku" GridPane.rowIndex="1" />
+                              <Label text="Genre" GridPane.rowIndex="2" />
+                              <Label text="Tahun Rilis" GridPane.rowIndex="3" />
+                              <Label text="Stok" GridPane.rowIndex="4" />
+                              <Label text=":" GridPane.columnIndex="1" />
+                              <Label text=":" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <Label text=":" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <Label text=":" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <Label text=":" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                              <Label fx:id="lbCode" GridPane.columnIndex="2" />
+                              <Label fx:id="lbJudul" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                              <Label fx:id="lbGenre" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                              <Label fx:id="lbTahun" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                              <Label fx:id="lbStok" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                           </children>
+                        </GridPane>
+                        <Label text="Update menjadi:">
+                           <VBox.margin>
+                              <Insets top="8.0" />
+                           </VBox.margin>
+                        </Label>
+                        <GridPane fx:id="gpNew" layoutX="15.0" layoutY="15.0">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="102.3333740234375" minWidth="10.0" prefWidth="64.3333740234375" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="149.6666259765625" minWidth="3.9999847412109517" prefWidth="8.666671752929702" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="248.00001525878906" minWidth="10.0" prefWidth="243.3333282470703" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <Label text="Kode Buku" />
+                              <Label text="Judul Buku" GridPane.rowIndex="1" />
+                              <Label text="Genre" GridPane.rowIndex="2" />
+                              <Label text="Tahun Rilis " GridPane.rowIndex="3" />
+                              <Label text="Stok" GridPane.rowIndex="4" />
+                              <Label text=":" GridPane.columnIndex="1" />
+                              <Label text=":" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <Label text=":" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <Label text=":" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <Label text=":" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                              <TextField fx:id="tfNewCode" GridPane.columnIndex="2" />
+                              <TextField fx:id="tfNewTitle" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                              <TextField fx:id="tfNewGenre" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                              <TextField fx:id="tfNewYear" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                              <TextField fx:id="tfNewStok" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                           </children>
+                        </GridPane>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+        </content>
+      </ScrollPane>
+      <ComboBox fx:id="tfSearchWithCOmbox" editable="true" layoutX="62.0" layoutY="155.0" onAction="#comboxClick" prefHeight="25.0" prefWidth="235.0" promptText="masukkan judul buku" />
+    </children>
+</AnchorPane>

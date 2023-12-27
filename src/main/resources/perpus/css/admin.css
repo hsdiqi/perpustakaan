@@ -1,0 +1,12 @@
+.btnHeader {
+}
+
+#gplate {
+    -fx-background-color: #ffe2c0;
+    --table-border-color: black;
+    -fx-border-color: blue;
+}
+
+#gpNew {
+    -fx-background-color: #c0ffc1;
+}
