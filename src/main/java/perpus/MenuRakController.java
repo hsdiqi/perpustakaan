@@ -26,9 +26,9 @@ import java.util.ResourceBundle;
 
 public class MenuRakController implements Initializable {
 
-    public Button btnRak;
+    private Button btnRak;
     @FXML
-    private VBox vbRakList;  // VBox to contain GridPanes
+    private VBox vbRakList;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -37,12 +37,11 @@ public class MenuRakController implements Initializable {
 
     private void loadDataFromDatabase() {
         try (Connection connection = DatabaseConnector.connect()) {
-            String query = "SELECT id_buku, judul, genre, tahun_rilis, stok  FROM buku"; // Replace with your actual table name
+            String query = "SELECT id_buku, judul, genre, tahun_rilis, stok  FROM buku";
             try (PreparedStatement preparedStatement = connection.prepareStatement(query);
                  ResultSet resultSet = preparedStatement.executeQuery()) {
 
                 while (resultSet.next()) {
-                    // Create a new GridPane for each row of data
                     GridPane gridPane = createGridPane(resultSet);
                     vbRakList.getChildren().add(gridPane);
                 }
@@ -186,13 +185,14 @@ public class MenuRakController implements Initializable {
                                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                                 alert.setHeaderText(null);
                                 alert.setContentText("Buku sudah dipinjam!");
-                                alert.show();
+                                alert.showAndWait();
                             } else {
-                                String insertQuery = "INSERT INTO dipinjam (id_buku, genre, judul,tahun_rilis, tanggal_pinjam, peminjamId) SELECT id_buku, genre, judul,tahun_rilis,? , ? FROM buku WHERE id_buku = ?";
+                                String insertQuery = "INSERT INTO dipinjam (id_buku, genre, judul,tahun_rilis, tanggal_pinjam, peminjamId, tenggat) SELECT id_buku, genre, judul,tahun_rilis,? , ?, ? FROM buku WHERE id_buku = ?";
                                 try (PreparedStatement insertStatement = connection.prepareStatement(insertQuery)) {
                                     insertStatement.setDate(1, java.sql.Date.valueOf(tanggalPinjam));
                                     insertStatement.setInt(2, nowSesion.userId);
-                                    insertStatement.setInt(3, bookId);
+                                    insertStatement.setDate(3, java.sql.Date.valueOf(tanggalPinjam.plusDays(7)));
+                                    insertStatement.setInt(4, bookId);
                                     insertStatement.executeUpdate();
                                 }
                                 String updateQuery = "UPDATE buku SET stok = stok - 1 WHERE id_buku = ?";
@@ -200,7 +200,11 @@ public class MenuRakController implements Initializable {
                                     updateStatement.setInt(1, bookId);
                                     updateStatement.executeUpdate();
                                 }
+                                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                                alert.setContentText("Buku berhasil dipinjam");
+                                alert.showAndWait();
                                 loadDataFromDatabase();
+                                reload();
                             }
                            // System.out.println(DataSesi.getUserId());
                         }
@@ -253,6 +257,20 @@ public class MenuRakController implements Initializable {
             currentStage.show();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    //Reload
+    private void reload(){
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("menu-rak.fxml"));
+        try {
+            Parent root = loader.load();
+            Scene newScene = new Scene(root);
+            Stage currentStage = (Stage) btnRak.getScene().getWindow();
+            currentStage.setScene(newScene);
+            currentStage.show();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }

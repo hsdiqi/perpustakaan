@@ -26,9 +26,9 @@ import java.util.ResourceBundle;
 
 
 public class menuSearchController implements Initializable{
-    public VBox vbWishlist;
-    public Button btnWishlist;
-    public TextField tfSearch;
+    private VBox vbWishlist;
+    private Button btnWishlist;
+    private TextField tfSearch;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -37,7 +37,7 @@ public class menuSearchController implements Initializable{
 
     private void loadDataFromDatabase() {
         try (Connection connection = DatabaseConnector.connect()) {
-            String query = "SELECT id_buku, judul, genre, tahun_rilis, stok  FROM buku";
+            String query = "SELECT * FROM buku";
             try (PreparedStatement preparedStatement = connection.prepareStatement(query);
                  ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
@@ -152,7 +152,7 @@ public class menuSearchController implements Initializable{
         return gridPane;
     }
 
-    public void tfSearchClick(ActionEvent actionEvent) {
+    private void tfSearchClick(ActionEvent actionEvent) {
         String searchText = tfSearch.getText().trim();
         if (!searchText.isEmpty()){
             searchBook(searchText);
@@ -161,7 +161,7 @@ public class menuSearchController implements Initializable{
         }
     }
 
-    public void searchBook(String name){
+    private void searchBook(String name){
         String srcQuery = "SELECT * FROM buku WHERE judul LIKE ?";
         clearBook();
         try(Connection connection =DatabaseConnector.connect()) {
@@ -179,7 +179,7 @@ public class menuSearchController implements Initializable{
         }
     }
 
-    public void clearBook(){
+    private void clearBook(){
         vbWishlist.getChildren().clear();
     }
 
@@ -217,11 +217,12 @@ public class menuSearchController implements Initializable{
                                 alert.setContentText("Buku sudah dipinjam!");
                                 alert.showAndWait();
                             } else {
-                                String insertQuery = "INSERT INTO dipinjam (id_buku, genre, judul, tahun_rilis, tanggal_pinjam, peminjamId) SELECT id_buku, genre, judul, tahun_rilis,?, ? FROM buku WHERE id_buku = ?";
+                                String insertQuery = "INSERT INTO dipinjam (id_buku, genre, judul, tahun_rilis, tanggal_pinjam, peminjamId, tenggat) SELECT id_buku, genre, judul, tahun_rilis,?, ?, ? FROM buku WHERE id_buku = ?";
                                 try (PreparedStatement insertStatement = connection.prepareStatement(insertQuery)) {
                                     insertStatement.setDate(1, java.sql.Date.valueOf(tanggalPinjam));
                                     insertStatement.setInt(2, nowSesion.userId);
-                                    insertStatement.setInt(3, bookId);
+                                    insertStatement.setDate(3, java.sql.Date.valueOf(tanggalPinjam.plusDays(7)));
+                                    insertStatement.setInt(4, bookId);
                                     insertStatement.executeUpdate();
                                 }
                                 String updateQuery = "UPDATE buku SET stok = stok - 1 WHERE id_buku = ?";
@@ -234,6 +235,7 @@ public class menuSearchController implements Initializable{
                                 alert.setHeaderText(null);
                                 alert.setContentText("Buku berhasil dipinjam!");
                                 alert.showAndWait();
+                                reload();
                             }
                             System.out.println(DataSesi.getUserId());
                         }
@@ -247,7 +249,7 @@ public class menuSearchController implements Initializable{
 
 
     // Handler button in header
-    public void btnDipinjam(ActionEvent actionEvent) throws IOException {
+    private void btnDipinjam(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("menu-dipinjam.fxml"));
         Parent root = loader.load();
         Scene newScene = new Scene(root);
@@ -256,7 +258,7 @@ public class menuSearchController implements Initializable{
         currentStage.show();
     }
 
-    public void btnRak(ActionEvent actionEvent) throws IOException {
+    private void btnRak(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("menu-rak.fxml"));
         Parent root = loader.load();
         Scene newScene = new Scene(root);
@@ -266,7 +268,7 @@ public class menuSearchController implements Initializable{
     }
 
     //Handler logout
-    public void btnLogout(ActionEvent actionEvent) {
+    private void btnLogout(ActionEvent actionEvent) {
         clearUserData();
         pindahKeLogin();
     }
@@ -287,6 +289,20 @@ public class menuSearchController implements Initializable{
             currentStage.show();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    //Reload
+    private void reload(){
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("menu-rak.fxml"));
+        try {
+            Parent root = loader.load();
+            Scene newScene = new Scene(root);
+            Stage currentStage = (Stage) tfSearch.getScene().getWindow();
+            currentStage.setScene(newScene);
+            currentStage.show();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
