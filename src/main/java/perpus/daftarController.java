@@ -36,21 +36,25 @@ public class daftarController {
 
         if (!nama.isEmpty() && !username.isEmpty() && !password.isEmpty() && !email.isEmpty()){
             if (cekEmail(email)){
-                if (password.length() >= 5) {
+                if (password.length() >= 6 && password.length() <= 50 ) {
                     if (!isUsernameExists(username)) {
-                        user = addUserToDatabase(nama, username, email, password);
-                        if (user != null){
-                            System.out.println("Berhasil mendaftarkan " + DataSesi.nama);
-                            alertText.setContentText("Pendaftaran Berhasil!!!");
-                        } else {
-                            System.out.println("Gagal melakukan pendaftaran");
-                            alertText.setContentText("Gagal melakukan pendaftaran. Silakan coba lagi.");
+                        if (username.length() >= 6 && username.length() <= 50){
+                            user = addUserToDatabase(nama, username, email, password);
+                            if (user != null){
+                                System.out.println("Berhasil mendaftarkan " + DataSesi.nama);
+                                alertText.setContentText("Pendaftaran Berhasil!!!");
+                            } else {
+                                System.out.println("Gagal melakukan pendaftaran");
+                                alertText.setContentText("Gagal melakukan pendaftaran. Silakan coba lagi.");
+                            }
+                        }else {
+                            alertText.setContentText("Username minimal 6 Karakter dan maksimals 50 karakter");
                         }
                     } else {
                         alertText.setContentText("Username sudah digunakan. Silakan gunakan username lain.");
                     }
                 } else {
-                    alertText.setContentText("Password minimal 5 karakter.");
+                    alertText.setContentText("Password minimal 6 karakter dan maksimal 50 karakter.");
                 }
             } else{
                 alertText.setContentText("Email invalid");
