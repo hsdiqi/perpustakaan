@@ -36,14 +36,15 @@ public class pengembalianController {
 
     public GridPane creatGridPane(ResultSet resultSet) throws SQLException {
         GridPane gridPane = new GridPane();
+        gridPane.setStyle("-fx-background-color: rgba(204,204,204,0.4)");
 
         // Set columnConstraints
         ColumnConstraints col1 = new ColumnConstraints();
         col1.setHgrow(Priority.SOMETIMES);
-        col1.setHalignment(HPos.CENTER);
-        col1.setMaxWidth(80);
+        col1.setHalignment(HPos.LEFT);
+        col1.setMaxWidth(100);
         col1.setMinWidth(10.0);
-        col1.setPrefWidth(69.0);
+        col1.setPrefWidth(85.0);
 
         ColumnConstraints col2 = new ColumnConstraints();
         col2.setHgrow(Priority.SOMETIMES);
@@ -60,9 +61,9 @@ public class pengembalianController {
         ColumnConstraints col4 = new ColumnConstraints();
         col4.setHgrow(Priority.SOMETIMES);
         col4.setHalignment(HPos.CENTER);
-        col4.setMaxWidth(70.0);
-        col4.setMinWidth(10.0);
-        col4.setPrefWidth(70.0);
+        col4.setMaxWidth(120.0);
+        col4.setMinWidth(50.0);
+        col4.setPrefWidth(80.0);
 
         gridPane.getColumnConstraints().addAll(col1, col2, col3, col4);
 
@@ -109,10 +110,10 @@ public class pengembalianController {
         int bokkID = resultSet.getInt("id_buku");
 
         Button btnBackk = new Button("kembalikan");
-        btnBackk.setPrefWidth(55);
-        btnBackk.setPrefHeight(5);
+        btnBackk.setPrefWidth(80);
+        btnBackk.setPrefHeight(7);
         btnBackk.getStyleClass().add("btnBack");
-        VBox.setMargin(btnBackk, new Insets(0,0,10,0));
+        VBox.setMargin(btnBackk, new Insets(0,3,10,0));
         btnBackk.setOnAction(actionEvent -> {
             backBook(bokkID);
         });
@@ -219,7 +220,7 @@ public class pengembalianController {
     }
 
     public void btnUpdateBook(ActionEvent actionEvent) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/perpus/admin/admin-addBook.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/perpus/admin/admin-updateBook.fxml"));
         Parent root = loader.load();
         Scene newScene = new Scene(root);
         Stage currentStage = (Stage) btnPengembalian.getScene().getWindow();

@@ -264,4 +264,30 @@ public class menuSearchController implements Initializable{
         currentStage.setScene(newScene);
         currentStage.show();
     }
+
+    //Handler logout
+    public void btnLogout(ActionEvent actionEvent) {
+        clearUserData();
+        pindahKeLogin();
+    }
+
+    private void clearUserData() {
+        nowSesion.username = null;
+        nowSesion.setUserId(0);
+        nowSesion.nama = null;
+    }
+
+    private void pindahKeLogin() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
+            Parent root = loader.load();
+            Scene newScene = new Scene(root);
+            Stage currentStage = (Stage) btnWishlist.getScene().getWindow();
+            currentStage.setScene(newScene);
+            currentStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

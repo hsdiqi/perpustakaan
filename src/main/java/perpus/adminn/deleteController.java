@@ -37,6 +37,7 @@ public class deleteController {
 
     private GridPane creatGridPane(ResultSet resultSet) throws SQLException {
         GridPane gridPane = new GridPane();
+        gridPane.setStyle("-fx-background-color: rgba(204,204,204,0.4)");
 
         // Set columnConstraints
         ColumnConstraints col1 = new ColumnConstraints();

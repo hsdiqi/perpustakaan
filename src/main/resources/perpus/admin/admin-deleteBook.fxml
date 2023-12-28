@@ -38,7 +38,7 @@
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefWidth="340.0">
                <children>
-                  <VBox fx:id="vbDeleteList" layoutX="14.0" layoutY="14.0" prefWidth="340.0" />
+                  <VBox fx:id="vbDeleteList" layoutX="14.0" layoutY="14.0" prefWidth="340.0" spacing="10.0" AnchorPane.leftAnchor="3.0" />
                </children>
             </AnchorPane>
         </content>

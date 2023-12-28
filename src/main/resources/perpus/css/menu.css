@@ -9,6 +9,11 @@
     -fx-start-margin: 10;
     -fx-pref-height: 10;
 }
+.button_header {
+}
+.button_header:hover{
+    -fx-background-color: pink;
+}
 #btnDipinjam{
     -fx-border-color: grey;
     -fx-border-radius: 15;
@@ -44,3 +49,4 @@ Pane{
 .GPList{
     -fx-background-color: rgba(168, 168, 168, 0.52);
 }
+
