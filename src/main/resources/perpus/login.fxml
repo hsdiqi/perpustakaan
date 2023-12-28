@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="640.0" prefWidth="360.0" style="-fx-background-color: aquamarine;" stylesheets="@css/login.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="perpus.logincontroller">
+<AnchorPane prefHeight="640.0" prefWidth="360.0" style="-fx-background-color: aquamarine;" stylesheets="@css/login.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="perpus.logincontroller">
       <VBox alignment="TOP_CENTER" layoutX="30.0" layoutY="20.0" prefHeight="600.0" prefWidth="300.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="20.0">
          <children>
             <ImageView fitHeight="283.0" fitWidth="288.0" pickOnBounds="true" preserveRatio="true">
@@ -50,6 +57,11 @@
                         <Insets top="2.0" />
                      </VBox.margin>
                   </PasswordField>
+               <Label onDragDetected="#forgotPass" text="Lupa Password?" textFill="#cc190d">
+                  <font>
+                     <Font name="System Italic" size="11.0" />
+                  </font>
+               </Label>
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
