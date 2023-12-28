@@ -179,4 +179,13 @@ public class updateController {
         currentStage.setScene(newScene);
         currentStage.show();
     }
+
+    public void btnPengembalian(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/perpus/admin/admin-pengembalian.fxml"));
+        Parent root = loader.load();
+        Scene newScene = new Scene(root);
+        Stage currentStage = (Stage) updateBook.getScene().getWindow();
+        currentStage.setScene(newScene);
+        currentStage.show();
+    }
 }

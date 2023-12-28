@@ -22,14 +22,15 @@
                 </Text>
             </children>
         </HBox>
-        <HBox alignment="CENTER" layoutY="63.66666666666667" prefHeight="50.0" prefWidth="360.0" spacing="20.0" style="-fx-background-color: aquamarine;" AnchorPane.topAnchor="55.0">
+        <HBox alignment="CENTER" layoutY="63.66666666666667" prefHeight="50.0" prefWidth="360.0" spacing="8.0" style="-fx-background-color: aquamarine;" AnchorPane.topAnchor="55.0">
             <padding>
-                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
             </padding>
             <children>
                 <Button mnemonicParsing="false" onAction="#btnAddBook" styleClass="btnHeader" text="Tambah Buku" />
                 <Button fx:id="deleteBook" layoutX="164.0" layoutY="23.0" mnemonicParsing="false" styleClass="btnHeader" text="Hapus Buku" />
                 <Button layoutX="190.0" layoutY="23.0" mnemonicParsing="false" onAction="#btnUpdateBook" styleClass="btnHeader" text="Update Buku" />
+            <Button mnemonicParsing="false" onAction="#btnPengembalian" styleClass="btnHeader" text="Pengembalian" />
             </children>
         </HBox>
         <Rectangle fill="#ffeb94" height="50.0" layoutY="119.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" width="360.0" AnchorPane.topAnchor="105.0" />
@@ -45,6 +46,6 @@
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
       </ScrollPane>
-      <TextField fx:id="tfSearchDeleteBook" layoutX="16.0" layoutY="117.0" onAction="#searchDeleteClick" prefHeight="25.0" prefWidth="327.0" promptText="masukkan kode / nama buku" />
+      <TextField fx:id="tfSearchDeleteBook" layoutX="16.0" layoutY="117.0" onAction="#searchDeleteClick" prefHeight="25.0" prefWidth="327.0" promptText="Masukkan judul buku" />
     </children>
 </AnchorPane>

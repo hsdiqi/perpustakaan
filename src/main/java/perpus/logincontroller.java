@@ -33,12 +33,13 @@ public class logincontroller {
 
         if (!username.isEmpty() && !password.isEmpty()) {
             try (Connection connection = DatabaseConnector.connect()) {
-                String query = "SELECT id_user FROM users WHERE username = ?";
+                String query = "SELECT id_user, nama FROM users WHERE username = ?";
                 try (PreparedStatement statementGetId = connection.prepareStatement(query)) {
                     statementGetId.setString(1, username);
                     ResultSet resultSet = statementGetId.executeQuery();
                     if (resultSet.next()) {
                         perpus.nowSesion.setUserId(resultSet.getInt("id_user"));
+                        perpus.nowSesion.setUsername(resultSet.getString("nama"));
                     }
                     boolean cekLoginUser = validasi.validatedLogin(username, password);
                     boolean cekLoginAdmin = validasi.validateAdmin(username, password);

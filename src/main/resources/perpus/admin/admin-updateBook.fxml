@@ -28,7 +28,7 @@
                 </Text>
             </children>
         </HBox>
-        <HBox alignment="CENTER" layoutY="70.0" prefHeight="50.0" prefWidth="360.0" spacing="10.0" style="-fx-background-color: aquamarine;" AnchorPane.topAnchor="55.0">
+        <HBox alignment="CENTER" layoutY="70.0" prefHeight="50.0" prefWidth="360.0" spacing="8.0" style="-fx-background-color: aquamarine;" AnchorPane.topAnchor="55.0">
             <padding>
                 <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
             </padding>
@@ -36,13 +36,13 @@
                 <Button mnemonicParsing="false" onAction="#btnAddBook" styleClass="btnHeader" text="Tambah Buku" />
                 <Button layoutX="164.0" layoutY="23.0" mnemonicParsing="false" onAction="#btnDeleteBook" styleClass="btnHeader" text="Hapus Buku" />
                 <Button fx:id="updateBook" layoutX="190.0" layoutY="23.0" mnemonicParsing="false" styleClass="btnHeader" text="Update Buku" />
-            <Button mnemonicParsing="false" styleClass="btnHeader" text="Pengmbalian" />
+            <Button mnemonicParsing="false" onAction="#btnPengembalian" styleClass="btnHeader" text="Pengembalian" />
             </children>
         </HBox>
-        <Rectangle fill="#fad8ac" height="75.0" layoutY="120.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" width="360.0" AnchorPane.topAnchor="105.0" />
-      <TextField fx:id="tfSearchBookUpdate" layoutX="55.0" layoutY="111.0" onAction="#clikSearchUpdate" prefHeight="25.0" prefWidth="250.0" promptText="masukkan judul buku" AnchorPane.leftAnchor="55.0" AnchorPane.topAnchor="115.0" />
-      <ComboBox fx:id="valueBook" layoutX="62.0" layoutY="145.0" prefHeight="25.0" prefWidth="235.0" />
-      <ScrollPane layoutY="179.33333333333334" prefHeight="460.0" prefWidth="360.0" AnchorPane.topAnchor="179.0">
+        <Rectangle fill="#fad8ac" height="65.0" layoutY="120.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" width="360.0" AnchorPane.topAnchor="105.0" />
+      <TextField fx:id="tfSearchBookUpdate" layoutX="55.333333333333336" layoutY="113.0" onAction="#clikSearchUpdate" prefHeight="25.0" prefWidth="250.0" promptText="masukkan judul buku" AnchorPane.leftAnchor="55.333333333333336" AnchorPane.topAnchor="110.0" />
+      <ComboBox fx:id="valueBook" layoutX="62.0" layoutY="145.0" prefHeight="25.0" prefWidth="235.0" AnchorPane.topAnchor="140.0" />
+      <ScrollPane layoutY="179.33333333333334" prefHeight="470.0" prefWidth="360.0" AnchorPane.topAnchor="170.0">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefWidth="340.0">
                <children>

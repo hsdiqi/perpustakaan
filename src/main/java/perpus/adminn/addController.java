@@ -94,4 +94,13 @@ public class addController {
         currentStage.setScene(newScene);
         currentStage.show();
     }
+
+    public void btnPengembalian(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/perpus/admin/admin-pengembalian.fxml"));
+        Parent root = loader.load();
+        Scene newScene = new Scene(root);
+        Stage currentStage = (Stage) addBook.getScene().getWindow();
+        currentStage.setScene(newScene);
+        currentStage.show();
+    }
 }

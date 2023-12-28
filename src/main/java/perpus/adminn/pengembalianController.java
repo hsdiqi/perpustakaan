@@ -1,7 +1,6 @@
 package perpus.adminn;
 
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -27,15 +26,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class deleteController {
-    @FXML
-    private Button deleteBook;
-    @FXML
-    private VBox vbDeleteList;
-    @FXML
-    private TextField tfSearchDeleteBook;
+public class pengembalianController {
+    public Button btnPengembalian;
+    public Label lbNamaUser;
+    public VBox vbListBukuUsers;
+    public TextField searchUsername;
+    public int idPEminjamm;
 
-    private GridPane creatGridPane(ResultSet resultSet) throws SQLException {
+
+    public GridPane creatGridPane(ResultSet resultSet) throws SQLException {
         GridPane gridPane = new GridPane();
 
         // Set columnConstraints
@@ -96,7 +95,7 @@ public class deleteController {
         Label lbNJudul = new Label("Judul: ");
         Label lbNGenre = new Label("Genre: ");
         Label lbNTahun = new Label("Tahun Rilis: ");
-        Label lbNStok = new Label("Stok: ");
+        Label lbNborrowDate = new Label("tanggal pinjam: ");
         // label (:)
         Label lb1 = new Label(":");
         Label lb2 = new Label(":");
@@ -106,23 +105,23 @@ public class deleteController {
         Label lbIJudul = new Label(resultSet.getString("judul"));
         Label lbIGenre = new Label(resultSet.getString("genre"));
         Label lbITahun = new Label(resultSet.getString("tahun_rilis"));
-        Label lbIStok = new Label(resultSet.getString("stok"));
+        Label lbIDateBorrow = new Label(resultSet.getString("tanggal_pinjam"));
         int bokkID = resultSet.getInt("id_buku");
 
-        Button btnDelete = new Button("Delete");
-        btnDelete.setPrefWidth(55);
-        btnDelete.setPrefHeight(5);
-        btnDelete.getStyleClass().add("btnDelete");
-        VBox.setMargin(btnDelete, new Insets(0,0,10,0));
-        btnDelete.setOnAction(actionEvent -> {
-            deleted(bokkID);
+        Button btnBackk = new Button("kembalikan");
+        btnBackk.setPrefWidth(55);
+        btnBackk.setPrefHeight(5);
+        btnBackk.getStyleClass().add("btnBack");
+        VBox.setMargin(btnBackk, new Insets(0,0,10,0));
+        btnBackk.setOnAction(actionEvent -> {
+            backBook(bokkID);
         });
 
         // Add nodes to gridPane
         gridPane.add(lbNJudul, 0, 0);
         gridPane.add(lbNGenre, 0, 1);
         gridPane.add(lbNTahun, 0, 2);
-        gridPane.add(lbNStok, 0, 3);
+        gridPane.add(lbNborrowDate, 0, 3);
         gridPane.add(lb1, 1, 0);
         gridPane.add(lb2, 1, 1);
         gridPane.add(lb3, 1, 2);
@@ -130,101 +129,100 @@ public class deleteController {
         gridPane.add(lbIJudul, 2, 0);
         gridPane.add(lbIGenre, 2, 1);
         gridPane.add(lbITahun, 2, 2);
-        gridPane.add(lbIStok, 2, 3);
-        gridPane.add(btnDelete, 3, 3);
+        gridPane.add(lbIDateBorrow, 2, 3);
+        gridPane.add(btnBackk, 3, 3);
 
         return gridPane;
     }
 
-    @FXML
-    private void searchDeleteClick(ActionEvent actionEvent) {
-        String searchName = tfSearchDeleteBook.getText().trim();
-        if (!searchName.isEmpty()){
-            clearBook();
-            searchBook(searchName);
-        }else {
-            Text txt = new Text("...");
-            txt.setFont(Font.font("system", FontWeight.BOLD, FontPosture.REGULAR, 20));
-            vbDeleteList.getChildren().add(txt);
-            vbDeleteList.setAlignment(Pos.CENTER);
-        }
-
-    }
-    private void searchBook(String name){
-        String query = "SELECT * FROM buku WHERE judul LIKE ?";
+    public void searchUsername(String username){
+        String querygetIdUser = "SELECT id_user FROM users WHERE username = ?";
+        String querySetData = "SELECT * FROM dipinjam WHERE peminjamId = ?";
         clearBook();
         try (Connection connection = DatabaseConnector.connect()){
-            try (PreparedStatement statementSearch = connection.prepareStatement(query)) {
-                statementSearch.setString(1, "%" +name + "%");
-                ResultSet resultSet = statementSearch.executeQuery();
-
-                while (resultSet.next()){
-                    GridPane gridPane = creatGridPane(resultSet);
-                    vbDeleteList.getChildren().add(gridPane);
+            try (PreparedStatement statementSearch = connection.prepareStatement(querygetIdUser);
+            PreparedStatement statementOut = connection.prepareStatement(querySetData)) {
+                statementSearch.setString(1, username);
+                ResultSet resultSetgetID = statementSearch.executeQuery();
+                if (resultSetgetID.next()){
+                    idPEminjamm = resultSetgetID.getInt("id_user");
+                    statementOut.setInt(1, idPEminjamm);
+                    ResultSet resultSetOutput = statementOut.executeQuery();
+                    while (resultSetOutput.next()){
+                        GridPane gridPane = creatGridPane(resultSetOutput);
+                        vbListBukuUsers.getChildren().add(gridPane);
+                    }
                 }
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
-    private void clearBook(){
-        vbDeleteList.getChildren().clear();
+    public void clearBook(){
+        vbListBukuUsers.getChildren().clear();
     }
 
-    private void deleted(int idBuku) {
-        String bookTitle = "";
-        try (Connection connection = DatabaseConnector.connect()) {
-            String getTitleQuery = "SELECT judul FROM buku WHERE id_buku = ?";
-            try (PreparedStatement getTitleStatement = connection.prepareStatement(getTitleQuery)) {
-                getTitleStatement.setInt(1, idBuku);
-                ResultSet resultSet = getTitleStatement.executeQuery();
-                if (resultSet.next()) {
-                    bookTitle = resultSet.getString("judul");
-                }
+    public void backBook(int idBook){
+        try (Connection connection = DatabaseConnector.connect()){
+            String deleteDataInDipinjam = "DELETE FROM dipinjam WHERE id_buku = ? AND peminjamId = ?";
+            String tambahStok = "UPDATE buku SET stok = stok + 1 WHERE id_buku = ?";
+
+            try (PreparedStatement statementBack = connection.prepareStatement(deleteDataInDipinjam)){
+                statementBack.setInt(1, idBook);
+                statementBack.setInt(2, idPEminjamm);
+                statementBack.executeUpdate();
             }
-            String deleteQuery = "DELETE FROM buku WHERE id_buku = ?";
-            try (PreparedStatement statementDelete = connection.prepareStatement(deleteQuery)) {
-                statementDelete.setInt(1, idBuku);
-                statementDelete.executeUpdate();
+            try (PreparedStatement statementplusStock = connection.prepareStatement(tambahStok)){
+                statementplusStock.setInt(1, idBook);
+                statementplusStock.executeUpdate();
             }
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Buku telaj dikembalikan");
+            alert.showAndWait();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
 
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setContentText("Buku '" + bookTitle + "' telah dihapus!");
-        alert.showAndWait();
-        clearBook();
+    public void searchKlick(ActionEvent actionEvent) {
+        String searcText = searchUsername.getText();
+        if (!searcText.isEmpty()){
+            clearBook();
+            searchUsername(searcText);
+        }else {
+            Text txt = new Text("...");
+            txt.setFont(Font.font("System", FontWeight.BOLD, FontPosture.REGULAR, 25));
+            vbListBukuUsers.getChildren().add(txt);
+            vbListBukuUsers.setAlignment(Pos.CENTER);
+        }
     }
 
 
-    @FXML
-    private void btnAddBook(ActionEvent actionEvent) throws IOException {
+
+    //Handler btn in header
+    public void addBook(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/perpus/admin/admin-addBook.fxml"));
         Parent root = loader.load();
         Scene newScene = new Scene(root);
-        Stage currentStage = (Stage) deleteBook.getScene().getWindow();
+        Stage currentStage = (Stage) btnPengembalian.getScene().getWindow();
         currentStage.setScene(newScene);
         currentStage.show();
     }
 
-
-    @FXML
-    private void btnUpdateBook(ActionEvent actionEvent) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/perpus/admin/admin-updateBook.fxml"));
+    public void btnDeleteBook(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/perpus/admin/admin-deleteBook.fxml"));
         Parent root = loader.load();
         Scene newScene = new Scene(root);
-        Stage currentStage = (Stage) deleteBook.getScene().getWindow();
+        Stage currentStage = (Stage) btnPengembalian.getScene().getWindow();
         currentStage.setScene(newScene);
         currentStage.show();
     }
 
-    @FXML
-    private void btnPengembalian(ActionEvent actionEvent) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/perpus/admin/admin-pengembalian.fxml"));
+    public void btnUpdateBook(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/perpus/admin/admin-addBook.fxml"));
         Parent root = loader.load();
         Scene newScene = new Scene(root);
-        Stage currentStage = (Stage) deleteBook.getScene().getWindow();
+        Stage currentStage = (Stage) btnPengembalian.getScene().getWindow();
         currentStage.setScene(newScene);
         currentStage.show();
     }

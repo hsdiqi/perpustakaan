@@ -9,7 +9,6 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -24,18 +23,18 @@
              </Text>
          </children>
       </HBox>
-      <HBox alignment="CENTER" layoutY="70.0" prefHeight="50.0" prefWidth="360.0" spacing="20.0" style="-fx-background-color: aquamarine;" AnchorPane.topAnchor="70.0">
+      <HBox alignment="CENTER" layoutY="55.0" prefHeight="50.0" prefWidth="360.0" spacing="8.0" style="-fx-background-color: aquamarine;" AnchorPane.topAnchor="55.0">
          <padding>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
          </padding>
          <children>
             <Button fx:id="addBook" mnemonicParsing="false" styleClass="btnHeader" text="Tambah Buku" />
             <Button layoutX="164.0" layoutY="23.0" mnemonicParsing="false" onAction="#btnDeleteBook" styleClass="btnHeader" text="Hapus Buku" />
             <Button layoutX="190.0" layoutY="23.0" mnemonicParsing="false" onAction="#btnUpdateBook" styleClass="btnHeader" text="Update Buku" />
+            <Button mnemonicParsing="false" onAction="#btnPengembalian" styleClass="btnHeader" text="Pengembalian" />
          </children>
       </HBox>
-      <Rectangle fill="DODGERBLUE" height="20.0" layoutY="50.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" width="360.0" />
-      <GridPane layoutX="15.0" layoutY="127.0" prefHeight="170.0" prefWidth="330.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="130.0">
+      <GridPane layoutX="15.0" layoutY="127.0" prefHeight="170.0" prefWidth="330.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="120.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="94.0" minWidth="10.0" prefWidth="66.66665649414062" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="124.00002034505208" minWidth="4.000020345052079" prefWidth="7.333363850911454" />
