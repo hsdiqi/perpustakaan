@@ -110,6 +110,7 @@ public class logincontroller {
         }
     }
 
+    @FXML
     protected void forgotPass(ActionEvent mouseEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("forgotPW.fxml"));
         Parent root = loader.load();
