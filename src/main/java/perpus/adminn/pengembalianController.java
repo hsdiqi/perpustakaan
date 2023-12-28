@@ -27,14 +27,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class pengembalianController {
-    public Button btnPengembalian;
-    public Label lbNamaUser;
-    public VBox vbListBukuUsers;
-    public TextField searchUsername;
-    public int idPEminjamm;
+    private Button btnPengembalian;
+    private Label lbNamaUser;
+    private VBox vbListBukuUsers;
+    private TextField searchUsername;
+    private int idPEminjamm;
 
 
-    public GridPane creatGridPane(ResultSet resultSet) throws SQLException {
+    private GridPane creatGridPane(ResultSet resultSet) throws SQLException {
         GridPane gridPane = new GridPane();
         gridPane.setStyle("-fx-background-color: rgba(204,204,204,0.4)");
 
@@ -136,7 +136,7 @@ public class pengembalianController {
         return gridPane;
     }
 
-    public void searchUsername(String username){
+    private void searchUsername(String username){
         String querygetIdUser = "SELECT id_user FROM users WHERE username = ?";
         String querySetData = "SELECT * FROM dipinjam WHERE peminjamId = ?";
         clearBook();
@@ -159,11 +159,11 @@ public class pengembalianController {
             throw new RuntimeException(e);
         }
     }
-    public void clearBook(){
+    private void clearBook(){
         vbListBukuUsers.getChildren().clear();
     }
 
-    public void backBook(int idBook){
+    private void backBook(int idBook){
         try (Connection connection = DatabaseConnector.connect()){
             String deleteDataInDipinjam = "DELETE FROM dipinjam WHERE id_buku = ? AND peminjamId = ?";
             String tambahStok = "UPDATE buku SET stok = stok + 1 WHERE id_buku = ?";
@@ -178,14 +178,15 @@ public class pengembalianController {
                 statementplusStock.executeUpdate();
             }
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Buku telaj dikembalikan");
+            alert.setContentText("Buku telah dikembalikan");
             alert.showAndWait();
+            clear();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public void searchKlick(ActionEvent actionEvent) {
+    private void searchKlick(ActionEvent actionEvent) {
         String searcText = searchUsername.getText();
         if (!searcText.isEmpty()){
             clearBook();
@@ -197,11 +198,15 @@ public class pengembalianController {
             vbListBukuUsers.setAlignment(Pos.CENTER);
         }
     }
+    
+    private void clear(){
+        vbListBukuUsers.getChildren().clear();
+    }
 
 
 
     //Handler btn in header
-    public void addBook(ActionEvent actionEvent) throws IOException {
+    private void addBook(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/perpus/admin/admin-addBook.fxml"));
         Parent root = loader.load();
         Scene newScene = new Scene(root);
@@ -210,7 +215,7 @@ public class pengembalianController {
         currentStage.show();
     }
 
-    public void btnDeleteBook(ActionEvent actionEvent) throws IOException {
+    private void btnDeleteBook(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/perpus/admin/admin-deleteBook.fxml"));
         Parent root = loader.load();
         Scene newScene = new Scene(root);
@@ -219,7 +224,7 @@ public class pengembalianController {
         currentStage.show();
     }
 
-    public void btnUpdateBook(ActionEvent actionEvent) throws IOException {
+    private void btnUpdateBook(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/perpus/admin/admin-updateBook.fxml"));
         Parent root = loader.load();
         Scene newScene = new Scene(root);

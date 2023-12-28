@@ -57,11 +57,11 @@
                         <Insets top="2.0" />
                      </VBox.margin>
                   </PasswordField>
-               <Label onDragDetected="#forgotPass" text="Lupa Password?" textFill="#cc190d">
+               <Hyperlink onAction="#forgotPass" text="Lupa Password?" textFill="#cc190d">
                   <font>
                      <Font name="System Italic" size="11.0" />
                   </font>
-               </Label>
+               </Hyperlink>
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

@@ -15,15 +15,15 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 public class daftarController {
     @FXML
-    public TextField tfNama;
+    private TextField tfNama;
     @FXML
-    public TextField tfUsername;
+    private TextField tfUsername;
     @FXML
-    public TextField tfEmail;
+    private TextField tfEmail;
     @FXML
-    public TextField tfPassword;
+    private TextField tfPassword;
     @FXML
-    public Alert alertText;
+    private Alert alertText;
     @FXML
     private Hyperlink btnMasuk;
     @FXML
@@ -54,7 +54,7 @@ public class daftarController {
                         alertText.setContentText("Username sudah digunakan. Silakan gunakan username lain.");
                     }
                 } else {
-                    alertText.setContentText("Password minimal 6 karakter dan maksimal 50 karakter.");
+                    alertText.setContentText("Password minimal 6 karakter dan maksimal 50 karakter");
                 }
             } else{
                 alertText.setContentText("Email invalid");
@@ -97,7 +97,7 @@ public class daftarController {
         }
     }
 
-    public static DataSesi user;
+    private static DataSesi user;
     private DataSesi addUserToDatabase(String nama, String username, String email, String password){
         DataSesi user = null;
         try {

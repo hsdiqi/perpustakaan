@@ -1,5 +1,6 @@
 package perpus;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -8,7 +9,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -23,11 +23,11 @@ public class logincontroller {
     private TextField pwText;
     @FXML
     private TextField usNameText;
-    private Alert alertText = new Alert(Alert.AlertType.INFORMATION);
     @FXML
     private Hyperlink btnDaftar;
     @FXML
     private Button btnLogin;
+    private Alert alertText = new Alert(Alert.AlertType.INFORMATION);
 
     @FXML
     protected void btnLogin() {
@@ -110,10 +110,12 @@ public class logincontroller {
         }
     }
 
-    public void forgotPass(MouseEvent mouseEvent) throws IOException {
+    protected void forgotPass(ActionEvent mouseEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("forgotPW.fxml"));
         Parent root = loader.load();
         Scene newScene = new Scene(root);
         Stage currentStage = (Stage) btnLogin.getScene().getWindow();
+        currentStage.setScene(newScene);
+        currentStage.show();
     }
 }

@@ -47,7 +47,7 @@ public class updateController {
     private ComboBox<String> valueBook;
     private Connection connection;
 
-    public void initialize() throws SQLException {
+    private void initialize() throws SQLException {
         connection = DatabaseConnector.connect();
         showTitle(tfSearchBookUpdate.getText());
 
@@ -58,7 +58,7 @@ public class updateController {
             }
         });
     }
-    public void showTitle(String searchTitle){
+    private void showTitle(String searchTitle){
         searchTitle = tfSearchBookUpdate.getText();
         ObservableList<String> listTitle = FXCollections.observableArrayList();
         try (Connection connection = DatabaseConnector.connect()){
@@ -150,7 +150,7 @@ public class updateController {
             e.printStackTrace();
         }
     }
-    public void clikSearchUpdate(ActionEvent actionEvent) {
+    private void clikSearchUpdate(ActionEvent actionEvent) {
         String titleBookSearch = tfSearchBookUpdate.getText();
         showTitle(titleBookSearch);
         String judulBOOK = valueBook.getValue();
@@ -163,7 +163,7 @@ public class updateController {
     }
 
     //handler btn in header
-    public void btnDeleteBook(ActionEvent actionEvent) throws IOException {
+    private void btnDeleteBook(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/perpus/admin/admin-deleteBook.fxml"));
         Parent root = loader.load();
         Scene newScene = new Scene(root);
@@ -171,7 +171,7 @@ public class updateController {
         currentStage.setScene(newScene);
         currentStage.show();
     }
-    public void btnAddBook(ActionEvent actionEvent) throws IOException {
+    private void btnAddBook(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/perpus/admin/admin-addBook.fxml"));
         Parent root = loader.load();
         Scene newScene = new Scene(root);
@@ -180,7 +180,7 @@ public class updateController {
         currentStage.show();
     }
 
-    public void btnPengembalian(ActionEvent actionEvent) throws IOException {
+    private void btnPengembalian(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/perpus/admin/admin-pengembalian.fxml"));
         Parent root = loader.load();
         Scene newScene = new Scene(root);

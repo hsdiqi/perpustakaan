@@ -16,14 +16,14 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class addController {
-    public Button addBook;
-    public TextField tfKodeBook;
-    public TextField tfJudul;
-    public TextField tfGenre;
-    public TextField tfTahun;
-    public TextField tfStok;
+    private Button addBook;
+    private TextField tfKodeBook;
+    private TextField tfJudul;
+    private TextField tfGenre;
+    private TextField tfTahun;
+    private TextField tfStok;
 
-    public void btnTambahBuku(ActionEvent actionEvent){
+    private void btnTambahBuku(ActionEvent actionEvent){
         try {
             String kodeBookText = tfKodeBook.getText();
             String genreText = tfGenre.getText();
@@ -77,7 +77,7 @@ public class addController {
 
 
     //Handler btn in header
-    public void btnDeleteBook(ActionEvent actionEvent) throws IOException {
+    private void btnDeleteBook(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/perpus/admin/admin-deleteBook.fxml"));
         Parent root = loader.load();
         Scene newScene = new Scene(root);
@@ -86,7 +86,7 @@ public class addController {
         currentStage.show();
     }
 
-    public void btnUpdateBook(ActionEvent actionEvent) throws IOException {
+    private void btnUpdateBook(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/perpus/admin/admin-updateBook.fxml"));
         Parent root = loader.load();
         Scene newScene = new Scene(root);
@@ -95,7 +95,7 @@ public class addController {
         currentStage.show();
     }
 
-    public void btnPengembalian(ActionEvent actionEvent) throws IOException {
+    private void btnPengembalian(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/perpus/admin/admin-pengembalian.fxml"));
         Parent root = loader.load();
         Scene newScene = new Scene(root);
