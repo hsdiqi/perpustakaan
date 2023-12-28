@@ -167,10 +167,12 @@ public class MenuRakController implements Initializable {
                      ResultSet checkDipinjam = cekBukuDipinjam.executeQuery()) {
                     if (checkStok.next()) {
                         int stok = checkStok.getInt("stok");
+                        System.out.println(stok);
                         if (stok == 0) {
                             Alert alert = new Alert(Alert.AlertType.INFORMATION);
                             alert.setHeaderText(null);
                             alert.setContentText("Maaf Stok buku kosong!");
+                            alert.show();
                         } else {
                             boolean siapDipinjam = false;
                             while (checkDipinjam.next()) {
@@ -184,11 +186,12 @@ public class MenuRakController implements Initializable {
                                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                                 alert.setHeaderText(null);
                                 alert.setContentText("Buku sudah dipinjam!");
+                                alert.show();
                             } else {
                                 String insertQuery = "INSERT INTO dipinjam (id_buku, genre, judul,tahun_rilis, tanggal_pinjam, peminjamId) SELECT id_buku, genre, judul,tahun_rilis,? , ? FROM buku WHERE id_buku = ?";
                                 try (PreparedStatement insertStatement = connection.prepareStatement(insertQuery)) {
                                     insertStatement.setDate(1, java.sql.Date.valueOf(tanggalPinjam));
-                                    insertStatement.setInt(2, DataSesi.userId);
+                                    insertStatement.setInt(2, nowSesion.userId);
                                     insertStatement.setInt(3, bookId);
                                     insertStatement.executeUpdate();
                                 }
@@ -199,7 +202,7 @@ public class MenuRakController implements Initializable {
                                 }
                                 loadDataFromDatabase();
                             }
-                            System.out.println(DataSesi.getUserId());
+                           // System.out.println(DataSesi.getUserId());
                         }
                     }
                 }

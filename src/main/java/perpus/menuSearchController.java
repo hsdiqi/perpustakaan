@@ -37,7 +37,7 @@ public class menuSearchController implements Initializable{
 
     private void loadDataFromDatabase() {
         try (Connection connection = DatabaseConnector.connect()) {
-            String query = "SELECT id_buku, judul, genre, tahun_rilis, stok  FROM buku"; // Replace with your actual table name
+            String query = "SELECT id_buku, judul, genre, tahun_rilis, stok  FROM buku";
             try (PreparedStatement preparedStatement = connection.prepareStatement(query);
                  ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
@@ -123,6 +123,7 @@ public class menuSearchController implements Initializable{
         Label lbIGenre = new Label(resultSet.getString("genre"));
         Label lbITahun = new Label(resultSet.getString("tahun_rilis"));
         Label lbIStok = new Label(resultSet.getString("stok"));
+        int bookID = resultSet.getInt("id_buku");
 
         Button btnPinjam = new Button("Pinjam");
         btnPinjam.setPrefWidth(55);
@@ -130,11 +131,7 @@ public class menuSearchController implements Initializable{
         btnPinjam.getStyleClass().add("btn_pinjam");
         VBox.setMargin(btnPinjam, new Insets(0,0,10,0));
         btnPinjam.setOnAction(actionEvent -> {
-            try {
-                btnPinjamClicked(Integer.parseInt(resultSet.getString("id_buku")));
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
+            btnPinjamClicked(bookID);
         });
 
         // Add nodes to gridPane
@@ -163,6 +160,7 @@ public class menuSearchController implements Initializable{
             loadDataFromDatabase();
         }
     }
+
     public void searchBook(String name){
         String srcQuery = "SELECT * FROM buku WHERE judul LIKE ?";
         clearBook();
@@ -180,17 +178,7 @@ public class menuSearchController implements Initializable{
             throw new RuntimeException(e);
         }
     }
-//    public void displayBook(String query){
-//        try(Connection connection = DatabaseConnector.connect()){
-//            try(PreparedStatement preparedStatement = connection.prepareStatement(query);
-//            ResultSet resultSet = preparedStatement.executeQuery()){
-//                GridPane gridPaneSearch = createGridPane(resultSet);
-//                vbWishlist.getChildren().add(gridPaneSearch);
-//            }
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
+
     public void clearBook(){
         vbWishlist.getChildren().clear();
     }
@@ -213,6 +201,7 @@ public class menuSearchController implements Initializable{
                             Alert alert = new Alert(Alert.AlertType.INFORMATION);
                             alert.setHeaderText(null);
                             alert.setContentText("Maaf Stok buku kosong!");
+                            alert.showAndWait();
                         } else {
                             boolean siapDipinjam = false;
                             while (checkDipinjam.next()) {
@@ -226,11 +215,12 @@ public class menuSearchController implements Initializable{
                                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                                 alert.setHeaderText(null);
                                 alert.setContentText("Buku sudah dipinjam!");
+                                alert.showAndWait();
                             } else {
-                                String insertQuery = "INSERT INTO dipinjam (id_buku, genre, judul,tahun_rilis, tanggal_pinjam, peminjamId) SELECT id_buku, genre, judul,tahun_rilis,? , ? FROM buku WHERE id_buku = ?";
+                                String insertQuery = "INSERT INTO dipinjam (id_buku, genre, judul, tahun_rilis, tanggal_pinjam, peminjamId) SELECT id_buku, genre, judul, tahun_rilis,?, ? FROM buku WHERE id_buku = ?";
                                 try (PreparedStatement insertStatement = connection.prepareStatement(insertQuery)) {
                                     insertStatement.setDate(1, java.sql.Date.valueOf(tanggalPinjam));
-                                    insertStatement.setInt(2, DataSesi.userId);
+                                    insertStatement.setInt(2, nowSesion.userId);
                                     insertStatement.setInt(3, bookId);
                                     insertStatement.executeUpdate();
                                 }
@@ -240,6 +230,10 @@ public class menuSearchController implements Initializable{
                                     updateStatement.executeUpdate();
                                 }
                                 loadDataFromDatabase();
+                                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                                alert.setHeaderText(null);
+                                alert.setContentText("Buku berhasil dipinjam!");
+                                alert.showAndWait();
                             }
                             System.out.println(DataSesi.getUserId());
                         }
@@ -251,7 +245,8 @@ public class menuSearchController implements Initializable{
         }
     }
 
-    // action button in header
+
+    // Handler button in header
     public void btnDipinjam(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("menu-dipinjam.fxml"));
         Parent root = loader.load();

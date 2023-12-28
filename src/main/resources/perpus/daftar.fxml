@@ -96,6 +96,6 @@
                     </children>
                 </HBox>
             </children></VBox>
-      <Label fx:id="alertText" layoutX="131.0" layoutY="6.0" prefHeight="17.0" prefWidth="98.0" />
+      <Label layoutX="131.0" layoutY="6.0" prefHeight="17.0" prefWidth="98.0" />
     </children>
 </AnchorPane>

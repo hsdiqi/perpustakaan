@@ -44,21 +44,26 @@ public class logincontroller {
                     boolean cekLoginAdmin = validasi.validateAdmin(username, password);
                     if (cekLoginUser) {
                         alertText.setContentText("Login Sukses" );
+                        alertText.show();
+                        //perpus.nowSesion.setNama();
                         System.out.println(perpus.nowSesion.getUserId());
                         changeSceneIfSuccess();
                     } else if (cekLoginAdmin) {
-                        alertText.setContentText("Salamat datang" + perpus.nowSesion.username);
+                        alertText.setContentText("Salamat datang " + perpus.nowSesion.username);
+                        alertText.show();
                         changeSceneAdmin();
-
                     } else {
                         alertText.setContentText("Login gagal. Coba cek kembali username dan password anda!");
+                        alertText.show();
                     }
                 }
             } catch (SQLException e) {
                 alertText.setContentText("Kesalahan saat login: " + e.getMessage());
+                alertText.show();
             }
         } else {
             alertText.setContentText("Kolom tidak boleh kosong!!");
+            alertText.show();
         }
     }
 
@@ -67,7 +72,6 @@ public class logincontroller {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("daftar.fxml"));
             Parent root = loader.load();
-
             Stage stage = (Stage) btnDaftar.getScene().getWindow();
             Scene scene = new Scene(root);
             stage.setScene(scene);
