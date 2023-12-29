@@ -1,6 +1,7 @@
 package perpus;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
@@ -19,7 +20,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class forgotPWController {
+    @FXML
     private TextField username;
+    @FXML
     private VBox vbNewPas;
     private String usernameUSER;
 //    private TextField tfNewPass;
@@ -28,6 +31,7 @@ public class forgotPWController {
 //        tfusername();
     }
 
+    @FXML
     private void tfusername(ActionEvent actionEvent) {
         String usernameInput = username.getText();
         getUsername(usernameInput);

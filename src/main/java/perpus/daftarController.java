@@ -23,8 +23,6 @@ public class daftarController {
     @FXML
     private TextField tfPassword;
     @FXML
-    private Alert alertText;
-    @FXML
     private Hyperlink btnMasuk;
     @FXML
     protected void btnDaftar(){
@@ -32,7 +30,7 @@ public class daftarController {
         String username = tfUsername.getText();
         String email = tfEmail.getText();
         String password = tfPassword.getText();
-        alertText.setAlertType(Alert.AlertType.INFORMATION);
+        Alert alertText = new Alert(Alert.AlertType.INFORMATION);
 
         if (!nama.isEmpty() && !username.isEmpty() && !password.isEmpty() && !email.isEmpty()){
             if (cekEmail(email)){
@@ -43,24 +41,31 @@ public class daftarController {
                             if (user != null){
                                 System.out.println("Berhasil mendaftarkan " + DataSesi.nama);
                                 alertText.setContentText("Pendaftaran Berhasil!!!");
+                                alertText.showAndWait();
+                                moveToLogin();
                             } else {
-                                System.out.println("Gagal melakukan pendaftaran");
                                 alertText.setContentText("Gagal melakukan pendaftaran. Silakan coba lagi.");
+                                alertText.showAndWait();
                             }
                         }else {
                             alertText.setContentText("Username minimal 6 Karakter dan maksimals 50 karakter");
+                            alertText.showAndWait();
                         }
                     } else {
                         alertText.setContentText("Username sudah digunakan. Silakan gunakan username lain.");
+                        alertText.show();
                     }
                 } else {
                     alertText.setContentText("Password minimal 6 karakter dan maksimal 50 karakter");
+                    alertText.show();
                 }
             } else{
                 alertText.setContentText("Email invalid");
+                alertText.show();
             }
         } else {
             alertText.setContentText("Kolom tidak boleh kosong!!");
+            alertText.show();
         }
     }
 
@@ -100,32 +105,30 @@ public class daftarController {
     private static DataSesi user;
     private DataSesi addUserToDatabase(String nama, String username, String email, String password){
         DataSesi user = null;
-        try {
-            Connection connection = DatabaseConnector.connect();
-            Statement statement = connection.createStatement();
-            String sqlQuery = "INSERT INTO users (nama, username, email, password)"+"VALUES (?,?,?,?)";
-            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+        try (Connection connection = DatabaseConnector.connect();
+             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO users (nama, username, email, password) VALUES (?,?,?,?)",
+                     Statement.RETURN_GENERATED_KEYS)) {
+
             preparedStatement.setString(1, nama);
-            preparedStatement.setString(2,username);
+            preparedStatement.setString(2, username);
             preparedStatement.setString(3, email);
             preparedStatement.setString(4, password);
 
-            //tambah row ke table
             int addedRows = preparedStatement.executeUpdate();
             if (addedRows > 0){
+                user = new DataSesi();
                 DataSesi.nama = nama;
                 DataSesi.email = email;
                 DataSesi.username = username;
                 DataSesi.password = password;
-                ResultSet generatedKeys = statement.getGeneratedKeys();
+
+                ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
                 if (generatedKeys.next()) {
                     DataSesi.userId = generatedKeys.getInt(1);
                 } else {
                     throw new SQLException("Failed to get user ID, no rows affected.");
                 }
             }
-            statement.close();
-            connection.close();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -133,14 +136,23 @@ public class daftarController {
         return user;
     }
 
+
     private boolean cekEmail(String email) {
-        Pattern regexPattern = Pattern.compile("^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$");
+        Pattern regexPattern = Pattern.compile("^[a-zA-Z0-9_.]+@[a-zA-Z0-9.-]+$");
         Matcher regexMatcher = regexPattern.matcher(email);
         boolean isTrue = regexMatcher.find();
         return isTrue;
     }
-
-
-
-
+    private void moveToLogin(){
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
+        try {
+            Parent root =  loader.load();
+            Scene newScene = new Scene(root);
+            Stage currentStage = (Stage) btnMasuk.getScene().getWindow();
+            currentStage.setScene(newScene);
+            currentStage.show();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

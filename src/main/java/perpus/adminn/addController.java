@@ -1,6 +1,7 @@
 package perpus.adminn;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -16,13 +17,20 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class addController {
+    @FXML
     private Button addBook;
+    @FXML
     private TextField tfKodeBook;
+    @FXML
     private TextField tfJudul;
+    @FXML
     private TextField tfGenre;
+    @FXML
     private TextField tfTahun;
+    @FXML
     private TextField tfStok;
 
+    @FXML
     private void btnTambahBuku(ActionEvent actionEvent){
         try {
             String kodeBookText = tfKodeBook.getText();
@@ -77,6 +85,7 @@ public class addController {
 
 
     //Handler btn in header
+    @FXML
     private void btnDeleteBook(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/perpus/admin/admin-deleteBook.fxml"));
         Parent root = loader.load();
@@ -86,6 +95,7 @@ public class addController {
         currentStage.show();
     }
 
+    @FXML
     private void btnUpdateBook(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/perpus/admin/admin-updateBook.fxml"));
         Parent root = loader.load();
@@ -95,6 +105,7 @@ public class addController {
         currentStage.show();
     }
 
+    @FXML
     private void btnPengembalian(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/perpus/admin/admin-pengembalian.fxml"));
         Parent root = loader.load();

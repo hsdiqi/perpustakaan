@@ -61,9 +61,9 @@
      <content>
        <AnchorPane>
             <children>
-               <VBox fx:id="vbWishlist" prefWidth="340.0" spacing="5.0">
+               <VBox fx:id="vbWishlist" prefWidth="345.0" spacing="5.0">
                   <padding>
-                     <Insets top="5.0" />
+                     <Insets left="5.0" top="5.0" />
                   </padding>
                </VBox>
             </children>

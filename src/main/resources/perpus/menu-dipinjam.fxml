@@ -51,7 +51,7 @@
       </HBox>
       <HBox alignment="CENTER" layoutY="79.0" prefHeight="40.0" prefWidth="360.0" spacing="35.0" style="-fx-background-color: aquamarine;">
          <children>
-            <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="87.0" styleClass="button_header" text="Dipinjam" fx:id="btnDipinjam" />
+            <Button fx:id="btnDipinjam" mnemonicParsing="false" prefHeight="27.0" prefWidth="87.0" styleClass="button_header" text="Dipinjam" />
             <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnRak" prefHeight="28.0" prefWidth="87.0" styleClass="button_header" text="Rak" />
             <Button layoutX="62.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnSearch" prefHeight="28.0" prefWidth="87.0" styleClass="button_header" text="Search" />
          </children>
@@ -60,7 +60,10 @@
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0">
                <children>
-                  <VBox fx:id="vbListDipinjam" prefWidth="340.0" />
+                  <VBox fx:id="vbListDipinjam" prefWidth="348.0" spacing="12.0">
+                     <padding>
+                        <Insets left="10.0" top="5.0" />
+                     </padding></VBox>
                </children>
             </AnchorPane>
         </content>

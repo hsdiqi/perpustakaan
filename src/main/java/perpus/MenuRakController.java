@@ -26,6 +26,7 @@ import java.util.ResourceBundle;
 
 public class MenuRakController implements Initializable {
 
+    @FXML
     private Button btnRak;
     @FXML
     private VBox vbRakList;

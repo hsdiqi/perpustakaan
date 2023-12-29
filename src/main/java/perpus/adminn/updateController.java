@@ -150,6 +150,7 @@ public class updateController {
             e.printStackTrace();
         }
     }
+    @FXML
     private void clikSearchUpdate(ActionEvent actionEvent) {
         String titleBookSearch = tfSearchBookUpdate.getText();
         showTitle(titleBookSearch);
@@ -163,6 +164,7 @@ public class updateController {
     }
 
     //handler btn in header
+    @FXML
     private void btnDeleteBook(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/perpus/admin/admin-deleteBook.fxml"));
         Parent root = loader.load();
@@ -171,6 +173,7 @@ public class updateController {
         currentStage.setScene(newScene);
         currentStage.show();
     }
+    @FXML
     private void btnAddBook(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/perpus/admin/admin-addBook.fxml"));
         Parent root = loader.load();
@@ -180,6 +183,7 @@ public class updateController {
         currentStage.show();
     }
 
+    @FXML
     private void btnPengembalian(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/perpus/admin/admin-pengembalian.fxml"));
         Parent root = loader.load();

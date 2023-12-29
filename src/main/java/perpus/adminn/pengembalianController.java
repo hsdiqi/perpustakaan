@@ -1,6 +1,7 @@
 package perpus.adminn;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -27,9 +28,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class pengembalianController {
+    @FXML
     private Button btnPengembalian;
+    @FXML
     private Label lbNamaUser;
+    @FXML
     private VBox vbListBukuUsers;
+    @FXML
     private TextField searchUsername;
     private int idPEminjamm;
 
@@ -186,6 +191,7 @@ public class pengembalianController {
         }
     }
 
+    @FXML
     private void searchKlick(ActionEvent actionEvent) {
         String searcText = searchUsername.getText();
         if (!searcText.isEmpty()){
@@ -206,6 +212,7 @@ public class pengembalianController {
 
 
     //Handler btn in header
+    @FXML
     private void addBook(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/perpus/admin/admin-addBook.fxml"));
         Parent root = loader.load();
@@ -215,6 +222,7 @@ public class pengembalianController {
         currentStage.show();
     }
 
+    @FXML
     private void btnDeleteBook(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/perpus/admin/admin-deleteBook.fxml"));
         Parent root = loader.load();
@@ -224,6 +232,7 @@ public class pengembalianController {
         currentStage.show();
     }
 
+    @FXML
     private void btnUpdateBook(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/perpus/admin/admin-updateBook.fxml"));
         Parent root = loader.load();

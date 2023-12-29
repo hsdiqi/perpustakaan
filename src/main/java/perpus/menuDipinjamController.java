@@ -1,11 +1,13 @@
 package perpus;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Separator;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -14,11 +16,13 @@ import java.io.IOException;
 import java.sql.*;
 
 public class menuDipinjamController {
+    @FXML
     private VBox vbListDipinjam;
+    @FXML
     private Button btnDipinjam;
 
 
-    private void initialize() {
+    public void initialize() {
         loadDataFromDatabase();
     }
 
@@ -35,8 +39,12 @@ public class menuDipinjamController {
                         String tglPinjam = resultSet.getString("tanggal_pinjam");
                         Date tenggat = resultSet.getDate("tenggat");
 
+
+                        Separator separator = new Separator();
+                        separator.setMaxWidth(360);
+
                         GridPane gridPane = createGridPane(judul, genre, tahunRilis, tglPinjam, String.valueOf(tenggat));
-                        vbListDipinjam.getChildren().add(gridPane);
+                        vbListDipinjam.getChildren().addAll(gridPane, separator);
                     }
                 }
             }
@@ -54,13 +62,15 @@ public class menuDipinjamController {
         Label lbTglPinjam = new Label(tanggalPinjam);
         Label lbTenggat = new Label(tenggat);
 
-        gridPane.addColumn(0, new Label("Judul:"), new Label("Genre:"), new Label("Tahun Rilis:"), new Label("Tanggal Pinjam:"), new Label("Tenggat peminjaman: "), new Label(""));
-        gridPane.addColumn(1, lbjudul, lbgenre, lbtahun, lbTglPinjam, lbTenggat);
+        gridPane.addColumn(0, new Label("Judul"), new Label("Genre"), new Label("Tahun Rilis"), new Label("Tanggal Pinjam"), new Label("Tenggat peminjaman "));
+        gridPane.addColumn(1, new Label(": "), new Label(": "), new Label(": "), new Label(": "), new Label(": "));
+        gridPane.addColumn(2, lbjudul, lbgenre, lbtahun, lbTglPinjam, lbTenggat);
 
         return gridPane;
     }
 
     // Action btn in header
+    @FXML
     private void btnRak(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("menu-rak.fxml"));
         Parent root = loader.load();
@@ -70,6 +80,7 @@ public class menuDipinjamController {
         currentStage.show();
     }
 
+    @FXML
     private void btnSearch(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("menu-search.fxml"));
         Parent root = loader.load();
@@ -80,6 +91,7 @@ public class menuDipinjamController {
     }
 
     //Handler logout
+    @FXML
     private void btnLogout(ActionEvent actionEvent) {
         clearUserData();
         pindahKeLogin();

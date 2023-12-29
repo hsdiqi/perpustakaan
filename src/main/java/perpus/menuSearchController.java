@@ -1,6 +1,7 @@
 package perpus;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
@@ -26,8 +27,11 @@ import java.util.ResourceBundle;
 
 
 public class menuSearchController implements Initializable{
+    @FXML
     private VBox vbWishlist;
+    @FXML
     private Button btnWishlist;
+    @FXML
     private TextField tfSearch;
 
     @Override
@@ -152,6 +156,7 @@ public class menuSearchController implements Initializable{
         return gridPane;
     }
 
+    @FXML
     private void tfSearchClick(ActionEvent actionEvent) {
         String searchText = tfSearch.getText().trim();
         if (!searchText.isEmpty()){
@@ -249,6 +254,7 @@ public class menuSearchController implements Initializable{
 
 
     // Handler button in header
+    @FXML
     private void btnDipinjam(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("menu-dipinjam.fxml"));
         Parent root = loader.load();
@@ -258,6 +264,7 @@ public class menuSearchController implements Initializable{
         currentStage.show();
     }
 
+    @FXML
     private void btnRak(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("menu-rak.fxml"));
         Parent root = loader.load();
@@ -268,6 +275,7 @@ public class menuSearchController implements Initializable{
     }
 
     //Handler logout
+    @FXML
     private void btnLogout(ActionEvent actionEvent) {
         clearUserData();
         pindahKeLogin();
