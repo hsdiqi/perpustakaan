@@ -45,19 +45,25 @@ public class updateController {
     private Button updateBook;
     @FXML
     private ComboBox<String> valueBook;
-    private Connection connection;
 
-    private void initialize() throws SQLException {
-        connection = DatabaseConnector.connect();
+    public void initialize() {
+        // Memanggil method showTitle untuk menampilkan daftar judul buku saat aplikasi dimulai
         showTitle(tfSearchBookUpdate.getText());
 
+        // Menetapkan event handler untuk ComboBox valueBook
         valueBook.setOnAction(event -> {
             String selectedTitle = valueBook.getValue();
-            if (selectedTitle != null && !selectedTitle.isEmpty()){
+            if (selectedTitle != null && !selectedTitle.isEmpty()) {
                 selectBook(selectedTitle);
             }
         });
+
     }
+
+    /***
+     * method yang digunakan untuk menampilkan list book menggunakan combo box
+     * @param searchTitle
+     */
     private void showTitle(String searchTitle){
         searchTitle = tfSearchBookUpdate.getText();
         ObservableList<String> listTitle = FXCollections.observableArrayList();
@@ -76,9 +82,12 @@ public class updateController {
         }
     }
 
-
-    void selectBook(String inputTitle) {
-        try {
+    /***
+     * method untuk menampilkan data buku yang akan di update
+     * @param inputTitle
+     */
+    public void selectBook(String inputTitle) {
+        try (Connection connection = DatabaseConnector.connect()){
             String query = "SELECT * FROM buku WHERE judul = ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, inputTitle);
@@ -96,8 +105,8 @@ public class updateController {
     }
 
     @FXML
-    void btnUpdateBook(ActionEvent event) {
-        try {
+    public void btnUpdateBook(ActionEvent event) {
+        try (Connection connection = DatabaseConnector.connect()){
             int newCode = Integer.parseInt(tfNewCode.getText());
             String newGenre = tfNewGenre.getText();
             int newStok = Integer.parseInt(tfNewStok.getText());
@@ -127,6 +136,8 @@ public class updateController {
                         "\npatokan judu: " + lbJudul.getText());
 //                Testing
 
+
+                //mengosongkan semua field dan label setelah berhasil update
                 int rowsUpdated = statement.executeUpdate();
                 if (rowsUpdated > 0) {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
